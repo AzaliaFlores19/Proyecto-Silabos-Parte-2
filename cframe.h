@@ -58,6 +58,8 @@ private slots:
        void on_DRTW_revision_cellClicked(int row, int column);
 
 
+       void on_btn_sesion_clicked();
+
 private:
     Ui::cframe *ui;
 

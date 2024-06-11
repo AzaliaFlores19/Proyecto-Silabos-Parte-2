@@ -87,8 +87,81 @@ void cframe::on_btn_dashboardM_2_clicked()
 
 void cframe::on_tabWidget_currentChanged(int index)
 {
+    QMessageBox::StandardButton cambio;
+    if((index==2 || index==3 || index==4) && loginDocente){
+        cambio= QMessageBox::question(this,"Acceso Denegado","Los docentes no tiene acceso\n¿Desea cerrar sesión? ",QMessageBox::Yes | QMessageBox::No);
+        if(cambio==QMessageBox::Yes){
+            loginDocente=false;
+            ui->tabWidget->setCurrentIndex(index);
+            ui->tab_3->setEnabled(true);
+            ui->tab_4->setEnabled(true);
+            ui->tab_5->setEnabled(true);
+            limpiarEntrega();
+        }else{
+            ui->tabWidget->setCurrentIndex(1);
+        }
+    }else if((index==1 || index==3 || index==4 )&& loginRevision){
+        cambio= QMessageBox::question(this,"Acceso Denegado","Ya ha iniciado sesion para otro proceso\n¿Desea cerrar sesión? ",QMessageBox::Yes | QMessageBox::No);
+        if(cambio==QMessageBox::Yes){
+            loginRevision=false;
+            ui->tabWidget->setCurrentIndex(index);
+            ui->tab_2->setEnabled(true);
+            ui->tab_4->setEnabled(true);
+            ui->tab_5->setEnabled(true);
+            limpiarRevision();
+        }else{
+            ui->tabWidget->setCurrentIndex(2);
 
+        }
+    }else if((index==1 || index==2 || index==4) && loginBoard){
+        cambio= QMessageBox::question(this,"Acceso Denegado","Ya ha iniciado sesion solo para visualizar\n¿Desea cerrar sesión? ",QMessageBox::Yes | QMessageBox::No);
+        if(cambio==QMessageBox::Yes){
+            loginBoard=false;
+            ui->tabWidget->setCurrentIndex(index);
+            ui->tab_3->setEnabled(true);
+            ui->tab_2->setEnabled(true);
+            ui->tab_5->setEnabled(true);
+            limpiarBoard();
+        }else{
+            ui->tabWidget->setCurrentIndex(3);
+
+        }
+    }else if((index==1 || index==2 || index==3) && loginCheck){
+        cambio= QMessageBox::question(this,"Acceso Denegado","Ya ha iniciado sesion solo para otro proceso\n¿Desea cerrar sesión? ",QMessageBox::Yes | QMessageBox::No);
+        if(cambio==QMessageBox::Yes){
+            loginCheck=false;
+            ui->tabWidget->setCurrentIndex(index);
+            ui->tab_3->setEnabled(true);
+            ui->tab_2->setEnabled(true);
+            ui->tab_4->setEnabled(true);
+
+        }else{
+            ui->tabWidget->setCurrentIndex(4);
+
+        }
+    }
 }
+
+//logica tab2 de entrega silabo
+void cframe::on_btn_sesion_clicked()
+{
+    if(ui->le_nameE->text().isEmpty() || ui->le_claveE->text().isEmpty() || ui->le_cuentaE->text().isEmpty()){
+        QMessageBox::warning(this,"Datos no congruetes","Favor no deje campos sin completar");
+    }else{
+        if(ui->le_claveE->text().toStdString()==claveDocente){
+            ui->frameE->setVisible(true);
+            //ui->frameE->setEnabled(false);
+            loginDocente=true;
+            ui->tab_3->setEnabled(false);
+            ui->tab_4->setEnabled(false);
+            ui->tab_5->setEnabled(false);
+        }else{
+            QMessageBox::warning(this,"Datos no congruetes","Clave incorrecta");
+        }
+
+    }
+}
+
 
 void cframe::on_btn_closeE_clicked()
 {
@@ -111,9 +184,9 @@ void cframe::limpiarEntrega()
         ui->cb_facultadE->setCurrentIndex(0);
         ui->cb_carreraE->setCurrentIndex(0);
     }else{
-        ui->le_nameE_6->clear();
-        ui->le_cuentaE_6->clear();
-        ui->le_claveE_6->clear();
+        ui->le_nameE->clear();
+        ui->le_cuentaE->clear();
+        ui->le_claveE->clear();
         ui->cb_facultadE->setCurrentIndex(0);
         ui->cb_carreraE->setCurrentIndex(0);
         ui->frameE2_2->setEnabled(true);
@@ -129,8 +202,8 @@ void cframe::on_btn_silaboE_clicked()
         QMessageBox::information(this,"Enviado","Datos han sido enviados");
         cantSilabos=this->arbolSilabo->getCantidadArbol()+1; //id seria cantidad en arbol mas uno
         //datos usuario
-        string name=ui->le_nameE_6->text().toStdString();
-        string numCuenta=ui->le_cuentaE_6->text().toStdString();
+        string name=ui->le_nameE->text().toStdString();
+        string numCuenta=ui->le_cuentaE->text().toStdString();
         string codigoClase=ui->le_codigoE->text().toStdString();
 
         Usuario nuevo(name, numCuenta, codigoClase);
@@ -152,7 +225,7 @@ void cframe::on_btn_silaboE_clicked()
 }
 void cframe::on_btn_archivoE_clicked()
 {
-    QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos PDF", QDir::homePath(), "PDF Files (*.pdf)");
+    QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
     if (!filePath.isEmpty()) {
         ui->le_pathE->setText(filePath);
     }
@@ -660,5 +733,8 @@ void cframe::on_DRTW_revision_cellClicked(int row, int column)
         cambiarSilabo(ui->DRTW_revision->item(row, 1)->text().toInt(),ui->DRTW_revision->item(row, 8)->text());
     }
 }
+
+
+
 
 

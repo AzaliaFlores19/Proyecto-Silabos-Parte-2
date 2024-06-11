@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -184,7 +184,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
             <item row="0" column="0">
-             <widget class="QLabel" name="lbl_nameE_6">
+             <widget class="QLabel" name="lbl_nameE">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -196,7 +196,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="le_nameE_6">
+             <widget class="QLineEdit" name="le_nameE">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -205,7 +205,7 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="lbl_cuentaE_6">
+             <widget class="QLabel" name="lbl_cuentaE">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
@@ -217,7 +217,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QLineEdit" name="le_claveE_6">
+             <widget class="QLineEdit" name="le_claveE">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -238,7 +238,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="le_cuentaE_6">
+             <widget class="QLineEdit" name="le_cuentaE">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -247,7 +247,7 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QPushButton" name="btn_sesion_6">
+             <widget class="QPushButton" name="btn_sesion">
               <property name="palette">
                <palette>
                 <active>
