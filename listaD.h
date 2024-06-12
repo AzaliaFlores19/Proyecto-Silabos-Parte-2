@@ -111,7 +111,7 @@ void listaD<tipo>::guardarUsuarios(listaD<Usuario> &listaUsuarios)
     file.close();
     std::ofstream File("usuarios.xls");
     if (File.is_open()) {
-        File << "Nombre\tCuenta\tClase Ingresada\n";
+        File << "Nombre\tCuenta\tContrasena\tClase Ingresada\n";
         guardarExcelUsuarios(File, listaUsuarios);
         File.close();
         cout << "XLS exportado\n";
