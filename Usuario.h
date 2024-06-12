@@ -10,9 +10,9 @@ class Usuario{
     friend class MainWindow;
 private:
 public:
-    string name,cuenta,tipo;
+    string name,cuenta,tipo,contrasena;
     Usuario();
-    Usuario(string name, string cuenta,string tipo);
+    Usuario(string name, string cuenta, string contrasena, string tipo);
     ~Usuario();
 
     /*
@@ -27,6 +27,8 @@ public:
     void setCuenta(const string &newCuenta);
     const string &getTipo() const;
     void setTipo(const string &newTipo);
+    string getContrasena() const;
+    void setContrasena(const string &newContrasena);
 };
 
 

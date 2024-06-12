@@ -204,9 +204,10 @@ void cframe::on_btn_silaboE_clicked()
         //datos usuario
         string name=ui->le_nameE->text().toStdString();
         string numCuenta=ui->le_cuentaE->text().toStdString();
+        string contrasena = ui->le_claveE->text().toStdString();
         string codigoClase=ui->le_codigoE->text().toStdString();
 
-        Usuario nuevo(name, numCuenta, codigoClase);
+        Usuario nuevo(name, numCuenta, contrasena, codigoClase);
         listaUsuarios.InsertarFin(nuevo);
         listaUsuarios.guardarUsuarios(listaUsuarios);
 

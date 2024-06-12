@@ -97,6 +97,7 @@ void listaD<tipo>::guardarExcelUsuarios(std::ofstream &file, listaD<Usuario> &li
         Usuario usuario = tmp->getDato();
         file << usuario.getName() << "\t"
              << usuario.getCuenta() << "\t"
+             << usuario.getContrasena() << "\t"
              << usuario.getTipo() << "\n";
         tmp = tmp->SigPtr;
     }
@@ -128,9 +129,9 @@ void listaD<tipo>::cargarUsuarios()
         string header;
         std::getline(file, header);
 
-        string nombre, cuenta, code;
-        while (file >> nombre >> cuenta >> code) {
-            Usuario nuevo(nombre, cuenta, code);
+        string nombre, cuenta, contrasena, code;
+        while (file >> nombre >> cuenta >> contrasena >> code) {
+            Usuario nuevo(nombre, cuenta, contrasena, code);
             InsertarFin(nuevo);
         }
         file.close();

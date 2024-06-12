@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -289,7 +289,6 @@
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -354,7 +353,6 @@
             <font>
              <family>Cambria</family>
              <pointsize>14</pointsize>
-             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -406,7 +404,6 @@
             <font>
              <family>Cambria</family>
              <pointsize>14</pointsize>
-             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -458,7 +455,6 @@
             <font>
              <family>Cambria</family>
              <pointsize>14</pointsize>
-             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -543,7 +539,6 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1240,7 +1235,6 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1504,7 +1498,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1038</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
