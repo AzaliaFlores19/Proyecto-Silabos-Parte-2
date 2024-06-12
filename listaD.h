@@ -41,23 +41,17 @@ listaD<tipo>::listaD() :PrimPtr(0),UltPtr(0), Cantidad(0)
 template<typename tipo>
 listaD<tipo>::~listaD()
 {
-    if (!Vacia()) {
-        cout << "Limpiando\n" << std::endl;
-        nodoD<tipo> *ptrAct = PrimPtr;
-        nodoD<tipo> *ptrTemp;
-        while (ptrAct != 0) {
-            ptrTemp = ptrAct;
-            //            cout << ptrTemp->Dato << "\n";
-            ptrAct = ptrAct->SigPtr;
-            if (ptrAct != nullptr) {
-                ptrAct->AntPtr = nullptr;
-            }
-            Cantidad--;
-            delete ptrTemp;
-        }
-        cout << "Vacio\n";
+    nodoD<tipo> *current = PrimPtr;
+    while (current != nullptr) {
+        nodoD<tipo> *next = current->SigPtr;
+        delete current;
+        current = next;
     }
+    PrimPtr = nullptr;
+    UltPtr = nullptr;
+    Cantidad = 0;
 }
+
 
 template<typename tipo>
 void listaD<tipo>::InsertarFin(const tipo &Dato)

@@ -181,19 +181,11 @@ public:
 
 
     ~Arbol() {
-        if (left != nullptr) {
-            delete left;
-            left = nullptr;
-        }
-        if (right != nullptr) {
-            delete right;
-            right = nullptr;
-        }
-        if (data != nullptr) {
-            delete data;
-            data = nullptr;
-        }
+        delete left;
+        delete right;
+        delete data;
     }
+
 
     int getCantidadArbol() const
     {

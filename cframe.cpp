@@ -59,9 +59,12 @@ cframe::~cframe()
 {
     listaUsuarios.guardarUsuarios(listaUsuarios);
     this->arbolSilabo->guardar();
+
+    delete arbolSilabo;
+    arbolSilabo = nullptr;
+
     delete ui;
 }
-
 
 
 
