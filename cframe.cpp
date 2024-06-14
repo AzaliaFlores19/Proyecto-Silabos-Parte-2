@@ -58,7 +58,7 @@ cframe::cframe(QWidget *parent)
 cframe::~cframe()
 {
     listaUsuarios.guardarUsuarios(listaUsuarios);
-    this->arbolSilabo->guardar();
+    //this->arbolSilabo->guardar();
 
     delete arbolSilabo;
     arbolSilabo = nullptr;
