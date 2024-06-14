@@ -11,7 +11,6 @@ class Usuario{
 private:
 public:
     string name,cuenta,tipo,contrasena;
-    Usuario();
     Usuario(string name, string cuenta, string contrasena, string tipo);
     ~Usuario();
 

@@ -39,25 +39,31 @@ cframe::cframe(QWidget *parent)
       connect(ui->RTW_revision, &QTableWidget::cellDoubleClicked, this, &cframe::on_btn_revision_2_clicked);
 
       listaUsuarios.cargarUsuarios();
-      this->arbolSilabo->extraerArbol();
+
+      //this->arbolSilabo->extraerArbol();
 
       // Ajuste de layout principal
-          QVBoxLayout *mainLayout = new QVBoxLayout;
-          mainLayout->addWidget(ui->tabWidget);
-          QWidget *centralWidget = new QWidget(this);
-          centralWidget->setLayout(mainLayout);
-          setCentralWidget(centralWidget);
+      QVBoxLayout *mainLayout = new QVBoxLayout;
+      mainLayout->addWidget(ui->tabWidget);
+      QWidget *centralWidget = new QWidget(this);
+      centralWidget->setLayout(mainLayout);
+      setCentralWidget(centralWidget);
 
-          // Ajustes de tamaño
-          ui->tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-          ui->tabWidget->setMinimumSize(800, 600); // Ajusta según tus necesidades
+      // Ajustes de tamaño
+      ui->tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+      ui->tabWidget->setMinimumSize(800, 600); // Ajusta según tus necesidades
 
+
+      // ============= Cargar usuario de prueba ===============
+
+      Usuario u("Usuario de Prueba", "101101", "passwd", "Docente");
+      listaUsuarios.InsertarFin(u);
 
 }
 
 cframe::~cframe()
 {
-    listaUsuarios.guardarUsuarios(listaUsuarios);
+
     //this->arbolSilabo->guardar();
 
     delete arbolSilabo;
@@ -145,22 +151,40 @@ void cframe::on_tabWidget_currentChanged(int index)
     }
 }
 
-//logica tab2 de entrega silabo
+// ============== Boton de Login =================
 void cframe::on_btn_sesion_clicked()
 {
-    if(ui->le_nameE->text().isEmpty() || ui->le_claveE->text().isEmpty() || ui->le_cuentaE->text().isEmpty()){
+    if(ui->le_claveE->text().isEmpty() || ui->le_cuentaE->text().isEmpty()){ // Check de vacio
         QMessageBox::warning(this,"Datos no congruetes","Favor no deje campos sin completar");
-    }else{
-        if(ui->le_claveE->text().toStdString()==claveDocente){
-            ui->frameE->setVisible(true);
-            //ui->frameE->setEnabled(false);
-            loginDocente=true;
-            ui->tab_3->setEnabled(false);
-            ui->tab_4->setEnabled(false);
-            ui->tab_5->setEnabled(false);
-        }else{
-            QMessageBox::warning(this,"Datos no congruetes","Clave incorrecta");
+    } else {
+
+        Usuario *user = nullptr;
+
+        string cuenta = ui->le_cuentaE->text().toStdString();
+        string pwd = ui->le_claveE->text().toStdString();
+
+        // Recorrer la lista de usuarios hasta encontrar datos ingresados
+        for (nodoD<Usuario> *nodoUser = listaUsuarios.PrimPtr; nodoUser != nullptr; nodoUser = nodoUser->SigPtr) {
+            if (cuenta == nodoUser->Dato.cuenta) {
+                user = &nodoUser->Dato;
+                break;
+            }
         }
+
+        if (user == nullptr) {
+            QMessageBox::warning(this,"Usuario Incorrecto","El numero de cuenta no esta registrado.");
+            return;
+        }
+
+        if (user->contrasena == pwd) {
+            usuarioActual = user;
+
+            // TODO: Habilitar tabs correspondientes al usuario
+
+            // popup de prueba
+            QMessageBox::warning(this, "TEST", QString::fromStdString(usuarioActual->name));
+        } else QMessageBox::warning(this, "Login", "Contraseña incorrecta.");
+
 
     }
 }
@@ -187,7 +211,6 @@ void cframe::limpiarEntrega()
         ui->cb_facultadE->setCurrentIndex(0);
         ui->cb_carreraE->setCurrentIndex(0);
     }else{
-        ui->le_nameE->clear();
         ui->le_cuentaE->clear();
         ui->le_claveE->clear();
         ui->cb_facultadE->setCurrentIndex(0);
@@ -205,7 +228,10 @@ void cframe::on_btn_silaboE_clicked()
         QMessageBox::information(this,"Enviado","Datos han sido enviados");
         cantSilabos=this->arbolSilabo->getCantidadArbol()+1; //id seria cantidad en arbol mas uno
         //datos usuario
-        string name=ui->le_nameE->text().toStdString();
+
+        /* REFACTOR THIS
+         *
+         *
         string numCuenta=ui->le_cuentaE->text().toStdString();
         string contrasena = ui->le_claveE->text().toStdString();
         string codigoClase=ui->le_codigoE->text().toStdString();
@@ -225,6 +251,8 @@ void cframe::on_btn_silaboE_clicked()
         this->arbolSilabo->guardar();
 
         limpiarEntrega();
+
+        */
     }
 }
 void cframe::on_btn_archivoE_clicked()

@@ -34,13 +34,6 @@ void Usuario::setContrasena(const string &newContrasena)
     contrasena = newContrasena;
 }
 
-Usuario::Usuario() {
-    this->name = "";
-    this->cuenta = "";
-    this->contrasena = "";
-    this->tipo = "";
-}
-
 Usuario::Usuario(std::string name, std::string cuenta, std::string contrasena, std::string tipo) {
     this->name = name;
     this->cuenta = cuenta;

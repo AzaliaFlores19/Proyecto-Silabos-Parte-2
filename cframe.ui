@@ -23,7 +23,7 @@
       <x>20</x>
       <y>20</y>
       <width>1149</width>
-      <height>572</height>
+      <height>595</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -183,20 +183,8 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
-            <item row="0" column="0">
-             <widget class="QLabel" name="lbl_nameE">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Nombre Completo:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="le_nameE">
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="le_claveE">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -204,7 +192,7 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="0" column="0">
              <widget class="QLabel" name="lbl_cuentaE">
               <property name="font">
                <font>
@@ -216,16 +204,7 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="le_claveE">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
+            <item row="1" column="0">
              <widget class="QLabel" name="lbl_contraE_6">
               <property name="font">
                <font>
@@ -237,7 +216,7 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="0" column="1">
              <widget class="QLineEdit" name="le_cuentaE">
               <property name="font">
                <font>
@@ -246,7 +225,7 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="2" column="1">
              <widget class="QPushButton" name="btn_sesion">
               <property name="palette">
                <palette>
@@ -289,6 +268,7 @@
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -353,6 +333,7 @@
             <font>
              <family>Cambria</family>
              <pointsize>14</pointsize>
+             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -404,6 +385,7 @@
             <font>
              <family>Cambria</family>
              <pointsize>14</pointsize>
+             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -455,6 +437,7 @@
             <font>
              <family>Cambria</family>
              <pointsize>14</pointsize>
+             <weight>50</weight>
              <bold>false</bold>
             </font>
            </property>
@@ -539,6 +522,7 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1235,6 +1219,7 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
+                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1498,7 +1483,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1038</width>
-     <height>24</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>
