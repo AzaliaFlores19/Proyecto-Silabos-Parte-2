@@ -237,9 +237,17 @@ void cframe::on_btn_silaboE_clicked()
 void cframe::on_btn_archivoE_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
-    if (!filePath.isEmpty()) {
-        ui->le_pathE->setText(filePath);
-    }
+        if (!filePath.isEmpty()) {
+            QFileInfo fileInfo(filePath);
+            QString fileName = fileInfo.fileName();
+            QRegularExpression regex("^\\d+_[A-Za-z]+\\.docx$");
+
+            if (regex.match(fileName).hasMatch()) {
+                ui->le_pathE->setText(filePath);
+            } else {
+                QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe tener el formato CODIGOCLASE_NOMBRECLASE.docx, por ejemplo, 4332_Fisica.docx");
+            }
+        }
 }
 
 void cframe::on_cb_facultadE_currentIndexChanged(int i)
