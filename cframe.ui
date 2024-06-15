@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -622,7 +622,7 @@ Sesion</string>
                </font>
               </property>
               <property name="text">
-               <string>Carrera:</string>
+               <string>Programa Academico:</string>
               </property>
              </widget>
             </item>
