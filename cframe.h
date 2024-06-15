@@ -9,6 +9,8 @@
 #include <Estado.h>
 #include <ArbolB.h>
 #include <QTableWidgetItem>
+#include "CuadroFechas.h"
+
 using std::string;
 
 QT_BEGIN_NAMESPACE
@@ -54,21 +56,21 @@ private slots:
 private:
     Ui::cframe *ui;
 
-    bool loginDocente=false, loginRevision=false, revision2=false, loginBoard=false, loginCheck=false;
+    bool loginDocente = false, loginRevision = false, revision2 = false, loginBoard = false, loginCheck = false;
     void limpiarEntrega();
     void limpiarRevision();
     void limpiarBoard();
 
     void recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> *actD);
     void recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget, const std::string &estado);
-    bool todo=false;
+    bool todo = false;
 
     void pruebitaBotonesTab();
 
     void cambiarSilabo(int id, QString pathActual);
     void modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo);
     string obtenerNombre(string cuenta);
-    bool cambiarPath=false, cambiarEstado=false;
+    bool cambiarPath = false, cambiarEstado = false;
 
     listaD<Usuario> listaUsuarios;
     nodoD<Usuario> *actD;
@@ -76,14 +78,17 @@ private:
 
     ArbolB *arbolSilabo = new ArbolB(3); // Grado mínimo t = 3
 
-    int cantSilabos=0;
-    int id=0;
+    int cantSilabos = 0;
+    int id = 0;
 
-    string claveDocente="teacher123", claveJefe="boss123", claveCoordinador="coordinator123", claveIEDD="what123", claveConsultor="advisor123", claveDecano="dean123", claveDirector="director123";
+    string claveDocente = "teacher123", claveJefe = "boss123", claveCoordinador = "coordinator123", claveIEDD = "what123", claveConsultor = "advisor123", claveDecano = "dean123", claveDirector = "director123";
 
     void mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta);
 
     Usuario *usuarioActual = nullptr;
+
+    // Método para convertir enum Estado a string
+    std::string estadoToString(Estado estado) const;
 };
 
 #endif // CFRAME_H

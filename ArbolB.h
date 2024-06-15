@@ -15,11 +15,11 @@ private:
             for (int i = 0; i < node->getN(); i++) {
                 mostrarDetalles(node->getChild(i));
                 Silabo* silabo = node->getSilabo(i);
-                std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarreras()
-                          << ", Nombre del curso: " << silabo->getNombre() << ", Código de clase: " << silabo->getCodigoClase()
+                std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarrera()
+                          << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
                           << ", Ruta: " << silabo->getRuta().toStdString() << ", Estado: " << silabo->getEstado()
                           << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
-                          << ", Número de revisiones: " << silabo->getNumRevisiones() << std::endl;
+                          << ", Número de revisiones: " << silabo->getNumeroderevisiones() << std::endl;
             }
             mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
         }

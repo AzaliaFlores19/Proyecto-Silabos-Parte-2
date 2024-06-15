@@ -21,7 +21,6 @@
 using std::ofstream;
 using std::ios;
 using std::string;
-using std::ios;
 
 cframe::cframe(QWidget *parent)
     : QMainWindow(parent)
@@ -47,7 +46,6 @@ cframe::cframe(QWidget *parent)
 
     ui->tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->tabWidget->setMinimumSize(800, 600);
-
 
     // ============= Cargar usuario de prueba ===============
 
@@ -199,7 +197,6 @@ void cframe::limpiarEntrega()
     }
 }
 
-
 void cframe::on_btn_silaboE_clicked()
 {
     if (ui->cb_facultadE->currentIndex() == 0 || ui->cb_carreraE->currentIndex() == 0 || ui->le_codigoE->text().isEmpty() || ui->le_pathE->text().isEmpty()) {
@@ -218,11 +215,12 @@ void cframe::on_btn_silaboE_clicked()
             return;
         }
 
-        Silabo* nuevoSilabo = new Silabo(facultad, carrera, usuarioActual->getName(), ui->le_codigoE->text().toStdString(), path, "Prerevision", "...", cantSilabos, 0);
+        Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", Prerevision, "...", 0, "bytes",
+                                         facultad, carrera, usuarioActual->getName(), ui->le_codigoE->text().toStdString(), path,
+                                         "NombreClase", "SubidoPor");
 
         this->arbolSilabo->insertar(nuevoSilabo);
         arbolSilabo->mostrarDetallesSilabos();
-
 
         // Mantener la opción de entrega visible después de insertar
         limpiarEntrega();
@@ -233,21 +231,20 @@ void cframe::on_btn_silaboE_clicked()
     }
 }
 
-
 void cframe::on_btn_archivoE_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
-        if (!filePath.isEmpty()) {
-            QFileInfo fileInfo(filePath);
-            QString fileName = fileInfo.fileName();
-            QRegularExpression regex("^\\d+_[A-Za-z]+\\.docx$");
+    if (!filePath.isEmpty()) {
+        QFileInfo fileInfo(filePath);
+        QString fileName = fileInfo.fileName();
+        QRegularExpression regex("^\\d+_[A-Za-z]+\\.docx$");
 
-            if (regex.match(fileName).hasMatch()) {
-                ui->le_pathE->setText(filePath);
-            } else {
-                QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe tener el formato CODIGOCLASE_NOMBRECLASE.docx, por ejemplo, 4332_Fisica.docx");
-            }
+        if (regex.match(fileName).hasMatch()) {
+            ui->le_pathE->setText(filePath);
+        } else {
+            QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe tener el formato CODIGOCLASE_NOMBRECLASE.docx, por ejemplo, 4332_Fisica.docx");
         }
+    }
 }
 
 void cframe::on_cb_facultadE_currentIndexChanged(int i)
@@ -287,7 +284,6 @@ void cframe::on_Rbtn_sesion_clicked()
     if (ui->Rle_name->text().isEmpty() || ui->Rle_clave->text().isEmpty() || ui->Rcb_usuario->currentIndex() == 0) {
         QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
     } else {
-        // this->arbolSilabo->extraer();
         if ((ui->Rcb_usuario->currentIndex() == 1 && ui->Rle_clave->text().toStdString() == claveJefe) ||
             (ui->Rcb_usuario->currentIndex() == 2 && ui->Rle_clave->text().toStdString() == claveCoordinador) ||
             (ui->Rcb_usuario->currentIndex() == 3 && ui->Rle_clave->text().toStdString() == claveIEDD) ||
@@ -382,7 +378,7 @@ void cframe::modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo)
                 cambiarPath = false;
             }
             if (cambiarEstado) {
-                silabo->setEstado(ui->Rcb_cambiarE->currentText().toStdString());
+                silabo->setEstado(static_cast<Estado>(ui->Rcb_cambiarE->currentIndex() - 1));
                 silabo->setObservacion(ui->Rle_comentario->text().toStdString());
                 cambiarEstado = false;
             }
@@ -429,11 +425,11 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
         Silabo *silabo = nodo->getSilabo(i);
         bool mostrar = false;
 
-        if ((ui->Rcb_usuario->currentIndex() == 1 || ui->Rcb_usuario->currentIndex() == 2) && (silabo->getEstado() == "Prerevision" || silabo->getEstado() == "Devolver a Academia")) {
+        if ((ui->Rcb_usuario->currentIndex() == 1 || ui->Rcb_usuario->currentIndex() == 2) && (estadoToString(silabo->getEstado()) == "Prerevision" || estadoToString(silabo->getEstado()) == "DevueltoAcademia")) {
             mostrar = true;
-        } else if (ui->Rcb_usuario->currentIndex() == 3 && (silabo->getEstado() == "Cargar silabo (Enviar a IEDD)" || silabo->getEstado() == "Correcion Mayor" || silabo->getEstado() == "Correcion Menor" || silabo->getEstado() == "Aprobado con condicion")) {
+        } else if (ui->Rcb_usuario->currentIndex() == 3 && (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "CorrecionMayor" || estadoToString(silabo->getEstado()) == "CorrecionMenor" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
             mostrar = true;
-        } else if (ui->Rcb_usuario->currentIndex() == 4 && (silabo->getEstado() == "Listo para revision 1" || silabo->getEstado() == "Aprobado" || silabo->getEstado() == "Aprobado con condicion")) {
+        } else if (ui->Rcb_usuario->currentIndex() == 4 && (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "Aprobado" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
             mostrar = true;
         }
 
@@ -442,16 +438,16 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
             ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
             ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->RTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::number(silabo->getId())));
-            ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(silabo->getEstado())));
-            ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getNombre()))));
-            ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getNombre())));
+            ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(estadoToString(silabo->getEstado()))));
+            ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getInsertadoPor()))));
+            ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInsertadoPor())));
             ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getCarreras())));
+            ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
             ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(silabo->getRuta()));
             ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
             ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
-            ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getNumRevisiones())));
+            ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getNumeroderevisiones())));
 
             fila++;
         }
@@ -507,7 +503,7 @@ void cframe::on_Bbtn_sesion_clicked()
 
             // Agregar encabezados de columna al QTableWidget
             QStringList headers;
-            headers << "Facultad" << "Carreras" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+            headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
             ui->tableWidget->setColumnCount(headers.size());
             ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -526,11 +522,11 @@ void cframe::on_Bbtn_aceptados_clicked()
     ui->tableWidget->setRowCount(0);
 
     QStringList headers;
-    headers << "Facultad" << "Carreras" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
     ui->tableWidget->setColumnCount(headers.size());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
-    recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Aprobar");
+    recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Aprobado");
 }
 
 void cframe::on_Bbtn_proceso_clicked()
@@ -539,7 +535,7 @@ void cframe::on_Bbtn_proceso_clicked()
     ui->tableWidget->setRowCount(0);
 
     QStringList headers;
-    headers << "Facultad" << "Carreras" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
     ui->tableWidget->setColumnCount(headers.size());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -557,20 +553,20 @@ void cframe::recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget,
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if ((estadoMostrar == "Aprobar" && silabo->getEstado() == "Aprobar") ||
-            (estadoMostrar != "Aprobar" && silabo->getEstado() != "Aprobar")) {
+        if ((estadoMostrar == "Aprobado" && estadoToString(silabo->getEstado()) == "Aprobado") ||
+            (estadoMostrar != "Aprobado" && estadoToString(silabo->getEstado()) != "Aprobado")) {
 
             int row = tableWidget->rowCount();
             tableWidget->insertRow(row);
             tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarreras())));
-            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getNombre())));
+            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getInsertadoPor())));
             tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
             tableWidget->setItem(row, 4, new QTableWidgetItem(silabo->getRuta()));
-            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getEstado())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(estadoToString(silabo->getEstado()))));
             tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
             tableWidget->setItem(row, 7, new QTableWidgetItem(QString::number(silabo->getId())));
-            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(silabo->getNumRevisiones())));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(silabo->getNumeroderevisiones())));
         }
     }
 
@@ -636,14 +632,14 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if (numCuenta == silabo->getNombre() && (silabo->getEstado() == "Rechazar" || silabo->getEstado() == "Aprobar")) {
+        if (numCuenta == silabo->getInsertadoPor() && (estadoToString(silabo->getEstado()) == "Rechazar" || estadoToString(silabo->getEstado()) == "Aprobado")) {
             ui->DRTW_revision->setRowCount(fila + 1);
             ui->DRTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->DRTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::number(silabo->getId())));
-            ui->DRTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getNombre()))));
-            ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(silabo->getNombre())));
+            ui->DRTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getInsertadoPor()))));
+            ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(silabo->getInsertadoPor())));
             ui->DRTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            ui->DRTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getCarreras())));
+            ui->DRTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
             ui->DRTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
             ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(silabo->getRuta()));
@@ -677,5 +673,20 @@ void cframe::on_DRTW_revision_cellClicked(int row, int column)
         QDesktopServices::openUrl(QUrl::fromLocalFile(selectedFilePath));
     } else if (column == 9) {
         cambiarSilabo(ui->DRTW_revision->item(row, 1)->text().toInt(), ui->DRTW_revision->item(row, 8)->text());
+    }
+}
+
+std::string cframe::estadoToString(Estado estado) const {
+    switch (estado) {
+    case Prerevision: return "Prerevision";
+    case ListoRevision: return "ListoRevision";
+    case Aprobado: return "Aprobado";
+    case AprobadoCondicion: return "AprobadoCondicion";
+    case SolicitudCambio: return "SolicitudCambio";
+    case DevueltoAcademia: return "DevueltoAcademia";
+    case Correcion: return "Correcion";
+    case CorrecionMayor: return "CorrecionMayor";
+    case CorrecionMenor: return "CorrecionMenor";
+    default: return "Desconocido";
     }
 }

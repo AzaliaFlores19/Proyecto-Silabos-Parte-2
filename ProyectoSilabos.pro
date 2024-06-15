@@ -14,10 +14,10 @@ SOURCES += \
     cframe.cpp
 
 HEADERS += \
-    Arbol.h \
     ArbolB.h \
+    Archivo.h \
+    CuadroFechas.h \
     Estado.h \
-    Ingenieria.h \
     NodoArbolB.h \
     Silabo.h \
     Usuario.h \

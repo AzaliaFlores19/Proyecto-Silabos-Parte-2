@@ -289,10 +289,10 @@ DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exceptions.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/yacc.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/lex.prf \
-		../../../../ProyectoSilabos.pro ../../Arbol.h \
-		../../ArbolB.h \
+		../../../../ProyectoSilabos.pro ../../ArbolB.h \
+		../../Archivo.h \
+		../../CuadroFechas.h \
 		../../Estado.h \
-		../../Ingenieria.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
 		../../Usuario.h \
@@ -818,7 +818,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Arbol.h ../../ArbolB.h ../../Estado.h ../../Ingenieria.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ArbolB.h ../../Archivo.h ../../CuadroFechas.h ../../Estado.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Usuario.cpp ../../main.cpp ../../cframe.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../cframe.ui $(DISTDIR)/
 
@@ -864,9 +864,7 @@ moc_cframe.cpp: ../../cframe.h \
 		../../ArbolB.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
-		../../Ingenieria.h \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
+		../../Archivo.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		/Users/coleexz/Qt/6.7.1/macos/libexec/moc
@@ -910,9 +908,7 @@ main.o: ../../main.cpp ../../cframe.h \
 		../../ArbolB.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
-		../../Ingenieria.h \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
+		../../Archivo.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QApplication \
@@ -931,9 +927,7 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		../../ArbolB.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
-		../../Ingenieria.h \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
+		../../Archivo.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		ui_cframe.h \
