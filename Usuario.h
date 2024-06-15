@@ -10,9 +10,17 @@ class Usuario{
     friend class MainWindow;
 private:
 public:
-    string name,cuenta,tipo,contrasena;
-    Usuario(string name, string cuenta, string contrasena, string tipo);
-    ~Usuario();
+    string name,cuenta,contrasena, institucion, tipousuario;
+    Usuario(string name, string cuenta, string contrasena, string institucion, string tipousuario)
+    {
+        this->name = name;
+        this->cuenta = cuenta;
+        this->contrasena = contrasena;
+        this->institucion = institucion;
+        this->tipousuario = tipousuario;
+
+    }
+    ~Usuario(){}
 
     /*
     - [ ] Directores - solo Visualización
@@ -20,18 +28,72 @@ public:
     ???
     */
 
+
     const string &getName() const;
     void setName(const string &newName);
     const string &getCuenta() const;
     void setCuenta(const string &newCuenta);
     const string &getTipo() const;
     void setTipo(const string &newTipo);
-    string getContrasena() const;
+    const string &getContrasena() const;
     void setContrasena(const string &newContrasena);
+    const string &getInstitucion() const;
+    void setInstitucion(const string &newInstitucion);
 };
+
+inline const string &Usuario::getCuenta() const
+{
+    return cuenta;
+}
+
+inline void Usuario::setCuenta(const string &newCuenta)
+{
+    cuenta = newCuenta;
+}
+
+inline const string &Usuario::getTipo() const
+{
+    return tipousuario;
+}
+
+inline void Usuario::setTipo(const string &newTipo)
+{
+    tipousuario = newTipo;
+}
+
+inline const string &Usuario::getContrasena() const
+{
+    return contrasena;
+}
+
+inline void Usuario::setContrasena(const string &newContrasena)
+{
+    contrasena = newContrasena;
+}
+
+inline const string &Usuario::getInstitucion() const
+{
+    return institucion;
+}
+
+inline void Usuario::setInstitucion(const string &newInstitucion)
+{
+    institucion = newInstitucion;
+}
+
+inline const string &Usuario::getName() const
+{
+    return name;
+}
+
+inline void Usuario::setName(const string &newName)
+{
+    name = newName;
+}
 
 
 
 
 
 #endif // USUARIO_H
+

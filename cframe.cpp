@@ -49,8 +49,15 @@ cframe::cframe(QWidget *parent)
 
     // ============= Cargar usuario de prueba ===============
 
-    Usuario u("Usuario de Prueba", "101101", "passwd", "Docente");
-    listaUsuarios.InsertarFin(u);
+    // Cargar usuarios desde el archivo, si no existe, crear archivo con usuario por defecto
+    std::ifstream file("usuarios.xls");
+    if (!file.is_open()) {
+        Usuario u("AdminDefault", "101010", "password", "UNITEC", "IEDD");
+        listaUsuarios.InsertarFin(u);
+        listaUsuarios.guardarUsuarios(listaUsuarios);
+    } else {
+        listaUsuarios.cargarUsuarios();
+    }
 }
 
 cframe::~cframe()
@@ -235,19 +242,19 @@ void cframe::on_btn_archivoE_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
     if (!filePath.isEmpty()) {
-               QFileInfo fileInfo(filePath);
-               QString nombreA=fileInfo.fileName();
+        QFileInfo fileInfo(filePath);
+        QString nombreA=fileInfo.fileName();
 
-               QString codigoClase= ui->le_codigoE->text();
-               QString nombreClase= ui->le_nombreClase->text();
-               QString nombreA_Esperado= QString("%1_%2.docx").arg(codigoClase, nombreClase);
+        QString codigoClase= ui->le_codigoE->text();
+        QString nombreClase= ui->le_nombreClase->text();
+        QString nombreA_Esperado= QString("%1_%2.docx").arg(codigoClase, nombreClase);
 
-               if (nombreA == nombreA_Esperado) {
-                   ui->le_pathE->setText(filePath);
-               } else {
-                   QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe llamarse " + nombreA_Esperado);
-               }
-           }
+        if (nombreA == nombreA_Esperado) {
+            ui->le_pathE->setText(filePath);
+        } else {
+            QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe llamarse " + nombreA_Esperado);
+        }
+    }
 }
 
 void cframe::on_cb_facultadE_currentIndexChanged(int i)
@@ -267,9 +274,9 @@ void cframe::on_cb_facultadE_currentIndexChanged(int i)
         items << "..." << "LICENCIATURA EN PSICOLOGÍA" << "MEDICINA Y CIRUGÍA" << "CIRUGÍA DENTAL" << "LICENCIATURA EN NUTRICIÓN" << "LICENCIATURA EN TERAPIA FÍSICA Y OCUPACIONAL" << "LICENCIATURA EN ENFERMERÍA";
         ui->cb_carreraE->addItems(items);
     }else if (i == 5) {
-    items << "..." << "MAESTRÍA EN FINANZAS" << "MAESTRÍA EN GESTIÓN DEL MARKETING ESTRATÉGICO Y DIGITAL" << "MAESTRÍA EN DIRECCIÓN EMPRESARIAL" << "MAESTRÍA EN ADMINISTRACIÓN DE PROYECTOS" << "MAESTRÍA EN DERECHO EMPRESARIAL" << "MAESTRÍA EN DIRECCIÓN DE RECURSOS HUMANOS"<< "MAESTRÍA EN GESTIÓN DE OPERACIONES Y LOGÍSTICA" << "MAESTRÍA EN GESTIÓN DE TECNOLOGÍAS DE LA INFORMACIÓN"<< "MAESTRÍA EN SISTEMAS DE GESTIÓN DE LA CALIDAD INTEGRADOS" << "MAESTRÍA DE DIRECCIÓN DE LA COMUNICACIÓN CORPORATIVA" << "MAESTRÍA EN GESTIÓN DE ENERGÍAS RENOVABLES"<< "MAESTRÍA EN GESTIÓN DE SERVICIOS DE SALUD" << "MAESTRÍA EN GESTIÓN PÚBLICA" << "MAESTRIA EN DERECHOS HUMANOS"<< "MAESTRÍA EN PSICOLOGÍA CLÍNICA" << "MAESTRÍA EN DERECHO TRIBUTARIO" << "MAESTRÍA EN ANALÍTICA DE NEGOCIOS"<< "MAESTRÍA EN RESPONSABILIDAD SOCIAL Y SOSTENIBILIDAD" << "MAESTRÍA EN GESTIÓN DE LA INNOVACIÓN Y EL EMPRENDIMIENTO" << "MAESTRÍA EN DESARROLLO LOCAL Y COOPERACIÓN INTERNACIONAL" << "MAESTRÍA EN SALUD PÚBLICA" ;
-    ui->cb_carreraE->addItems(items);
-}
+        items << "..." << "MAESTRÍA EN FINANZAS" << "MAESTRÍA EN GESTIÓN DEL MARKETING ESTRATÉGICO Y DIGITAL" << "MAESTRÍA EN DIRECCIÓN EMPRESARIAL" << "MAESTRÍA EN ADMINISTRACIÓN DE PROYECTOS" << "MAESTRÍA EN DERECHO EMPRESARIAL" << "MAESTRÍA EN DIRECCIÓN DE RECURSOS HUMANOS"<< "MAESTRÍA EN GESTIÓN DE OPERACIONES Y LOGÍSTICA" << "MAESTRÍA EN GESTIÓN DE TECNOLOGÍAS DE LA INFORMACIÓN"<< "MAESTRÍA EN SISTEMAS DE GESTIÓN DE LA CALIDAD INTEGRADOS" << "MAESTRÍA DE DIRECCIÓN DE LA COMUNICACIÓN CORPORATIVA" << "MAESTRÍA EN GESTIÓN DE ENERGÍAS RENOVABLES"<< "MAESTRÍA EN GESTIÓN DE SERVICIOS DE SALUD" << "MAESTRÍA EN GESTIÓN PÚBLICA" << "MAESTRIA EN DERECHOS HUMANOS"<< "MAESTRÍA EN PSICOLOGÍA CLÍNICA" << "MAESTRÍA EN DERECHO TRIBUTARIO" << "MAESTRÍA EN ANALÍTICA DE NEGOCIOS"<< "MAESTRÍA EN RESPONSABILIDAD SOCIAL Y SOSTENIBILIDAD" << "MAESTRÍA EN GESTIÓN DE LA INNOVACIÓN Y EL EMPRENDIMIENTO" << "MAESTRÍA EN DESARROLLO LOCAL Y COOPERACIÓN INTERNACIONAL" << "MAESTRÍA EN SALUD PÚBLICA" ;
+        ui->cb_carreraE->addItems(items);
+    }
     else if (i == 6) {
         items << "..." << "TÉCNICO UNIVERSITARIO EN ENFERMERÍA AUXILIAR" << "TÉCNICO UNIVERSITARIO EN INSTALACIÓN DE REDES" << "TÉCNICO UNIVERSITARIO EN DESARROLLO DE APLICACIONES WEB" << "TÉCNICO UNIVERSITARIO EN DISEÑO DE INTERIORES" << "TÉCNICO UNIVERSITARIO BILINGÜE EN CALL CENTER" << "TÉCNICO UNIVERSITARIO EN INSTRUMENTACIÓN QUIRÚRGICA"<< "TÉCNICO UNIVERSITARIO EN URGENCIAS MÉDICAS" << "TÉCNICO UNIVERSITARIO BILINGÜE EN TURISMO"<< "TÉCNICO UNIVERSITARIO EN MARKETING DIGITAL" << "TÉCNICO UNIVERSITARIO EN DESARROLLO Y CUIDADO INFANTIL" << "TÉCNICO UNIVERSITARIO EN COMERCIALIZACIÓN Y PROMOCIÓN RETAIL"<< "TÉCNICO UNIVERSITARIO EN DISEÑO GRÁFICO" << "TÉCNICO UNIVERSITARIO EN ADMINISTRACIÓN";
         ui->cb_carreraE->addItems(items);
@@ -298,9 +305,9 @@ void cframe::on_Rbtn_sesion_clicked()
         QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
     } else {
         if ((ui->Rcb_usuario->currentIndex() == 1 && ui->Rle_clave->text().toStdString() == claveJefe) ||
-            (ui->Rcb_usuario->currentIndex() == 2 && ui->Rle_clave->text().toStdString() == claveCoordinador) ||
-            (ui->Rcb_usuario->currentIndex() == 3 && ui->Rle_clave->text().toStdString() == claveIEDD) ||
-            (ui->Rcb_usuario->currentIndex() == 4 && ui->Rle_clave->text().toStdString() == claveConsultor)) {
+                (ui->Rcb_usuario->currentIndex() == 2 && ui->Rle_clave->text().toStdString() == claveCoordinador) ||
+                (ui->Rcb_usuario->currentIndex() == 3 && ui->Rle_clave->text().toStdString() == claveIEDD) ||
+                (ui->Rcb_usuario->currentIndex() == 4 && ui->Rle_clave->text().toStdString() == claveConsultor)) {
 
             ui->frameR->setVisible(true);
             ui->frameR1->setEnabled(false);
@@ -502,7 +509,7 @@ void cframe::on_Bbtn_sesion_clicked()
         QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
     } else {
         if ((ui->Bcb_usuario->currentIndex() == 1 && ui->Ble_clave->text().toStdString() == claveDirector) ||
-            (ui->Bcb_usuario->currentIndex() == 2 && ui->Ble_clave->text().toStdString() == claveDecano)) {
+                (ui->Bcb_usuario->currentIndex() == 2 && ui->Ble_clave->text().toStdString() == claveDecano)) {
 
             ui->frameB->setVisible(true);
             ui->frameB1->setEnabled(false);
@@ -567,7 +574,7 @@ void cframe::recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget,
         Silabo *silabo = nodo->getSilabo(i);
 
         if ((estadoMostrar == "Aprobado" && estadoToString(silabo->getEstado()) == "Aprobado") ||
-            (estadoMostrar != "Aprobado" && estadoToString(silabo->getEstado()) != "Aprobado")) {
+                (estadoMostrar != "Aprobado" && estadoToString(silabo->getEstado()) != "Aprobado")) {
 
             int row = tableWidget->rowCount();
             tableWidget->insertRow(row);
@@ -703,3 +710,35 @@ std::string cframe::estadoToString(Estado estado) const {
     default: return "Desconocido";
     }
 }
+
+void cframe::on_btn_registraruser_clicked()
+{
+    string nombre = ui->le_nombreR->text().toStdString();
+    string numeroCuenta = ui->le_numcuentaR->text().toStdString();
+    string clave = ui->le_claveR->text().toStdString();
+    string institucion = ui->cb_institucionR->currentText().toStdString();
+    string tipousuario = ui->cb_tipousuarioR->currentText().toStdString();
+
+    // Verificar que no haya espacios vacíos
+    if (nombre.empty() || numeroCuenta.empty() || clave.empty() || institucion.empty() || tipousuario.empty()) {
+        QMessageBox::warning(this, "Error", "Por favor, complete todos los campos.");
+        return;
+    }
+
+    // Verificar que el número de cuenta no se repita
+    nodoD<Usuario>* temp = listaUsuarios.PrimPtr;
+    while (temp != nullptr) {
+        if (temp->getDato().getCuenta() == numeroCuenta) {
+            QMessageBox::warning(this, "Error", "Un usuario con ese número de cuenta ya existe. Nombre: " + QString::fromStdString(temp->getDato().getName()));
+            return;
+        }
+        temp = temp->SigPtr;
+    }
+
+    // Si no se encuentra un usuario con el mismo número de cuenta, registrar el nuevo usuario
+    Usuario nuevoUser(nombre, numeroCuenta, clave, institucion, tipousuario);
+    listaUsuarios.InsertarFin(nuevoUser);
+    listaUsuarios.guardarUsuarios(listaUsuarios);
+    QMessageBox::information(this, "Registro Exitoso", "El usuario ha sido registrado exitosamente.");
+}
+

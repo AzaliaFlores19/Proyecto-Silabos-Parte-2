@@ -53,6 +53,8 @@ private slots:
 
     void on_btn_sesion_clicked();
 
+    void on_btn_registraruser_clicked();
+
 private:
     Ui::cframe *ui;
 

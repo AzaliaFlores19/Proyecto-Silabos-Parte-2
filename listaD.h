@@ -92,6 +92,7 @@ void listaD<tipo>::guardarExcelUsuarios(std::ofstream &file, listaD<Usuario> &li
         file << usuario.getName() << "\t"
              << usuario.getCuenta() << "\t"
              << usuario.getContrasena() << "\t"
+             << usuario.getInstitucion() << "\t"
              << usuario.getTipo() << "\n";
         tmp = tmp->SigPtr;
     }
@@ -103,9 +104,10 @@ void listaD<tipo>::guardarUsuarios(listaD<Usuario> &listaUsuarios)
     std::ifstream file;
     file.open("usuarios.xls");
     file.close();
-    std::ofstream File("usuarios.xls");
+
+    std::ofstream File("usuarios.xls");  // Abre el archivo en modo de escritura
     if (File.is_open()) {
-        File << "Nombre\tCuenta\tContrasena\tClase Ingresada\n";
+        File << "Nombre\tCuenta\tContrasena\tInstitucion\tTipo Usuario\n";
         guardarExcelUsuarios(File, listaUsuarios);
         File.close();
         cout << "XLS exportado\n";
@@ -123,9 +125,9 @@ void listaD<tipo>::cargarUsuarios()
         string header;
         std::getline(file, header);
 
-        string nombre, cuenta, contrasena, code;
-        while (file >> nombre >> cuenta >> contrasena >> code) {
-            Usuario nuevo(nombre, cuenta, contrasena, code);
+        string nombre, cuenta, contrasena, institucion, tipousuario;
+        while (file >> nombre >> cuenta >> contrasena >> institucion >> tipousuario) {
+            Usuario nuevo(nombre, cuenta, contrasena, institucion, tipousuario);
             InsertarFin(nuevo);
         }
         file.close();
