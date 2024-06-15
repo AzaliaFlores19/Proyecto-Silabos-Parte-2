@@ -259,6 +259,7 @@ DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/qt_config.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang/qmake.conf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exclusive_builds.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/mac/sdk.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/toolchain.prf \
@@ -289,8 +290,10 @@ DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/yacc.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/lex.prf \
 		../../../../ProyectoSilabos.pro ../../Arbol.h \
+		../../ArbolB.h \
 		../../Estado.h \
 		../../Ingenieria.h \
+		../../NodoArbolB.h \
 		../../Silabo.h \
 		../../Usuario.h \
 		../../cframe.h \
@@ -306,7 +309,7 @@ TARGET        = ProyectoSilabos.app/Contents/MacOS/ProyectoSilabos
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 14.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = 
+EXPORT__QMAKE_STASH_ = /Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2/build/Qt_6_7_1_for_macOS-Debug/.qmake.stash
 EXPORT_VALID_ARCHS = x86_64 arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -522,6 +525,7 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/qt_config.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang/qmake.conf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exclusive_builds.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/mac/sdk.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/toolchain.prf \
@@ -756,6 +760,7 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/qt_config.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang/qmake.conf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exclusive_builds.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/mac/sdk.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/toolchain.prf:
@@ -813,7 +818,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Arbol.h ../../Estado.h ../../Ingenieria.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../Arbol.h ../../ArbolB.h ../../Estado.h ../../Ingenieria.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Usuario.cpp ../../main.cpp ../../cframe.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../cframe.ui $(DISTDIR)/
 
@@ -825,6 +830,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r ProyectoSilabos.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -855,7 +861,8 @@ moc_cframe.cpp: ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMessageBox \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../Estado.h \
-		../../Arbol.h \
+		../../ArbolB.h \
+		../../NodoArbolB.h \
 		../../Silabo.h \
 		../../Ingenieria.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
@@ -900,7 +907,8 @@ main.o: ../../main.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMessageBox \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../Estado.h \
-		../../Arbol.h \
+		../../ArbolB.h \
+		../../NodoArbolB.h \
 		../../Silabo.h \
 		../../Ingenieria.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
@@ -920,7 +928,8 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMessageBox \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../Estado.h \
-		../../Arbol.h \
+		../../ArbolB.h \
+		../../NodoArbolB.h \
 		../../Silabo.h \
 		../../Ingenieria.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \

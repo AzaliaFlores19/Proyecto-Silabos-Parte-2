@@ -15,8 +15,10 @@ SOURCES += \
 
 HEADERS += \
     Arbol.h \
+    ArbolB.h \
     Estado.h \
     Ingenieria.h \
+    NodoArbolB.h \
     Silabo.h \
     Usuario.h \
     cframe.h \

@@ -42,10 +42,8 @@ public:
     QLabel *lbl_pngMenu;
     QFrame *frameE2_2;
     QGridLayout *gridLayout_23;
-    QLabel *lbl_nameE;
-    QLineEdit *le_nameE;
-    QLabel *lbl_cuentaE;
     QLineEdit *le_claveE;
+    QLabel *lbl_cuentaE;
     QLabel *lbl_contraE_6;
     QLineEdit *le_cuentaE;
     QPushButton *btn_sesion;
@@ -149,7 +147,7 @@ public:
         centralwidget->setEnabled(true);
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(20, 20, 1149, 572));
+        verticalLayoutWidget->setGeometry(QRect(20, 20, 1149, 595));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
@@ -200,45 +198,33 @@ public:
         frameE2_2->setFrameShadow(QFrame::Raised);
         gridLayout_23 = new QGridLayout(frameE2_2);
         gridLayout_23->setObjectName("gridLayout_23");
-        lbl_nameE = new QLabel(frameE2_2);
-        lbl_nameE->setObjectName("lbl_nameE");
+        le_claveE = new QLineEdit(frameE2_2);
+        le_claveE->setObjectName("le_claveE");
         QFont font;
-        font.setPointSize(12);
-        lbl_nameE->setFont(font);
+        font.setPointSize(11);
+        le_claveE->setFont(font);
 
-        gridLayout_23->addWidget(lbl_nameE, 0, 0, 1, 1);
-
-        le_nameE = new QLineEdit(frameE2_2);
-        le_nameE->setObjectName("le_nameE");
-        QFont font1;
-        font1.setPointSize(11);
-        le_nameE->setFont(font1);
-
-        gridLayout_23->addWidget(le_nameE, 0, 1, 1, 1);
+        gridLayout_23->addWidget(le_claveE, 1, 1, 1, 1);
 
         lbl_cuentaE = new QLabel(frameE2_2);
         lbl_cuentaE->setObjectName("lbl_cuentaE");
-        lbl_cuentaE->setFont(font);
+        QFont font1;
+        font1.setPointSize(12);
+        lbl_cuentaE->setFont(font1);
 
-        gridLayout_23->addWidget(lbl_cuentaE, 1, 0, 1, 1);
-
-        le_claveE = new QLineEdit(frameE2_2);
-        le_claveE->setObjectName("le_claveE");
-        le_claveE->setFont(font1);
-
-        gridLayout_23->addWidget(le_claveE, 2, 1, 1, 1);
+        gridLayout_23->addWidget(lbl_cuentaE, 0, 0, 1, 1);
 
         lbl_contraE_6 = new QLabel(frameE2_2);
         lbl_contraE_6->setObjectName("lbl_contraE_6");
-        lbl_contraE_6->setFont(font);
+        lbl_contraE_6->setFont(font1);
 
-        gridLayout_23->addWidget(lbl_contraE_6, 2, 0, 1, 1);
+        gridLayout_23->addWidget(lbl_contraE_6, 1, 0, 1, 1);
 
         le_cuentaE = new QLineEdit(frameE2_2);
         le_cuentaE->setObjectName("le_cuentaE");
-        le_cuentaE->setFont(font1);
+        le_cuentaE->setFont(font);
 
-        gridLayout_23->addWidget(le_cuentaE, 1, 1, 1, 1);
+        gridLayout_23->addWidget(le_cuentaE, 0, 1, 1, 1);
 
         btn_sesion = new QPushButton(frameE2_2);
         btn_sesion->setObjectName("btn_sesion");
@@ -253,7 +239,7 @@ public:
         font2.setBold(false);
         btn_sesion->setFont(font2);
 
-        gridLayout_23->addWidget(btn_sesion, 3, 1, 1, 1);
+        gridLayout_23->addWidget(btn_sesion, 2, 1, 1, 1);
 
 
         verticalLayout_2->addWidget(frameE2_2);
@@ -335,32 +321,32 @@ public:
 
         le_codigoE = new QLineEdit(frameE);
         le_codigoE->setObjectName("le_codigoE");
-        le_codigoE->setFont(font1);
+        le_codigoE->setFont(font);
 
         gridLayout_8->addWidget(le_codigoE, 2, 2, 1, 1);
 
         lbl_codigoE_2 = new QLabel(frameE);
         lbl_codigoE_2->setObjectName("lbl_codigoE_2");
-        lbl_codigoE_2->setFont(font);
+        lbl_codigoE_2->setFont(font1);
 
         gridLayout_8->addWidget(lbl_codigoE_2, 4, 0, 1, 1);
 
         cb_carreraE = new QComboBox(frameE);
         cb_carreraE->addItem(QString());
         cb_carreraE->setObjectName("cb_carreraE");
-        cb_carreraE->setFont(font1);
+        cb_carreraE->setFont(font);
 
         gridLayout_8->addWidget(cb_carreraE, 1, 2, 1, 1);
 
         lbl_codigoE = new QLabel(frameE);
         lbl_codigoE->setObjectName("lbl_codigoE");
-        lbl_codigoE->setFont(font);
+        lbl_codigoE->setFont(font1);
 
         gridLayout_8->addWidget(lbl_codigoE, 2, 0, 1, 1);
 
         lbl_facultadE = new QLabel(frameE);
         lbl_facultadE->setObjectName("lbl_facultadE");
-        lbl_facultadE->setFont(font);
+        lbl_facultadE->setFont(font1);
 
         gridLayout_8->addWidget(lbl_facultadE, 0, 0, 1, 1);
 
@@ -370,13 +356,13 @@ public:
         cb_facultadE->addItem(QString());
         cb_facultadE->addItem(QString());
         cb_facultadE->setObjectName("cb_facultadE");
-        cb_facultadE->setFont(font1);
+        cb_facultadE->setFont(font);
 
         gridLayout_8->addWidget(cb_facultadE, 0, 2, 1, 1);
 
         lbl_carreraE = new QLabel(frameE);
         lbl_carreraE->setObjectName("lbl_carreraE");
-        lbl_carreraE->setFont(font);
+        lbl_carreraE->setFont(font1);
 
         gridLayout_8->addWidget(lbl_carreraE, 1, 0, 1, 1);
 
@@ -418,25 +404,25 @@ public:
         Rcb_usuario->addItem(QString());
         Rcb_usuario->addItem(QString());
         Rcb_usuario->setObjectName("Rcb_usuario");
-        Rcb_usuario->setFont(font1);
+        Rcb_usuario->setFont(font);
 
         gridLayout_9->addWidget(Rcb_usuario, 1, 1, 1, 1);
 
         Rlbl_usuario = new QLabel(frameR1);
         Rlbl_usuario->setObjectName("Rlbl_usuario");
-        Rlbl_usuario->setFont(font);
+        Rlbl_usuario->setFont(font1);
 
         gridLayout_9->addWidget(Rlbl_usuario, 1, 0, 1, 1);
 
         Rlbl_contra = new QLabel(frameR1);
         Rlbl_contra->setObjectName("Rlbl_contra");
-        Rlbl_contra->setFont(font);
+        Rlbl_contra->setFont(font1);
 
         gridLayout_9->addWidget(Rlbl_contra, 2, 0, 1, 1);
 
         Rlbl_name = new QLabel(frameR1);
         Rlbl_name->setObjectName("Rlbl_name");
-        Rlbl_name->setFont(font);
+        Rlbl_name->setFont(font1);
 
         gridLayout_9->addWidget(Rlbl_name, 0, 0, 1, 1);
 
@@ -451,13 +437,13 @@ public:
 
         Rle_name = new QLineEdit(frameR1);
         Rle_name->setObjectName("Rle_name");
-        Rle_name->setFont(font1);
+        Rle_name->setFont(font);
 
         gridLayout_9->addWidget(Rle_name, 0, 1, 1, 1);
 
         Rle_clave = new QLineEdit(frameR1);
         Rle_clave->setObjectName("Rle_clave");
-        Rle_clave->setFont(font1);
+        Rle_clave->setFont(font);
 
         gridLayout_9->addWidget(Rle_clave, 2, 1, 1, 1);
 
@@ -491,7 +477,7 @@ public:
         gridLayout_11->setObjectName("gridLayout_11");
         Rlbl_seleccion = new QLabel(frame_2);
         Rlbl_seleccion->setObjectName("Rlbl_seleccion");
-        Rlbl_seleccion->setFont(font);
+        Rlbl_seleccion->setFont(font1);
 
         gridLayout_11->addWidget(Rlbl_seleccion, 0, 0, 1, 1);
 
@@ -503,7 +489,7 @@ public:
 
         Rlbl_comentario = new QLabel(frame_2);
         Rlbl_comentario->setObjectName("Rlbl_comentario");
-        Rlbl_comentario->setFont(font);
+        Rlbl_comentario->setFont(font1);
 
         gridLayout_11->addWidget(Rlbl_comentario, 3, 0, 1, 1);
 
@@ -515,7 +501,7 @@ public:
 
         Rlbl_estadoA = new QLabel(frame_2);
         Rlbl_estadoA->setObjectName("Rlbl_estadoA");
-        Rlbl_estadoA->setFont(font);
+        Rlbl_estadoA->setFont(font1);
 
         gridLayout_11->addWidget(Rlbl_estadoA, 1, 0, 1, 1);
 
@@ -533,14 +519,14 @@ public:
 
         Rlbl_name_4 = new QLabel(frame_2);
         Rlbl_name_4->setObjectName("Rlbl_name_4");
-        Rlbl_name_4->setFont(font);
+        Rlbl_name_4->setFont(font1);
 
         gridLayout_11->addWidget(Rlbl_name_4, 2, 0, 1, 1);
 
         Rcb_cambiarE = new QComboBox(frame_2);
         Rcb_cambiarE->addItem(QString());
         Rcb_cambiarE->setObjectName("Rcb_cambiarE");
-        Rcb_cambiarE->setFont(font1);
+        Rcb_cambiarE->setFont(font);
 
         gridLayout_11->addWidget(Rcb_cambiarE, 2, 1, 1, 1);
 
@@ -594,19 +580,19 @@ public:
         gridLayout_14->setObjectName("gridLayout_14");
         Blbl_name = new QLabel(frameBB1);
         Blbl_name->setObjectName("Blbl_name");
-        Blbl_name->setFont(font);
+        Blbl_name->setFont(font1);
 
         gridLayout_14->addWidget(Blbl_name, 0, 0, 1, 1);
 
         Ble_name = new QLineEdit(frameBB1);
         Ble_name->setObjectName("Ble_name");
-        Ble_name->setFont(font1);
+        Ble_name->setFont(font);
 
         gridLayout_14->addWidget(Ble_name, 0, 1, 1, 1);
 
         Blbl_usuario = new QLabel(frameBB1);
         Blbl_usuario->setObjectName("Blbl_usuario");
-        Blbl_usuario->setFont(font);
+        Blbl_usuario->setFont(font1);
 
         gridLayout_14->addWidget(Blbl_usuario, 1, 0, 1, 1);
 
@@ -615,19 +601,19 @@ public:
         Bcb_usuario->addItem(QString());
         Bcb_usuario->addItem(QString());
         Bcb_usuario->setObjectName("Bcb_usuario");
-        Bcb_usuario->setFont(font1);
+        Bcb_usuario->setFont(font);
 
         gridLayout_14->addWidget(Bcb_usuario, 1, 1, 1, 1);
 
         Blbl_contra = new QLabel(frameBB1);
         Blbl_contra->setObjectName("Blbl_contra");
-        Blbl_contra->setFont(font);
+        Blbl_contra->setFont(font1);
 
         gridLayout_14->addWidget(Blbl_contra, 2, 0, 1, 1);
 
         Ble_clave = new QLineEdit(frameBB1);
         Ble_clave->setObjectName("Ble_clave");
-        Ble_clave->setFont(font1);
+        Ble_clave->setFont(font);
 
         gridLayout_14->addWidget(Ble_clave, 2, 1, 1, 1);
 
@@ -691,25 +677,25 @@ public:
         gridLayout_16->setObjectName("gridLayout_16");
         Dle_cuenta = new QLineEdit(Dframe1);
         Dle_cuenta->setObjectName("Dle_cuenta");
-        Dle_cuenta->setFont(font1);
+        Dle_cuenta->setFont(font);
 
         gridLayout_16->addWidget(Dle_cuenta, 1, 1, 1, 1);
 
         Dlbl_contraE = new QLabel(Dframe1);
         Dlbl_contraE->setObjectName("Dlbl_contraE");
-        Dlbl_contraE->setFont(font);
+        Dlbl_contraE->setFont(font1);
 
         gridLayout_16->addWidget(Dlbl_contraE, 2, 0, 1, 1);
 
         Dle_clave = new QLineEdit(Dframe1);
         Dle_clave->setObjectName("Dle_clave");
-        Dle_clave->setFont(font1);
+        Dle_clave->setFont(font);
 
         gridLayout_16->addWidget(Dle_clave, 2, 1, 1, 1);
 
         Dlbl_cuenta = new QLabel(Dframe1);
         Dlbl_cuenta->setObjectName("Dlbl_cuenta");
-        Dlbl_cuenta->setFont(font);
+        Dlbl_cuenta->setFont(font1);
 
         gridLayout_16->addWidget(Dlbl_cuenta, 1, 0, 1, 1);
 
@@ -726,13 +712,13 @@ public:
 
         Dle_name = new QLineEdit(Dframe1);
         Dle_name->setObjectName("Dle_name");
-        Dle_name->setFont(font1);
+        Dle_name->setFont(font);
 
         gridLayout_16->addWidget(Dle_name, 0, 1, 1, 1);
 
         Dlbl_name = new QLabel(Dframe1);
         Dlbl_name->setObjectName("Dlbl_name");
-        Dlbl_name->setFont(font);
+        Dlbl_name->setFont(font1);
 
         gridLayout_16->addWidget(Dlbl_name, 0, 0, 1, 1);
 
@@ -836,7 +822,6 @@ public:
         cframe->setWindowTitle(QCoreApplication::translate("cframe", "cframe", nullptr));
         lbl_b1M->setText(QString());
         lbl_pngMenu->setText(QString());
-        lbl_nameE->setText(QCoreApplication::translate("cframe", "Nombre Completo:", nullptr));
         lbl_cuentaE->setText(QCoreApplication::translate("cframe", "Numero de cuenta:", nullptr));
         lbl_contraE_6->setText(QCoreApplication::translate("cframe", "Clave:", nullptr));
         btn_sesion->setText(QCoreApplication::translate("cframe", "Iniciar Sesion", nullptr));
