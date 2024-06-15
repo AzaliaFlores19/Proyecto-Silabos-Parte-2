@@ -52,13 +52,16 @@ cframe::cframe(QWidget *parent)
     // Cargar usuarios desde el archivo, si no existe, crear archivo con usuario por defecto
     std::ifstream file("usuarios.xls");
     if (!file.is_open()) {
-        Usuario u("AdminDefault", "101010", "password", "UNITEC", "IEDD");
+        Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
         listaUsuarios.InsertarFin(u);
         listaUsuarios.guardarUsuarios(listaUsuarios);
     } else {
         listaUsuarios.cargarUsuarios();
     }
+
+    desactivarTabs();
 }
+
 
 cframe::~cframe()
 {
@@ -162,10 +165,37 @@ void cframe::on_btn_sesion_clicked()
         if (user->contrasena == pwd) {
             usuarioActual = user;
 
-            // TODO: Habilitar tabs correspondientes al usuario
+            //Habilitar tabs correspondientes al usuario
+            if (usuarioActual->getTipo() == "Docente"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(1, true);
+                ui->tabWidget->setTabEnabled(4, true);
 
-            // popup de prueba
-            QMessageBox::warning(this, "TEST", QString::fromStdString(usuarioActual->name));
+            }else if(usuarioActual->getTipo() == "Coordinador"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(2, true);
+
+            }else if(usuarioActual->getTipo() == "IEDD"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(2, true);
+                ui->tabWidget->setTabEnabled(5, true);
+
+            }else if(usuarioActual->getTipo() == "Consultor"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(2, true);
+
+            }else if(usuarioActual->getTipo() == "Decano"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(3, true);
+
+            }else if(usuarioActual->getTipo() == "GLOBAL"){
+                activarTabs(); // ACTIVAR TODOS LOS TABS PARA EL USUARIO GLOBAL
+            }
+
+            ui->le_cuentaE->setText("");
+            ui->le_claveE->setText("");
+            //Por mientras para saber que tipo de usuario esta ingresando
+            QMessageBox::warning(this, "Tipo usuario", QString::fromStdString(usuarioActual->getTipo()));
         } else {
             QMessageBox::warning(this, "Login", "Contraseña incorrecta.");
         }
@@ -180,6 +210,7 @@ void cframe::on_btn_closeE_clicked()
     ui->tab_5->setEnabled(true);
     limpiarEntrega();
     ui->tabWidget->setCurrentIndex(0);
+    desactivarTabs();
 }
 
 void cframe::limpiarEntrega()
@@ -352,6 +383,7 @@ void cframe::on_Rbtn_cerrar_clicked()
     ui->tab_5->setEnabled(true);
     limpiarRevision();
     ui->tabWidget->setCurrentIndex(0);
+    desactivarTabs();
 }
 
 void cframe::on_Rbtn_cambiar_clicked()
@@ -431,6 +463,22 @@ void cframe::pruebitaBotonesTab()
     int fila = 0;
 
     recorrerArbolParaTabla(arbolSilabo->getRaiz(), fila, listaUsuarios.PrimPtr);
+}
+
+void cframe::desactivarTabs()
+{
+    // Desactivar todas las pestañas menos la del login
+    for (int i = 1; i < ui->tabWidget->count(); ++i) {
+        ui->tabWidget->setTabEnabled(i, false);
+    }
+}
+
+void cframe::activarTabs()
+{
+    // Activar todas las pestañas
+    for (int i = 0; i < ui->tabWidget->count(); ++i) {
+        ui->tabWidget->setTabEnabled(i, true);
+    }
 }
 
 void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> *actD)
@@ -597,6 +645,7 @@ void cframe::on_Bbtn_cerrar_clicked()
 {
     loginBoard = false;
     limpiarBoard();
+    desactivarTabs();
 }
 
 void cframe::limpiarBoard()
@@ -684,6 +733,7 @@ void cframe::on_Dbtn_salir_clicked()
     ui->Dframe2->setVisible(false);
     loginCheck = false;
     ui->Dbtn_salir->setVisible(false);
+    desactivarTabs();
 }
 
 void cframe::on_DRTW_revision_cellClicked(int row, int column)
