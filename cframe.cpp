@@ -235,16 +235,19 @@ void cframe::on_btn_archivoE_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
     if (!filePath.isEmpty()) {
-        QFileInfo fileInfo(filePath);
-        QString fileName = fileInfo.fileName();
-        QRegularExpression regex("^\\d+_[A-Za-z]+\\.docx$");
+               QFileInfo fileInfo(filePath);
+               QString nombreA=fileInfo.fileName();
 
-        if (regex.match(fileName).hasMatch()) {
-            ui->le_pathE->setText(filePath);
-        } else {
-            QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe tener el formato CODIGOCLASE_NOMBRECLASE.docx, por ejemplo, 4332_Fisica.docx");
-        }
-    }
+               QString codigoClase= ui->le_codigoE->text();
+               QString nombreClase= ui->le_nombreClase->text();
+               QString nombreA_Esperado= QString("%1_%2.docx").arg(codigoClase, nombreClase);
+
+               if (nombreA == nombreA_Esperado) {
+                   ui->le_pathE->setText(filePath);
+               } else {
+                   QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe llamarse " + nombreA_Esperado);
+               }
+           }
 }
 
 void cframe::on_cb_facultadE_currentIndexChanged(int i)
@@ -252,13 +255,23 @@ void cframe::on_cb_facultadE_currentIndexChanged(int i)
     QStringList items;
     ui->cb_carreraE->clear();
     if (i == 1) {
-        items << "..." << "Biomedica" << "Ciencia de datos e inteligencia artificial" << "Civil" << "Energia" << "Industrial y de sistemas" << "Mecatronica" << "Sistemas Computacionales" << "Telecomunicaciones y electronica";
+        items << "..." << "INGENIERÍA BIOMÉDICA" << "INGENIERÍA EN CIENCIA DE DATOS E INTELIGENCIA ARTIFICIAL" << "INGENIERÍA CIVIL" << "INGENIERÍA EN ENERGÍA" << "INGENIERÍA INDUSTRIAL Y DE SISTEMAS" << "INGENIERÍA EN MECATRÓNICA" << "INGENIERÍA EN SISTEMAS COMPUTACIONALES" << "INGENIERÍA EN TELECOMUNICACIONES Y ELECTRÓNICA"<<"INGENIERÍA EN INFORMÁTICA"<<"INGENIERÍA EN ELECTRÓNICA"<<"INGENIERÍA EN GESTIÓN LOGÍSTICA"<<"INGENIERÍA EN GESTIÓN DE AMBIENTE Y DESARROLLO";
         ui->cb_carreraE->addItems(items);
     } else if (i == 2) {
-        items << "..." << "Administracion de la hospitalidad y el tursimo" << "Administracion industrial e inteligencia de negocios" << "Administracion industrial y emprendimiento" << "Industrial y operaciones" << "Derecho" << "Finanzas y Economia" << "Mercadotecnia y negocios internacionales" << "Relaciones internacionales";
+        items << "..." << "LICENCIATURA EN ADMINISTRACIÓN DE LA HOSPITALIDAD Y EL TURISMO" << "LICENCIATURA EN ADMINISTRACIÓN INDUSTRIAL E INTELICENCIA DE NEGOCIOS" << "LICENCIATURA EN AMINISTRACIÓN INDUSTRIAL Y EMPRENDIMIENTO" << "LICENCIATURA EN ADMINISTRACIÓN INDUSTRIAL Y OPERACIONES" << "LICENCIATURA EN DERECHO" << "LICENCIATURA EN FINANZAS Y ECONOMÍA" << "LICENCIATURA EN MERCADOTECNIA Y NEGOCIOS INTERNACIONALES" << "LICENCIATURA EN RELACIONES INTERNACIONALES"<<"LICENCIATURA EN CONTADURÍA PÚBLICA Y FINANZAS"<<"LICENCIATURA EN MERCADOTECNIA"<<"LICENCIATURA EN ADMINISTRACIÓN DE EMPRESAS"<<"LICENCIATURA EN RECURSOS HUMANOS"<<"LICENCIATURA EN ECONOMÍA"<<"LICENCIATURA EN PERIODISMO";
         ui->cb_carreraE->addItems(items);
     } else if (i == 3) {
-        items << "..." << "Animacion digital y diseño interactivo" << "Arquitectura" << "Comunicacion audiovisual y publicitaria" << "Diseno de modas" << "Diseno Grafico" << "Gastronomia";
+        items << "..." << "LICENCIATURA EN ANIMACIÓN DIGITAL y DISEÑO INTERACTIVO" << "ARQUITECTURA" << "LICENCIATURA EN COMUNICACIÓN AUDIOVISUAL Y PUBLICITARIA" << "LICENCIATURA EN DISEÑO DE MODAS" << "LICENCIATURA EN DISEÑO GRÁFICO" << "LICENCIATURA EN GASTRONOMÍA";
+        ui->cb_carreraE->addItems(items);
+    }else if (i == 4) {
+        items << "..." << "LICENCIATURA EN PSICOLOGÍA" << "MEDICINA Y CIRUGÍA" << "CIRUGÍA DENTAL" << "LICENCIATURA EN NUTRICIÓN" << "LICENCIATURA EN TERAPIA FÍSICA Y OCUPACIONAL" << "LICENCIATURA EN ENFERMERÍA";
+        ui->cb_carreraE->addItems(items);
+    }else if (i == 5) {
+    items << "..." << "MAESTRÍA EN FINANZAS" << "MAESTRÍA EN GESTIÓN DEL MARKETING ESTRATÉGICO Y DIGITAL" << "MAESTRÍA EN DIRECCIÓN EMPRESARIAL" << "MAESTRÍA EN ADMINISTRACIÓN DE PROYECTOS" << "MAESTRÍA EN DERECHO EMPRESARIAL" << "MAESTRÍA EN DIRECCIÓN DE RECURSOS HUMANOS"<< "MAESTRÍA EN GESTIÓN DE OPERACIONES Y LOGÍSTICA" << "MAESTRÍA EN GESTIÓN DE TECNOLOGÍAS DE LA INFORMACIÓN"<< "MAESTRÍA EN SISTEMAS DE GESTIÓN DE LA CALIDAD INTEGRADOS" << "MAESTRÍA DE DIRECCIÓN DE LA COMUNICACIÓN CORPORATIVA" << "MAESTRÍA EN GESTIÓN DE ENERGÍAS RENOVABLES"<< "MAESTRÍA EN GESTIÓN DE SERVICIOS DE SALUD" << "MAESTRÍA EN GESTIÓN PÚBLICA" << "MAESTRIA EN DERECHOS HUMANOS"<< "MAESTRÍA EN PSICOLOGÍA CLÍNICA" << "MAESTRÍA EN DERECHO TRIBUTARIO" << "MAESTRÍA EN ANALÍTICA DE NEGOCIOS"<< "MAESTRÍA EN RESPONSABILIDAD SOCIAL Y SOSTENIBILIDAD" << "MAESTRÍA EN GESTIÓN DE LA INNOVACIÓN Y EL EMPRENDIMIENTO" << "MAESTRÍA EN DESARROLLO LOCAL Y COOPERACIÓN INTERNACIONAL" << "MAESTRÍA EN SALUD PÚBLICA" ;
+    ui->cb_carreraE->addItems(items);
+}
+    else if (i == 6) {
+        items << "..." << "TÉCNICO UNIVERSITARIO EN ENFERMERÍA AUXILIAR" << "TÉCNICO UNIVERSITARIO EN INSTALACIÓN DE REDES" << "TÉCNICO UNIVERSITARIO EN DESARROLLO DE APLICACIONES WEB" << "TÉCNICO UNIVERSITARIO EN DISEÑO DE INTERIORES" << "TÉCNICO UNIVERSITARIO BILINGÜE EN CALL CENTER" << "TÉCNICO UNIVERSITARIO EN INSTRUMENTACIÓN QUIRÚRGICA"<< "TÉCNICO UNIVERSITARIO EN URGENCIAS MÉDICAS" << "TÉCNICO UNIVERSITARIO BILINGÜE EN TURISMO"<< "TÉCNICO UNIVERSITARIO EN MARKETING DIGITAL" << "TÉCNICO UNIVERSITARIO EN DESARROLLO Y CUIDADO INFANTIL" << "TÉCNICO UNIVERSITARIO EN COMERCIALIZACIÓN Y PROMOCIÓN RETAIL"<< "TÉCNICO UNIVERSITARIO EN DISEÑO GRÁFICO" << "TÉCNICO UNIVERSITARIO EN ADMINISTRACIÓN";
         ui->cb_carreraE->addItems(items);
     }
 }
