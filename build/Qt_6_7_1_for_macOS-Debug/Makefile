@@ -52,11 +52,9 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../Usuario.cpp \
-		../../main.cpp \
+SOURCES       = ../../main.cpp \
 		../../cframe.cpp moc_cframe.cpp
-OBJECTS       = Usuario.o \
-		main.o \
+OBJECTS       = main.o \
 		cframe.o \
 		moc_cframe.o
 DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
@@ -259,7 +257,6 @@ DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/qt_config.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang/qmake.conf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_post.prf \
-		../../.qmake.stash \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exclusive_builds.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/mac/sdk.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/toolchain.prf \
@@ -298,8 +295,7 @@ DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		../../Usuario.h \
 		../../cframe.h \
 		../../listaD.h \
-		../../nodoD.h ../../Usuario.cpp \
-		../../main.cpp \
+		../../nodoD.h ../../main.cpp \
 		../../cframe.cpp
 QMAKE_TARGET  = ProyectoSilabos
 DESTDIR       = 
@@ -309,7 +305,7 @@ TARGET        = ProyectoSilabos.app/Contents/MacOS/ProyectoSilabos
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 14.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = /Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2/build/Qt_6_7_1_for_macOS-Debug/.qmake.stash
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = x86_64 arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
@@ -525,7 +521,6 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/qt_config.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang/qmake.conf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exclusive_builds.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/mac/sdk.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/toolchain.prf \
@@ -760,7 +755,6 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/qt_config.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang/qmake.conf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/exclusive_builds.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/mac/sdk.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/toolchain.prf:
@@ -819,7 +813,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ArbolB.h ../../Archivo.h ../../CuadroFechas.h ../../Estado.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Usuario.cpp ../../main.cpp ../../cframe.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../main.cpp ../../cframe.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../cframe.ui $(DISTDIR)/
 
 
@@ -830,7 +824,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r ProyectoSilabos.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -864,9 +857,12 @@ moc_cframe.cpp: ../../cframe.h \
 		../../ArbolB.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../Archivo.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../CuadroFechas.h \
 		/Users/coleexz/Qt/6.7.1/macos/libexec/moc
 	/Users/coleexz/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2 -I/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/coleexz/Qt/6.7.1/macos/lib ../../cframe.h -o moc_cframe.cpp
 
@@ -893,9 +889,6 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-Usuario.o: ../../Usuario.cpp ../../Usuario.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Usuario.o ../../Usuario.cpp
-
 main.o: ../../main.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -908,9 +901,12 @@ main.o: ../../main.cpp ../../cframe.h \
 		../../ArbolB.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../Archivo.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../CuadroFechas.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
@@ -927,9 +923,12 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		../../ArbolB.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../Archivo.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../CuadroFechas.h \
 		ui_cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers/QImage \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers/qimage.h \

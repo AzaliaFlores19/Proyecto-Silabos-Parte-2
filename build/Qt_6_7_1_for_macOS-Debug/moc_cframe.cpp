@@ -46,21 +46,20 @@ constexpr auto qt_meta_stringdata_CLASScframeENDCLASS = QtMocHelpers::stringData
     "on_btn_archivoE_clicked",
     "on_cb_facultadE_currentIndexChanged",
     "on_btn_closeE_clicked",
-    "on_Rcb_usuario_currentIndexChanged",
-    "on_Rbtn_sesion_clicked",
     "on_Rbtn_cerrar_clicked",
     "on_Rbtn_cambiar_clicked",
     "on_RTW_revision_cellClicked",
     "row",
     "column",
-    "on_Bbtn_sesion_clicked",
     "on_Bbtn_cerrar_clicked",
     "on_Bbtn_proceso_clicked",
     "on_Bbtn_aceptados_clicked",
-    "on_Dbtn_sesion_clicked",
     "on_Dbtn_salir_clicked",
     "on_DRTW_revision_cellClicked",
-    "on_btn_sesion_clicked"
+    "on_btn_sesion_clicked",
+    "on_btn_registraruser_clicked",
+    "on_btn_registrarSalir_clicked",
+    "limpiarRegistro"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -73,7 +72,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASScframeENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -81,27 +80,26 @@ Q_CONSTINIT static const uint qt_meta_data_CLASScframeENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  140,    2, 0x08,    1 /* Private */,
-       3,    0,  141,    2, 0x08,    2 /* Private */,
-       4,    0,  142,    2, 0x08,    3 /* Private */,
-       5,    1,  143,    2, 0x08,    4 /* Private */,
-       7,    0,  146,    2, 0x08,    6 /* Private */,
-       8,    0,  147,    2, 0x08,    7 /* Private */,
-       9,    1,  148,    2, 0x08,    8 /* Private */,
-      10,    0,  151,    2, 0x08,   10 /* Private */,
-      11,    1,  152,    2, 0x08,   11 /* Private */,
-      12,    0,  155,    2, 0x08,   13 /* Private */,
-      13,    0,  156,    2, 0x08,   14 /* Private */,
-      14,    0,  157,    2, 0x08,   15 /* Private */,
-      15,    2,  158,    2, 0x08,   16 /* Private */,
-      18,    0,  163,    2, 0x08,   19 /* Private */,
-      19,    0,  164,    2, 0x08,   20 /* Private */,
-      20,    0,  165,    2, 0x08,   21 /* Private */,
-      21,    0,  166,    2, 0x08,   22 /* Private */,
-      22,    0,  167,    2, 0x08,   23 /* Private */,
-      23,    0,  168,    2, 0x08,   24 /* Private */,
-      24,    2,  169,    2, 0x08,   25 /* Private */,
-      25,    0,  174,    2, 0x08,   28 /* Private */,
+       1,    0,  134,    2, 0x08,    1 /* Private */,
+       3,    0,  135,    2, 0x08,    2 /* Private */,
+       4,    0,  136,    2, 0x08,    3 /* Private */,
+       5,    1,  137,    2, 0x08,    4 /* Private */,
+       7,    0,  140,    2, 0x08,    6 /* Private */,
+       8,    0,  141,    2, 0x08,    7 /* Private */,
+       9,    1,  142,    2, 0x08,    8 /* Private */,
+      10,    0,  145,    2, 0x08,   10 /* Private */,
+      11,    0,  146,    2, 0x08,   11 /* Private */,
+      12,    0,  147,    2, 0x08,   12 /* Private */,
+      13,    2,  148,    2, 0x08,   13 /* Private */,
+      16,    0,  153,    2, 0x08,   16 /* Private */,
+      17,    0,  154,    2, 0x08,   17 /* Private */,
+      18,    0,  155,    2, 0x08,   18 /* Private */,
+      19,    0,  156,    2, 0x08,   19 /* Private */,
+      20,    2,  157,    2, 0x08,   20 /* Private */,
+      21,    0,  162,    2, 0x08,   23 /* Private */,
+      22,    0,  163,    2, 0x08,   24 /* Private */,
+      23,    0,  164,    2, 0x08,   25 /* Private */,
+      24,    0,  165,    2, 0x08,   26 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -112,18 +110,17 @@ Q_CONSTINIT static const uint qt_meta_data_CLASScframeENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    6,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    6,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   16,   17,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   14,   15,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   16,   17,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   14,   15,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -156,11 +153,6 @@ Q_CONSTINIT const QMetaObject cframe::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_btn_closeE_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_Rcb_usuario_currentIndexChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_Rbtn_sesion_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Rbtn_cerrar_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Rbtn_cambiar_clicked'
@@ -169,15 +161,11 @@ Q_CONSTINIT const QMetaObject cframe::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_Bbtn_sesion_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Bbtn_cerrar_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Bbtn_proceso_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Bbtn_aceptados_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_Dbtn_sesion_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Dbtn_salir_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -186,6 +174,12 @@ Q_CONSTINIT const QMetaObject cframe::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_btn_sesion_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btn_registraruser_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_btn_registrarSalir_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'limpiarRegistro'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -205,19 +199,18 @@ void cframe::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 5: _t->on_btn_archivoE_clicked(); break;
         case 6: _t->on_cb_facultadE_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 7: _t->on_btn_closeE_clicked(); break;
-        case 8: _t->on_Rcb_usuario_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 9: _t->on_Rbtn_sesion_clicked(); break;
-        case 10: _t->on_Rbtn_cerrar_clicked(); break;
-        case 11: _t->on_Rbtn_cambiar_clicked(); break;
-        case 12: _t->on_RTW_revision_cellClicked((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 13: _t->on_Bbtn_sesion_clicked(); break;
-        case 14: _t->on_Bbtn_cerrar_clicked(); break;
-        case 15: _t->on_Bbtn_proceso_clicked(); break;
-        case 16: _t->on_Bbtn_aceptados_clicked(); break;
-        case 17: _t->on_Dbtn_sesion_clicked(); break;
-        case 18: _t->on_Dbtn_salir_clicked(); break;
-        case 19: _t->on_DRTW_revision_cellClicked((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 20: _t->on_btn_sesion_clicked(); break;
+        case 8: _t->on_Rbtn_cerrar_clicked(); break;
+        case 9: _t->on_Rbtn_cambiar_clicked(); break;
+        case 10: _t->on_RTW_revision_cellClicked((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 11: _t->on_Bbtn_cerrar_clicked(); break;
+        case 12: _t->on_Bbtn_proceso_clicked(); break;
+        case 13: _t->on_Bbtn_aceptados_clicked(); break;
+        case 14: _t->on_Dbtn_salir_clicked(); break;
+        case 15: _t->on_DRTW_revision_cellClicked((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 16: _t->on_btn_sesion_clicked(); break;
+        case 17: _t->on_btn_registraruser_clicked(); break;
+        case 18: _t->on_btn_registrarSalir_clicked(); break;
+        case 19: _t->limpiarRegistro(); break;
         default: ;
         }
     }
@@ -242,13 +235,13 @@ int cframe::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 20)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 21;
+        _id -= 20;
     }
     return _id;
 }
