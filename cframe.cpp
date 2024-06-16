@@ -320,7 +320,7 @@ void cframe::on_btn_silaboE_clicked()
 
         Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", "Prerevision", "...", 0, "bytes",
                         facultad, carrera, usuarioActual->getName(), ui->le_codigoE->text().toStdString(), path,
-                        "NombreClase", "SubidoPor");
+                        ui->le_nombreClase->text().toStdString(), usuarioActual->getName());
 
         this->arbolSilabo->insertar(nuevoSilabo);
         arbolSilabo->mostrarDetallesSilabos();

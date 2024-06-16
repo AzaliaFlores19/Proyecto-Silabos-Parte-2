@@ -19,7 +19,7 @@ private:
                           << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
                           << ", Ruta: " << silabo->getRuta().toStdString() << ", Estado: " << silabo->getEstado()
                           << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
-                          << ", Número de revisiones: " << silabo->getNumeroderevisiones() << std::endl;
+                          << ", Número de revisiones: " << silabo->getNumeroderevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< std::endl;
             }
             mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
         }
