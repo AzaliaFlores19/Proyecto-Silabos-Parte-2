@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -753,7 +753,7 @@ Sesion</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="1" column="0">
           <widget class="QFrame" name="frameR">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -893,126 +893,6 @@ Sesion</string>
              </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QFrame" name="frameR1">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_9">
-            <item row="1" column="1">
-             <widget class="QComboBox" name="Rcb_usuario">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <item>
-               <property name="text">
-                <string>...</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Jefe Academico</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Coordinador de carrera</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>IEDD</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Consultor</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="Rlbl_usuario">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Tipo de usuario:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="Rlbl_contra">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Clave:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="Rlbl_name">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Nombre Completo:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QPushButton" name="Rbtn_sesion">
-              <property name="font">
-               <font>
-                <family>Sans Serif Collection</family>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Iniciar Sesion</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="Rle_name">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="Rle_clave">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-             </widget>
-            </item>
-           </layout>
-           <zorder>Rbtn_sesion</zorder>
-           <zorder>Rle_clave</zorder>
-           <zorder>Rcb_usuario</zorder>
-           <zorder>Rlbl_name</zorder>
-           <zorder>Rle_name</zorder>
-           <zorder>Rlbl_contra</zorder>
-           <zorder>Rlbl_usuario</zorder>
           </widget>
          </item>
         </layout>
@@ -1817,7 +1697,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1038</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

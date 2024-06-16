@@ -53,7 +53,17 @@ cframe::cframe(QWidget *parent)
     std::ifstream file("usuarios.xls");
     if (!file.is_open()) {
         Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
+        Usuario B("AdminJefe","123","boss123","UNITEC","Jefe");
+        Usuario I("AdminIEDD","234","what123","UNITEC","IEDD");
+        Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador");
+        Usuario D("AdminDocente","678","teacher123","UNITEC","Docente");
+        Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor");
         listaUsuarios.InsertarFin(u);
+        listaUsuarios.InsertarFin(B);
+        listaUsuarios.InsertarFin(I);
+        listaUsuarios.InsertarFin(C);
+        listaUsuarios.InsertarFin(D);
+        listaUsuarios.InsertarFin(CC);
         listaUsuarios.guardarUsuarios(listaUsuarios);
     } else {
         listaUsuarios.cargarUsuarios();
@@ -89,58 +99,62 @@ void cframe::on_btn_dashboardM_2_clicked()
 void cframe::on_tabWidget_currentChanged(int index)
 {
     QMessageBox::StandardButton cambio;
-    if ((index == 2 || index == 3 || index == 4) && loginDocente) {
-        cambio = QMessageBox::question(this, "Acceso Denegado", "Los docentes no tienen acceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-        if (cambio == QMessageBox::Yes) {
-            loginDocente = false;
-            ui->tabWidget->setCurrentIndex(index);
-            ui->tab_3->setEnabled(true);
-            ui->tab_4->setEnabled(true);
-            ui->tab_5->setEnabled(true);
-            limpiarEntrega();
-        } else {
-            ui->tabWidget->setCurrentIndex(1);
-        }
-    } else if ((index == 1 || index == 3 || index == 4) && loginRevision) {
-        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-        if (cambio == QMessageBox::Yes) {
-            loginRevision = false;
-            ui->tabWidget->setCurrentIndex(index);
-            ui->tab_2->setEnabled(true);
-            ui->tab_4->setEnabled(true);
-            ui->tab_5->setEnabled(true);
-            limpiarRevision();
-        } else {
-            ui->tabWidget->setCurrentIndex(2);
-        }
-    } else if ((index == 1 || index == 2 || index == 4) && loginBoard) {
-        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para visualizar\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-        if (cambio == QMessageBox::Yes) {
-            loginBoard = false;
-            ui->tabWidget->setCurrentIndex(index);
-            ui->tab_3->setEnabled(true);
-            ui->tab_2->setEnabled(true);
-            ui->tab_5->setEnabled(true);
-            limpiarBoard();
-        } else {
-            ui->tabWidget->setCurrentIndex(3);
-        }
-    } else if ((index == 1 || index == 2 || index == 3) && loginCheck) {
-        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-        if (cambio == QMessageBox::Yes) {
-            loginCheck = false;
-            ui->tabWidget->setCurrentIndex(index);
-            ui->tab_3->setEnabled(true);
-            ui->tab_2->setEnabled(true);
-            ui->tab_4->setEnabled(true);
-        } else {
-            ui->tabWidget->setCurrentIndex(4);
-        }
+    if(index==2){
+        pruebitaBotonesTab();
     }
+//    if ((index == 2 || index == 3 || index == 4) && loginDocente) {
+//        cambio = QMessageBox::question(this, "Acceso Denegado", "Los docentes no tienen acceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+//        if (cambio == QMessageBox::Yes) {
+//            loginDocente = false;
+//            ui->tabWidget->setCurrentIndex(index);
+//            ui->tab_3->setEnabled(true);
+//            ui->tab_4->setEnabled(true);
+//            ui->tab_5->setEnabled(true);
+//            limpiarEntrega();
+//        } else {
+//            ui->tabWidget->setCurrentIndex(1);
+//        }
+//    } else if ((index == 1 || index == 3 || index == 4) && loginRevision) {
+//        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+//        if (cambio == QMessageBox::Yes) {
+//            loginRevision = false;
+//            ui->tabWidget->setCurrentIndex(index);
+//            ui->tab_2->setEnabled(true);
+//            ui->tab_4->setEnabled(true);
+//            ui->tab_5->setEnabled(true);
+//            limpiarRevision();
+//        } else {
+//            ui->tabWidget->setCurrentIndex(2);
+//        }
+//    } else if ((index == 1 || index == 2 || index == 4) && loginBoard) {
+//        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para visualizar\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+//        if (cambio == QMessageBox::Yes) {
+//            loginBoard = false;
+//            ui->tabWidget->setCurrentIndex(index);
+//            ui->tab_3->setEnabled(true);
+//            ui->tab_2->setEnabled(true);
+//            ui->tab_5->setEnabled(true);
+//            limpiarBoard();
+//        } else {
+//            ui->tabWidget->setCurrentIndex(3);
+//        }
+//    } else if ((index == 1 || index == 2 || index == 3) && loginCheck) {
+//        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+//        if (cambio == QMessageBox::Yes) {
+//            loginCheck = false;
+//            ui->tabWidget->setCurrentIndex(index);
+//            ui->tab_3->setEnabled(true);
+//            ui->tab_2->setEnabled(true);
+//            ui->tab_4->setEnabled(true);
+//        } else {
+//            ui->tabWidget->setCurrentIndex(4);
+//        }
+//    }
 }
 
 void cframe::on_btn_sesion_clicked()
 {
+    ui->tabWidget->tabBar()->show();
     if (ui->le_claveE->text().isEmpty() || ui->le_cuentaE->text().isEmpty()) {
         QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
     } else {
@@ -164,6 +178,9 @@ void cframe::on_btn_sesion_clicked()
 
         if (user->contrasena == pwd) {
             usuarioActual = user;
+            QStringList items;
+
+
 
             //Habilitar tabs correspondientes al usuario
             if (usuarioActual->getTipo() == "Docente"){
@@ -174,15 +191,27 @@ void cframe::on_btn_sesion_clicked()
             }else if(usuarioActual->getTipo() == "Coordinador"){
                 desactivarTabs();
                 ui->tabWidget->setTabEnabled(2, true);
+                items << "Cargar silabo (Enviar a IEDD)" << "Rechazar";
+                ui->Rcb_cambiarE->addItems(items);
 
             }else if(usuarioActual->getTipo() == "IEDD"){
                 desactivarTabs();
                 ui->tabWidget->setTabEnabled(2, true);
                 ui->tabWidget->setTabEnabled(5, true);
-
+                items << "Listo para revision 1" << "Devolver a Academia";
+                 ui->Rcb_cambiarE->addItems(items);
             }else if(usuarioActual->getTipo() == "Consultor"){
                 desactivarTabs();
                 ui->tabWidget->setTabEnabled(2, true);
+                items << "...";
+                ui->Rcb_cambiarE->addItems(items);
+
+            }else if(usuarioActual->getTipo()=="Jefe"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(2, true);
+                loginRevision=true;
+                items << "Cargar silabo (Enviar a IEDD)" << "Rechazar";
+                ui->Rcb_cambiarE->addItems(items);
 
             }else if(usuarioActual->getTipo() == "Decano"){
                 desactivarTabs();
@@ -200,6 +229,7 @@ void cframe::on_btn_sesion_clicked()
             QMessageBox::warning(this, "Login", "Contraseña incorrecta.");
         }
     }
+
 }
 
 void cframe::on_btn_closeE_clicked()
@@ -211,6 +241,7 @@ void cframe::on_btn_closeE_clicked()
     limpiarEntrega();
     ui->tabWidget->setCurrentIndex(0);
     desactivarTabs();
+    ui->tabWidget->tabBar()->hide();
 }
 
 void cframe::limpiarEntrega()
@@ -317,14 +348,16 @@ void cframe::on_cb_facultadE_currentIndexChanged(int i)
 void cframe::on_Rcb_usuario_currentIndexChanged(int i)
 {
     QStringList items;
+     std::string tipoUsuario = usuarioActual->getTipo();
+
     ui->Rcb_cambiarE->clear();
-    if (i == 1 || i == 2) { // jefe o coordinador
+    if (tipoUsuario == "Jefe" || tipoUsuario == "Coordinador") { // jefe o coordinador
         items << "..." << "Cargar silabo (Enviar a IEDD)" << "Rechazar";
         ui->Rcb_cambiarE->addItems(items);
-    } else if (i == 3) { // en IEDD
+    } else if (tipoUsuario == "IEDD") { // en IEDD
         items << "..." << "Listo para revision 1" << "Devolver a Academia";
         ui->Rcb_cambiarE->addItems(items);
-    } else if (i == 4) { // consultor
+    } else if (tipoUsuario == "Consultor") { // consultor
         items << "...";
         ui->Rcb_cambiarE->addItems(items);
     }
@@ -332,25 +365,25 @@ void cframe::on_Rcb_usuario_currentIndexChanged(int i)
 
 void cframe::on_Rbtn_sesion_clicked()
 {
-    if (ui->Rle_name->text().isEmpty() || ui->Rle_clave->text().isEmpty() || ui->Rcb_usuario->currentIndex() == 0) {
-        QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
-    } else {
-        if ((ui->Rcb_usuario->currentIndex() == 1 && ui->Rle_clave->text().toStdString() == claveJefe) ||
-                (ui->Rcb_usuario->currentIndex() == 2 && ui->Rle_clave->text().toStdString() == claveCoordinador) ||
-                (ui->Rcb_usuario->currentIndex() == 3 && ui->Rle_clave->text().toStdString() == claveIEDD) ||
-                (ui->Rcb_usuario->currentIndex() == 4 && ui->Rle_clave->text().toStdString() == claveConsultor)) {
+    //    if (ui->Rle_name->text().isEmpty() || ui->Rle_clave->text().isEmpty() || ui->Rcb_usuario->currentIndex() == 0) {
+    //        QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
+    //    } else {
+    //        if ((ui->Rcb_usuario->currentIndex() == 1 && ui->Rle_clave->text().toStdString() == claveJefe) ||
+    //                (ui->Rcb_usuario->currentIndex() == 2 && ui->Rle_clave->text().toStdString() == claveCoordinador) ||
+    //                (ui->Rcb_usuario->currentIndex() == 3 && ui->Rle_clave->text().toStdString() == claveIEDD) ||
+    //                (ui->Rcb_usuario->currentIndex() == 4 && ui->Rle_clave->text().toStdString() == claveConsultor)) {
 
-            ui->frameR->setVisible(true);
-            ui->frameR1->setEnabled(false);
-            loginRevision = true;
-            ui->tab_2->setEnabled(false);
-            ui->tab_4->setEnabled(false);
-            ui->tab_5->setEnabled(false);
-            pruebitaBotonesTab();
-        } else {
-            QMessageBox::warning(this, "Datos no congruentes", "Clave incorrecta");
-        }
-    }
+    //            ui->frameR->setVisible(true);
+    //            ui->frameR1->setEnabled(false);
+    //            loginRevision = true;
+    //            ui->tab_2->setEnabled(false);
+    //            ui->tab_4->setEnabled(false);
+    //            ui->tab_5->setEnabled(false);
+    //            pruebitaBotonesTab();
+    //        } else {
+    //            QMessageBox::warning(this, "Datos no congruentes", "Clave incorrecta");
+    //        }
+    //    }
 }
 
 void cframe::limpiarRevision()
@@ -365,12 +398,11 @@ void cframe::limpiarRevision()
         ui->Rcb_cambiarE->clear();
         items << "...";
         ui->Rcb_cambiarE->addItems(items);
-        ui->Rle_name->clear();
-        ui->Rle_clave->clear();
-        ui->Rcb_usuario->setCurrentIndex(0);
+        //        ui->Rle_name->clear();
+        //        ui->Rle_clave->clear();
+        //        ui->Rcb_usuario->setCurrentIndex(0);
         ui->Rcb_cambiarE->setCurrentIndex(0);
-        ui->frameR->setVisible(false);
-        ui->frameR1->setEnabled(true);
+        // ui->frameR1->setEnabled(true);
     }
 }
 
@@ -384,6 +416,7 @@ void cframe::on_Rbtn_cerrar_clicked()
     limpiarRevision();
     ui->tabWidget->setCurrentIndex(0);
     desactivarTabs();
+    ui->tabWidget->tabBar()->hide();
 }
 
 void cframe::on_Rbtn_cambiar_clicked()
@@ -489,17 +522,28 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
 
     recorrerArbolParaTabla(nodo->getChild(0), fila, actD);
 
+    std::string tipoUsuario = usuarioActual->getTipo();
+
+
+
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
         bool mostrar = false;
 
-        if ((ui->Rcb_usuario->currentIndex() == 1 || ui->Rcb_usuario->currentIndex() == 2) && (estadoToString(silabo->getEstado()) == "Prerevision" || estadoToString(silabo->getEstado()) == "DevueltoAcademia")) {
+        if ((tipoUsuario == "Jefe" || tipoUsuario == "Coordinador") &&
+                (estadoToString(silabo->getEstado()) == "Prerevision" || estadoToString(silabo->getEstado()) == "DevueltoAcademia")) {
             mostrar = true;
-        } else if (ui->Rcb_usuario->currentIndex() == 3 && (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "CorrecionMayor" || estadoToString(silabo->getEstado()) == "CorrecionMenor" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
+        } else if (tipoUsuario == "Coordinador" &&
+                   (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "CorrecionMayor" || estadoToString(silabo->getEstado()) == "CorrecionMenor" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
             mostrar = true;
-        } else if (ui->Rcb_usuario->currentIndex() == 4 && (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "Aprobado" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
+        } else if (tipoUsuario == "IEDD" &&
+                   (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "Aprobado" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
+            mostrar = true;
+        } else if (tipoUsuario == "Consultor" &&
+                   (estadoToString(silabo->getEstado()) == "ListoRevision" || estadoToString(silabo->getEstado()) == "Aprobado" || estadoToString(silabo->getEstado()) == "AprobadoCondicion")) {
             mostrar = true;
         }
+
 
         if (mostrar) {
             ui->RTW_revision->setRowCount(fila + 1);
@@ -533,10 +577,12 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
         QString estado = ui->RTW_revision->item(row, 3)->text();
         ui->Rle_estadoA->setText(estado);
 
-        if (ui->Rcb_usuario->currentIndex() == 4) {
+        std::string tipoUsuario = usuarioActual->getTipo();
+
+        if (tipoUsuario == "Consultor") {
             QStringList items;
             ui->Rcb_cambiarE->clear();
-            if (ui->RTW_revision->item(row, 3)->text().toStdString() == "Aprobado") {
+            if (ui->RTW_revision->item(row,3)->text().toStdString()=="Aprobado") {
                 items << "..." << "Aprobar" << "Aprobado con condicion";
             } else {
                 items << "..." << "Aprobado" << "Correcion Mayor" << "Correcion Menor";
@@ -646,6 +692,7 @@ void cframe::on_Bbtn_cerrar_clicked()
     loginBoard = false;
     limpiarBoard();
     desactivarTabs();
+    ui->tabWidget->tabBar()->hide();
 }
 
 void cframe::limpiarBoard()
@@ -734,6 +781,7 @@ void cframe::on_Dbtn_salir_clicked()
     loginCheck = false;
     ui->Dbtn_salir->setVisible(false);
     desactivarTabs();
+    ui->tabWidget->tabBar()->hide();
 }
 
 void cframe::on_DRTW_revision_cellClicked(int row, int column)
@@ -791,4 +839,6 @@ void cframe::on_btn_registraruser_clicked()
     listaUsuarios.guardarUsuarios(listaUsuarios);
     QMessageBox::information(this, "Registro Exitoso", "El usuario ha sido registrado exitosamente.");
 }
+
+
 
