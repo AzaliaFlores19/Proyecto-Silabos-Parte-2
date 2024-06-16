@@ -6,7 +6,6 @@
 #include <vector>
 #include <QString>
 #include "Archivo.h"
-#include "Estado.h"
 
 using std::string;
 
@@ -21,7 +20,7 @@ private:
     string subidoPor;
 
 public:
-    Silabo(int id, const string& nombrearchivo, Estado estado,
+    Silabo(int id, const string& nombrearchivo, string estado,
            const string& observacion, int numeroderevisiones, const string& bytesarchivo,
            const string& facultad, string carrera, const string& insertadoPor, const string& codigoClase,
            const QString& ruta, const string& nombreClase, const string& subidoPor)

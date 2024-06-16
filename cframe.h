@@ -95,7 +95,7 @@ private:
     Usuario *usuarioActual = nullptr;
 
     // Método para convertir enum Estado a string
-    std::string estadoToString(Estado estado) const;
+    std::string estado;
 };
 
 #endif // CFRAME_H

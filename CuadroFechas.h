@@ -8,7 +8,7 @@ public:
     int silabo;
     std::string archivoBlob;
 
-    CuadroFechas(int id, const std::string& nombrearchivo, Estado estado,
+    CuadroFechas(int id, const std::string& nombrearchivo, string estado,
                  const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo,
                  int silabo, const std::string& archivoBlob)
         : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),

@@ -3,18 +3,18 @@
 
 #include <fstream>
 #include <string>
-#include "Estado.h"
+using std::string;
 
 class Archivo {
 public:
     std::string nombrearchivo;
-    Estado estado;
+    string estado;
     std::string observacion;
     int numeroderevisiones;
     std::string bytesarchivo;
     int id;
 
-    Archivo(int id, const std::string& nombrearchivo, Estado estado,
+    Archivo(int id, const std::string& nombrearchivo, string estado,
             const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo)
         : id(id), nombrearchivo(nombrearchivo), estado(estado),
         observacion(observacion), numeroderevisiones(numeroderevisiones), bytesarchivo(bytesarchivo) {}
@@ -37,11 +37,11 @@ public:
         nombrearchivo = newNombreArchivo;
     }
 
-    Estado getEstado() const {
+    string getEstado() const {
         return estado;
     }
 
-    void setEstado(Estado newEstado) {
+    void setEstado(std::string newEstado) {
         estado = newEstado;
     }
 
