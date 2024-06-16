@@ -36,18 +36,14 @@ private slots:
     void on_cb_facultadE_currentIndexChanged(int index);
     void on_btn_closeE_clicked();
 
-    void on_Rcb_usuario_currentIndexChanged(int index);
-    void on_Rbtn_sesion_clicked();
     void on_Rbtn_cerrar_clicked();
     void on_Rbtn_cambiar_clicked();
     void on_RTW_revision_cellClicked(int row, int column);
 
-    void on_Bbtn_sesion_clicked();
     void on_Bbtn_cerrar_clicked();
     void on_Bbtn_proceso_clicked();
     void on_Bbtn_aceptados_clicked();
 
-    void on_Dbtn_sesion_clicked();
     void on_Dbtn_salir_clicked();
     void on_DRTW_revision_cellClicked(int row, int column);
 
@@ -56,6 +52,9 @@ private slots:
     void on_btn_registraruser_clicked();
 
 
+
+    void on_btn_registrarSalir_clicked();
+    void limpiarRegistro();
 
 private:
     Ui::cframe *ui;

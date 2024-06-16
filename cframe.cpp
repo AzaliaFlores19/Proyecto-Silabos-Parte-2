@@ -58,12 +58,17 @@ cframe::cframe(QWidget *parent)
         Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador");
         Usuario D("AdminDocente","678","teacher123","UNITEC","Docente");
         Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor");
+        Usuario DD("AdminDecano","444","dean123","UNITEC","Decano");
+        Usuario DI("AdminDirector","222","director123","UNITEC","Director");
+
         listaUsuarios.InsertarFin(u);
         listaUsuarios.InsertarFin(B);
         listaUsuarios.InsertarFin(I);
         listaUsuarios.InsertarFin(C);
         listaUsuarios.InsertarFin(D);
         listaUsuarios.InsertarFin(CC);
+        listaUsuarios.InsertarFin(DD);
+        listaUsuarios.InsertarFin(DI);
         listaUsuarios.guardarUsuarios(listaUsuarios);
     } else {
         listaUsuarios.cargarUsuarios();
@@ -101,6 +106,32 @@ void cframe::on_tabWidget_currentChanged(int index)
     QMessageBox::StandardButton cambio;
     if(index==2){
         pruebitaBotonesTab();
+    }else if(index==3){
+
+        // Limpiar el QTableWidget antes de agregar nuevos datos
+        ui->tableWidget->clear();
+        ui->tableWidget->setRowCount(0); // Limpiar todas las filas existentes
+
+        // Agregar encabezados de columna al QTableWidget
+        QStringList headers;
+        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+        ui->tableWidget->setColumnCount(headers.size());
+        ui->tableWidget->setHorizontalHeaderLabels(headers);
+
+
+       // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
+    }else if(index==4){
+        loginCheck = true;
+        ui->tab_3->setEnabled(false);
+        ui->tab_2->setEnabled(false);
+        ui->tab_4->setEnabled(false);
+        ui->Dframe2->setVisible(true);
+        ui->Dbtn_salir->setVisible(true);
+
+        ui->DRTW_revision->clearContents();
+        ui->DRTW_revision->setColumnCount(10); // tab 2 tw_doble
+        ui->DRTW_revision->setHorizontalHeaderLabels(QStringList() << "VER DOCX" << "ORDEN DE INGRESO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "OBSERVACION" << "PATH" << "RELOAD");
+        mostrarDocente(arbolSilabo->getRaiz(), 0, ui->lbl_cuentaE->text().toStdString());
     }
 //    if ((index == 2 || index == 3 || index == 4) && loginDocente) {
 //        cambio = QMessageBox::question(this, "Acceso Denegado", "Los docentes no tienen acceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
@@ -216,7 +247,9 @@ void cframe::on_btn_sesion_clicked()
             }else if(usuarioActual->getTipo() == "Decano"){
                 desactivarTabs();
                 ui->tabWidget->setTabEnabled(3, true);
-
+            }else if(usuarioActual->getTipo() == "Director"){
+                desactivarTabs();
+                ui->tabWidget->setTabEnabled(3, true);
             }else if(usuarioActual->getTipo() == "GLOBAL"){
                 activarTabs(); // ACTIVAR TODOS LOS TABS PARA EL USUARIO GLOBAL
             }
@@ -261,6 +294,7 @@ void cframe::limpiarEntrega()
     if (!loginDocente) {
         ui->le_cuentaE->clear();
         ui->le_claveE->clear();
+        ui->le_nombreClase->clear();
         ui->cb_facultadE->setCurrentIndex(0);
         ui->cb_carreraE->setCurrentIndex(0);
     }
@@ -343,47 +377,6 @@ void cframe::on_cb_facultadE_currentIndexChanged(int i)
         items << "..." << "TÉCNICO UNIVERSITARIO EN ENFERMERÍA AUXILIAR" << "TÉCNICO UNIVERSITARIO EN INSTALACIÓN DE REDES" << "TÉCNICO UNIVERSITARIO EN DESARROLLO DE APLICACIONES WEB" << "TÉCNICO UNIVERSITARIO EN DISEÑO DE INTERIORES" << "TÉCNICO UNIVERSITARIO BILINGÜE EN CALL CENTER" << "TÉCNICO UNIVERSITARIO EN INSTRUMENTACIÓN QUIRÚRGICA"<< "TÉCNICO UNIVERSITARIO EN URGENCIAS MÉDICAS" << "TÉCNICO UNIVERSITARIO BILINGÜE EN TURISMO"<< "TÉCNICO UNIVERSITARIO EN MARKETING DIGITAL" << "TÉCNICO UNIVERSITARIO EN DESARROLLO Y CUIDADO INFANTIL" << "TÉCNICO UNIVERSITARIO EN COMERCIALIZACIÓN Y PROMOCIÓN RETAIL"<< "TÉCNICO UNIVERSITARIO EN DISEÑO GRÁFICO" << "TÉCNICO UNIVERSITARIO EN ADMINISTRACIÓN";
         ui->cb_carreraE->addItems(items);
     }
-}
-
-void cframe::on_Rcb_usuario_currentIndexChanged(int i)
-{
-    QStringList items;
-     std::string tipoUsuario = usuarioActual->getTipo();
-
-    ui->Rcb_cambiarE->clear();
-    if (tipoUsuario == "Jefe" || tipoUsuario == "Coordinador") { // jefe o coordinador
-        items << "..." << "Cargar silabo (Enviar a IEDD)" << "Rechazar";
-        ui->Rcb_cambiarE->addItems(items);
-    } else if (tipoUsuario == "IEDD") { // en IEDD
-        items << "..." << "Listo para revision 1" << "Devolver a Academia";
-        ui->Rcb_cambiarE->addItems(items);
-    } else if (tipoUsuario == "Consultor") { // consultor
-        items << "...";
-        ui->Rcb_cambiarE->addItems(items);
-    }
-}
-
-void cframe::on_Rbtn_sesion_clicked()
-{
-    //    if (ui->Rle_name->text().isEmpty() || ui->Rle_clave->text().isEmpty() || ui->Rcb_usuario->currentIndex() == 0) {
-    //        QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
-    //    } else {
-    //        if ((ui->Rcb_usuario->currentIndex() == 1 && ui->Rle_clave->text().toStdString() == claveJefe) ||
-    //                (ui->Rcb_usuario->currentIndex() == 2 && ui->Rle_clave->text().toStdString() == claveCoordinador) ||
-    //                (ui->Rcb_usuario->currentIndex() == 3 && ui->Rle_clave->text().toStdString() == claveIEDD) ||
-    //                (ui->Rcb_usuario->currentIndex() == 4 && ui->Rle_clave->text().toStdString() == claveConsultor)) {
-
-    //            ui->frameR->setVisible(true);
-    //            ui->frameR1->setEnabled(false);
-    //            loginRevision = true;
-    //            ui->tab_2->setEnabled(false);
-    //            ui->tab_4->setEnabled(false);
-    //            ui->tab_5->setEnabled(false);
-    //            pruebitaBotonesTab();
-    //        } else {
-    //            QMessageBox::warning(this, "Datos no congruentes", "Clave incorrecta");
-    //        }
-    //    }
 }
 
 void cframe::limpiarRevision()
@@ -628,38 +621,6 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
     }
 }
 
-void cframe::on_Bbtn_sesion_clicked()
-{
-    if (ui->Ble_name->text().isEmpty() || ui->Ble_clave->text().isEmpty() || ui->Bcb_usuario->currentIndex() == 0) {
-        QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
-    } else {
-        if ((ui->Bcb_usuario->currentIndex() == 1 && ui->Ble_clave->text().toStdString() == claveDirector) ||
-                (ui->Bcb_usuario->currentIndex() == 2 && ui->Ble_clave->text().toStdString() == claveDecano)) {
-
-            ui->frameB->setVisible(true);
-            ui->frameB1->setEnabled(false);
-            loginBoard = true;
-            ui->tab_3->setEnabled(false);
-            ui->tab_2->setEnabled(false);
-
-            // Limpiar el QTableWidget antes de agregar nuevos datos
-            ui->tableWidget->clear();
-            ui->tableWidget->setRowCount(0); // Limpiar todas las filas existentes
-
-            // Agregar encabezados de columna al QTableWidget
-            QStringList headers;
-            headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
-            ui->tableWidget->setColumnCount(headers.size());
-            ui->tableWidget->setHorizontalHeaderLabels(headers);
-
-            // Llamar a la función para agregar datos al QTableWidget
-            recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
-
-        } else {
-            QMessageBox::warning(this, "Datos no congruentes", "Clave incorrecta");
-        }
-    }
-}
 
 void cframe::on_Bbtn_aceptados_clicked()
 {
@@ -728,45 +689,14 @@ void cframe::on_Bbtn_cerrar_clicked()
 
 void cframe::limpiarBoard()
 {
-    ui->Ble_name->clear();
-    ui->Ble_clave->clear();
-    ui->Bcb_usuario->setCurrentIndex(0);
     ui->tab_3->setEnabled(true);
     ui->tab_2->setEnabled(true);
     ui->tab_5->setEnabled(true);
-    ui->frameB->setVisible(false);
+
     ui->frameB1->setEnabled(true);
 }
 
-void cframe::on_Dbtn_sesion_clicked()
-{
-    if (ui->Dle_clave->text().isEmpty() || ui->Dle_cuenta->text().isEmpty() || ui->Dle_name->text().isEmpty()) {
-        QMessageBox::warning(this, "Datos incompletos", "Favor, no deje campos vacíos");
-    } else if (ui->Dle_clave->text().toStdString() != claveDocente) {
-        QMessageBox::warning(this, "Datos incongruentes", "Clave incorrecta");
-    } else {
-        string name = obtenerNombre(ui->Dle_cuenta->text().toStdString());
-        if (name == "...") {
-            QMessageBox::warning(this, "Datos incongruentes", "Número de cuenta o usuario incorrectos");
-        } else {
-            if (name != ui->Dle_name->text().toStdString()) {
-                QMessageBox::warning(this, "Datos incongruentes", "Número de cuenta o usuario incorrectos");
-            } else {
-                loginCheck = true;
-                ui->tab_3->setEnabled(false);
-                ui->tab_2->setEnabled(false);
-                ui->tab_4->setEnabled(false);
-                ui->Dframe2->setVisible(true);
-                ui->Dbtn_salir->setVisible(true);
 
-                ui->DRTW_revision->clearContents();
-                ui->DRTW_revision->setColumnCount(10); // tab 2 tw_doble
-                ui->DRTW_revision->setHorizontalHeaderLabels(QStringList() << "VER DOCX" << "ORDEN DE INGRESO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "OBSERVACION" << "PATH" << "RELOAD");
-                mostrarDocente(arbolSilabo->getRaiz(), 0, ui->Dle_cuenta->text().toStdString());
-            }
-        }
-    }
-}
 
 void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
 {
@@ -802,13 +732,9 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
 void cframe::on_Dbtn_salir_clicked()
 {
     ui->DRTW_revision->clear();
-    ui->Dle_clave->clear();
-    ui->Dle_cuenta->clear();
-    ui->Dle_name->clear();
     ui->tab_3->setEnabled(true);
     ui->tab_2->setEnabled(true);
     ui->tab_4->setEnabled(true);
-    ui->Dframe2->setVisible(false);
     loginCheck = false;
     ui->Dbtn_salir->setVisible(false);
     desactivarTabs();
@@ -868,8 +794,28 @@ void cframe::on_btn_registraruser_clicked()
     Usuario nuevoUser(nombre, numeroCuenta, clave, institucion, tipousuario);
     listaUsuarios.InsertarFin(nuevoUser);
     listaUsuarios.guardarUsuarios(listaUsuarios);
+    limpiarRegistro();
     QMessageBox::information(this, "Registro Exitoso", "El usuario ha sido registrado exitosamente.");
+
 }
 
 
+
+
+void cframe::on_btn_registrarSalir_clicked()
+{
+    ui->tabWidget->setCurrentIndex(0);
+    desactivarTabs();
+    ui->tabWidget->tabBar()->hide();
+}
+
+void cframe::limpiarRegistro()
+{
+    ui->le_nombreR->clear();
+    ui->le_numcuentaR->clear();
+    ui->le_claveR->clear();
+    ui->cb_institucionR->setCurrentIndex(0);
+    ui->cb_tipousuarioR->setCurrentIndex(0);
+
+}
 
