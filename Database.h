@@ -7,8 +7,9 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include <QSqlError>
+#include <vector>
 
-using std::string, std::cout;
+using std::string, std::cout, std::vector;
 
 class Database {
 
@@ -82,6 +83,26 @@ public:
        }
 
        prepareTables();
+    }
+
+    QSqlDatabase getConnection() {
+        return connection;
+    }
+
+    bool saveCuadroFechas(int id, vector<char> buffer) {
+        QSqlQuery query(connection);
+
+        query.prepare("INSERT INTO CuadroFechas (silabo, archivo) VALUES (?, ?)");
+        query.bindValue(0, id);
+        query.bindValue(1, QByteArray(buffer.data(), static_cast<int>(buffer.size())));
+
+        if (!query.exec()) {
+            qDebug() << "Error: failed to insert file into database -" << query.lastError().text();
+            return false;
+        } else {
+            qDebug() << "File successfully saved to the database.";
+            return true;
+        }
     }
 
 

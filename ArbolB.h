@@ -4,6 +4,8 @@
 #include "NodoArbolB.h"
 #include <iostream>
 #include <Database.h>
+#include <fstream>
+#include <vector>
 
 class ArbolB {
 private:
@@ -130,8 +132,34 @@ public:
         mostrarDetalles(root);
     }
 
+
+    void saveCuadroFechasToDB(int silaboId, string filePath) {
+         std::ifstream file(filePath, std::ifstream::binary);
+
+         // Leer el archivo en un vector de
+         if (!file) {
+             std::cerr << "[saveFileToDB] Error: could not open file " << filePath << std::endl;
+             return;
+         }
+
+         std::streamsize size = file.tellg();
+         file.seekg(0, std::ios::beg);
+
+         std::vector<char> buffer(size);
+         if (!file.read(buffer.data(), size)) {
+             std::cerr << "[saveFileToDB] Error: could not read file " << filePath << std::endl;
+             return;
+         }
+
+         //DB.saveCuadroFechas(silaboId, buffer);
+    }
+
     void insertar(Silabo* silabo) {
         cantidadArbol++;
+
+        //saveFileToDB(silabo->id, silabo->getRuta().toStdString());
+
+
         if (root->getN() == 2 * t - 1) {
             NodoArbolB* s = new NodoArbolB(t);
             s->setLeaf(false);
