@@ -3,9 +3,11 @@
 
 #include "NodoArbolB.h"
 #include <iostream>
+#include <Database.h>
 
 class ArbolB {
 private:
+    Database DB;
     NodoArbolB* root;
     int t;
     int cantidadArbol;
