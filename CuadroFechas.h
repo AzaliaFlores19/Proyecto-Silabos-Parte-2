@@ -2,13 +2,18 @@
 #define CUADROFECHAS_H
 
 #include "Archivo.h"
+#include <string>
 
 class CuadroFechas : public Archivo {
 public:
     int silabo;
     std::string archivoBlob;
 
-    CuadroFechas(int id, const std::string& nombrearchivo, string estado,
+    // Constructor por defecto
+    CuadroFechas() : Archivo(), silabo(0), archivoBlob("") {}
+
+    // Constructor parametrizado
+    CuadroFechas(int id, const std::string& nombrearchivo, const std::string& estado,
                  const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo,
                  int silabo, const std::string& archivoBlob)
         : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),

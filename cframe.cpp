@@ -318,9 +318,10 @@ void cframe::on_btn_silaboE_clicked()
             return;
         }
 
+        CuadroFechas cuadroFechas; // Crear el objeto sin paréntesis
         Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", "Prerevision", "...", 0, "bytes",
-                        facultad, carrera, ui->le_codigoE->text().toStdString(), path,
-                        ui->le_nombreClase->text().toStdString(), usuarioActual->getName());
+                                         facultad, carrera, ui->le_codigoE->text().toStdString(), path,
+                                         ui->le_nombreClase->text().toStdString(), usuarioActual->getName(), cuadroFechas);
 
         this->arbolSilabo->insertar(nuevoSilabo);
         arbolSilabo->mostrarDetallesSilabos();

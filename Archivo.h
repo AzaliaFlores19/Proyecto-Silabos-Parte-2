@@ -7,14 +7,18 @@ using std::string;
 
 class Archivo {
 public:
+    int id;
     std::string nombrearchivo;
     string estado;
     std::string observacion;
     int numeroderevisiones;
     std::string bytesarchivo;
-    int id;
 
-    Archivo(int id, const std::string& nombrearchivo, string estado,
+    // Declaración y definición del constructor por defecto
+    Archivo() : id(0), nombrearchivo(""), estado(""), observacion(""), numeroderevisiones(0), bytesarchivo("") {}
+
+    // Constructor parametrizado
+    Archivo(int id, const std::string& nombrearchivo, const string& estado,
             const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo)
         : id(id), nombrearchivo(nombrearchivo), estado(estado),
         observacion(observacion), numeroderevisiones(numeroderevisiones), bytesarchivo(bytesarchivo) {}

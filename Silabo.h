@@ -5,7 +5,9 @@
 #include <fstream>
 #include <vector>
 #include <QString>
+#include <numeric> // Asegúrate de incluir esta librería para std::accumulate
 #include "Archivo.h"
+#include "CuadroFechas.h"
 
 using std::string;
 
@@ -17,17 +19,16 @@ private:
     QString ruta;
     string nombreClase;
     string subidoPor;
+    CuadroFechas cuadroFechas;
 
 public:
-    Silabo(int id, const string& nombrearchivo, string estado,
+    Silabo(int id, const string& nombrearchivo, const string& estado,
            const string& observacion, int numeroderevisiones, const string& bytesarchivo,
-           const string& facultad, string carrera, const string& codigoClase,
-           const QString& ruta, const string& nombreClase, const string& subidoPor)
+           const string& facultad, const string& carrera, const string& codigoClase,
+           const QString& ruta, const string& nombreClase, const string& subidoPor, const CuadroFechas& cuadroFechas)
         : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),
         facultad(facultad), carrera(carrera),
-        codigoClase(codigoClase), ruta(ruta), nombreClase(nombreClase), subidoPor(subidoPor) {}
-
-    ~Silabo() {}
+        codigoClase(codigoClase), ruta(ruta), nombreClase(nombreClase), subidoPor(subidoPor), cuadroFechas(cuadroFechas) {}
 
     // Métodos getter
     string getFacultad() const {
@@ -54,11 +55,16 @@ public:
         return subidoPor;
     }
 
+    CuadroFechas getCuadrofechas() const {
+        return cuadroFechas;
+    }
+
+    // Métodos setter
     void setFacultad(const string& nuevaFacultad) {
         facultad = nuevaFacultad;
     }
 
-    void setCarrera(string nuevaCarrera) {
+    void setCarrera(const string& nuevaCarrera) {
         carrera = nuevaCarrera;
     }
 
@@ -78,14 +84,13 @@ public:
         subidoPor = nuevoSubidoPor;
     }
 
-    long toNum() const {
-        long val = 0;
-        for (int i = 0; i < codigoClase.size(); i++) {
-            char c = codigoClase[i];
-            val += c;
-        }
+    void setCuadrofechas(const CuadroFechas& newCuadrofechas) {
+        cuadroFechas = newCuadrofechas;
+    }
 
-        return val;
+    // Método toNum
+    long toNum() const {
+        return std::accumulate(codigoClase.begin(), codigoClase.end(), 0L);
     }
 };
 
