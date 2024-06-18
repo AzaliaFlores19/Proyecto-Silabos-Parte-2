@@ -319,7 +319,7 @@ void cframe::on_btn_silaboE_clicked()
         }
 
         Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", "Prerevision", "...", 0, "bytes",
-                        facultad, carrera, usuarioActual->getName(), ui->le_codigoE->text().toStdString(), path,
+                        facultad, carrera, ui->le_codigoE->text().toStdString(), path,
                         ui->le_nombreClase->text().toStdString(), usuarioActual->getName());
 
         this->arbolSilabo->insertar(nuevoSilabo);
@@ -575,15 +575,14 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
             ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->RTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::number(silabo->getId())));
             ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString((silabo->getEstado()))));
-            ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getInsertadoPor()))));
-            ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInsertadoPor())));
-            ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-            ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(silabo->getRuta()));
-            ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
-            ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getNumeroderevisiones())));
+            ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getSubidoPor()))));
+            ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
+            ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(silabo->getRuta()));
+            ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
+            ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::number(silabo->getNumeroderevisiones())));
 
             fila++;
         }
@@ -666,7 +665,7 @@ void cframe::recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget,
             tableWidget->insertRow(row);
             tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
             tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getInsertadoPor())));
+            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
             tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
             tableWidget->setItem(row, 4, new QTableWidgetItem(silabo->getRuta()));
             tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString((silabo->getEstado()))));
@@ -709,18 +708,17 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if (numCuenta == silabo->getInsertadoPor() && ((silabo->getEstado()) == "Rechazar" || (silabo->getEstado()) == "Aprobado")) {
+        if (numCuenta == silabo->getSubidoPor() && ((silabo->getEstado()) == "Rechazar" || (silabo->getEstado()) == "Aprobado")) {
             ui->DRTW_revision->setRowCount(fila + 1);
             ui->DRTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->DRTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::number(silabo->getId())));
-            ui->DRTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getInsertadoPor()))));
-            ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(silabo->getInsertadoPor())));
-            ui->DRTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            ui->DRTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-            ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            ui->DRTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(silabo->getRuta()));
-            ui->DRTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
+            ui->DRTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
+            ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            ui->DRTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            ui->DRTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
+            ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            ui->DRTW_revision->setItem(fila, 7, new QTableWidgetItem(silabo->getRuta()));
+            ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
 
             fila++;
         }

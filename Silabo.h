@@ -13,7 +13,6 @@ class Silabo : public Archivo {
 private:
     string facultad;
     string carrera;
-    string insertadoPor;
     string codigoClase;
     QString ruta;
     string nombreClase;
@@ -22,10 +21,10 @@ private:
 public:
     Silabo(int id, const string& nombrearchivo, string estado,
            const string& observacion, int numeroderevisiones, const string& bytesarchivo,
-           const string& facultad, string carrera, const string& insertadoPor, const string& codigoClase,
+           const string& facultad, string carrera, const string& codigoClase,
            const QString& ruta, const string& nombreClase, const string& subidoPor)
         : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),
-        facultad(facultad), carrera(carrera), insertadoPor(insertadoPor),
+        facultad(facultad), carrera(carrera),
         codigoClase(codigoClase), ruta(ruta), nombreClase(nombreClase), subidoPor(subidoPor) {}
 
     ~Silabo() {}
@@ -37,10 +36,6 @@ public:
 
     string getCarrera() const {
         return carrera;
-    }
-
-    string getInsertadoPor() const {
-        return insertadoPor;
     }
 
     string getCodigoClase() const {
@@ -65,10 +60,6 @@ public:
 
     void setCarrera(string nuevaCarrera) {
         carrera = nuevaCarrera;
-    }
-
-    void setInsertadoPor(const string& nuevoInsertadoPor) {
-        insertadoPor = nuevoInsertadoPor;
     }
 
     void setCodigoClase(const string& nuevoCodigoClase) {

@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
 CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=11.0 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=11.0 -Wall -Wextra $(DEFINES)
-INCPATH       = -I../../../Proyecto-Silabos-Parte-2 -I. -I/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang -F/Users/coleexz/Qt/6.7.1/macos/lib
+INCPATH       = -I../../../Proyecto-Silabos-Parte-2 -I. -I/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang -F/Users/coleexz/Qt/6.7.1/macos/lib
 QMAKE         = /Users/coleexz/Qt/6.7.1/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = ProyectoSilabos1.0.0
 DISTDIR = /Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2/build/Qt_6_7_1_for_macOS-Debug/.tmp/ProyectoSilabos1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -mmacosx-version-min=11.0 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/coleexz/Qt/6.7.1/macos/lib
-LIBS          = $(SUBLIBS) -F/Users/coleexz/Qt/6.7.1/macos/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtCore -framework IOKit -framework DiskArbitration -framework AGL -framework OpenGL   
+LIBS          = $(SUBLIBS) -F/Users/coleexz/Qt/6.7.1/macos/lib -framework QtWidgets -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtSql -framework QtCore -framework IOKit -framework DiskArbitration -framework AGL -framework OpenGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed
@@ -289,6 +289,7 @@ DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		../../../../ProyectoSilabos.pro ../../ArbolB.h \
 		../../Archivo.h \
 		../../CuadroFechas.h \
+		../../Database.h \
 		../../Estado.h \
 		../../NodoArbolB.h \
 		../../Silabo.h \
@@ -553,6 +554,7 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 		../../ProyectoSilabos.pro \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Resources/QtGui.prl \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Resources/QtSql.prl \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Resources/QtCore.prl
 	$(QMAKE) -o Makefile ../../ProyectoSilabos.pro -spec macx-clang CONFIG+=debug CONFIG+=qml_debug
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf:
@@ -787,6 +789,7 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 ../../ProyectoSilabos.pro:
 /Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Resources/QtGui.prl:
+/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Resources/QtSql.prl:
 /Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Resources/QtCore.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../../ProyectoSilabos.pro -spec macx-clang CONFIG+=debug CONFIG+=qml_debug
@@ -812,7 +815,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ArbolB.h ../../Archivo.h ../../CuadroFechas.h ../../Estado.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ArbolB.h ../../Archivo.h ../../CuadroFechas.h ../../Database.h ../../Estado.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../main.cpp ../../cframe.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../cframe.ui $(DISTDIR)/
 
@@ -860,11 +863,22 @@ moc_cframe.cpp: ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../Archivo.h \
+		../../Database.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QDir \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qdir.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlDatabase \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqldatabase.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlQuery \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlquery.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QDebug \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qdebug.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlError \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlerror.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../CuadroFechas.h \
 		/Users/coleexz/Qt/6.7.1/macos/libexec/moc
-	/Users/coleexz/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2 -I/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/coleexz/Qt/6.7.1/macos/lib ../../cframe.h -o moc_cframe.cpp
+	/Users/coleexz/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2 -I/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/coleexz/Qt/6.7.1/macos/lib ../../cframe.h -o moc_cframe.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -904,6 +918,17 @@ main.o: ../../main.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../Archivo.h \
+		../../Database.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QDir \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qdir.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlDatabase \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqldatabase.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlQuery \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlquery.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QDebug \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qdebug.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlError \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlerror.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../CuadroFechas.h \
@@ -926,6 +951,17 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QString \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../Archivo.h \
+		../../Database.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QDir \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qdir.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlDatabase \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqldatabase.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlQuery \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlquery.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QDebug \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qdebug.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/QSqlError \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlerror.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../CuadroFechas.h \
