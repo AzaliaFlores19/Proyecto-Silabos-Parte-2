@@ -81,7 +81,7 @@ private:
 
     void cambiarSilabo(int id, QString pathActual);
     void modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo);
-    string obtenerNombre(string cuenta);
+    Usuario* obtenerUsuario(string cuenta);
     bool cambiarPath = false, cambiarEstado = false;
 
     listaD<Usuario> listaUsuarios;

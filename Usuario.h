@@ -10,14 +10,15 @@ class Usuario{
     friend class MainWindow;
 private:
 public:
-    string name,cuenta,contrasena, institucion, tipousuario;
-    Usuario(string name, string cuenta, string contrasena, string institucion, string tipousuario)
+    string name,cuenta,contrasena, institucion, tipousuario, carrera;
+    Usuario(string name, string cuenta, string contrasena, string institucion, string tipousuario, string carrera)
     {
         this->name = name;
         this->cuenta = cuenta;
         this->contrasena = contrasena;
         this->institucion = institucion;
         this->tipousuario = tipousuario;
+        this->carrera = carrera;
 
     }
     ~Usuario(){}
@@ -39,8 +40,11 @@ public:
     void setContrasena(const string &newContrasena);
     const string &getInstitucion() const;
     void setInstitucion(const string &newInstitucion);
-};
 
+    string getCarrera() {
+        return carrera;
+    }
+};
 inline const string &Usuario::getCuenta() const
 {
     return cuenta;

@@ -125,9 +125,9 @@ void listaD<tipo>::cargarUsuarios()
         string header;
         std::getline(file, header);
 
-        string nombre, cuenta, contrasena, institucion, tipousuario;
-        while (file >> nombre >> cuenta >> contrasena >> institucion >> tipousuario) {
-            Usuario nuevo(nombre, cuenta, contrasena, institucion, tipousuario);
+        string nombre, cuenta, contrasena, institucion, tipousuario, carrera;
+        while (file >> nombre >> cuenta >> contrasena >> institucion >> tipousuario >> carrera) {
+            Usuario nuevo(nombre, cuenta, contrasena, institucion, tipousuario, carrera);
             InsertarFin(nuevo);
         }
         file.close();

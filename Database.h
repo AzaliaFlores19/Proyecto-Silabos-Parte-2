@@ -11,6 +11,7 @@
 #include "Silabo.h"
 #include "CuadroFechas.h"
 #include "Usuario.h"
+#include "listaD.h"
 
 using std::string, std::cout, std::vector;
 
@@ -27,26 +28,28 @@ private:
     {
         QStringList queries = {
             R"(
-            CREATE TABLE Facultad (
+            CREATE TABLE IF NOT EXISTS Facultad (
                 id INTEGER PRIMARY KEY,
                 nombre TEXT
             );)",
             R"(
-            CREATE TABLE ProgramaAcademico (
+            CREATE TABLE IF NOT EXISTS ProgramaAcademico (
                 id INTEGER PRIMARY KEY,
                 facultad INTEGER,
                 nombre TEXT,
                 FOREIGN KEY (facultad) REFERENCES Facultad(id)
             );)",
             R"(
-            CREATE TABLE Usuarios (
+            CREATE TABLE IF NOT EXISTS Usuarios (
                 numeroCuenta TEXT PRIMARY KEY,
                 nombre TEXT,
                 clave TEXT,
-                org TEXT
+                org TEXT,
+                tipo TEXT,
+                carrera TEXT
             );)",
             R"(
-            CREATE TABLE Silabos (
+            CREATE TABLE IF NOT EXISTS Silabos (
                 id INTEGER PRIMARY KEY,
                 nombre TEXT,
                 carrera INTEGER,
@@ -59,12 +62,13 @@ private:
                 FOREIGN KEY (subidoPor) REFERENCES Usuarios(numeroCuenta)
             );)",
             R"(
-            CREATE TABLE CuadroFechas (
+            CREATE TABLE IF NOT EXISTS CuadroFechas (
                 id INTEGER PRIMARY KEY,
                 silabo INTEGER,
                 archivo BLOB,
                 FOREIGN KEY (silabo) REFERENCES Silabos(id)
-            );)"};
+            );)"
+        };
 
         for (const QString &queryStr : queries)
         {
@@ -75,6 +79,7 @@ private:
             }
         }
     }
+
 
 public:
     const string databasePath = QDir::homePath().toStdString() + "/silabos.sql";
@@ -189,11 +194,13 @@ public:
 
         QSqlQuery query(connection);
 
-        query.prepare("INSERT INTO Usuarios(numeroCuenta, nombre, clave, org) VALUEs(?, ?, ?, ?);");
+        query.prepare("INSERT INTO Usuarios(numeroCuenta, nombre, clave, org, tipo, carrera) VALUEs(?, ?, ?, ?, ?, ?);");
         query.bindValue(0, user.getCuenta().c_str());
         query.bindValue(1, user.getName().c_str());
         query.bindValue(2, user.getContrasena().c_str());
         query.bindValue(3, user.getInstitucion().c_str());
+        query.bindValue(4, user.getTipo().c_str());
+        query.bindValue(5, user.getCarrera().c_str());
 
         if (!query.exec()) {
             qDebug() << "[saveUser] error guardando.";
@@ -203,6 +210,31 @@ public:
         return true;
 
     }
+
+    bool loadUsers(listaD<Usuario> &usuarios) {
+        QSqlQuery query(connection);
+
+        if (!query.exec("SELECT numeroCuenta, nombre, clave, org, tipo, carrera FROM Usuarios")) {
+            qDebug() << "Error: failed to retrieve users from database -" << query.lastError().text();
+            return false;
+        }
+
+        while (query.next()) {
+            string numeroCuenta = query.value(0).toString().toStdString();
+            string nombre = query.value(1).toString().toStdString();
+            string clave = query.value(2).toString().toStdString();
+            string org = query.value(3).toString().toStdString();
+            string tipo = query.value(4).toString().toStdString();
+            string carrera = query.value(5).toString().toStdString();
+
+            Usuario user(numeroCuenta, nombre, clave, org, tipo, carrera);
+            usuarios.InsertarFin(user);
+        }
+
+        qDebug() << "Users successfully loaded from database.";
+        return true;
+    }
+
 };
 
 #endif // DATABASE_H

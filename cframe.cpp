@@ -37,7 +37,8 @@ cframe::cframe(QWidget *parent)
 
     connect(ui->RTW_revision, &QTableWidget::cellDoubleClicked, this, &cframe::on_btn_revision_2_clicked);
 
-    listaUsuarios.cargarUsuarios();
+    //listaUsuarios.cargarUsuarios();
+    DB.loadUsers(listaUsuarios);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(ui->tabWidget);
@@ -53,14 +54,14 @@ cframe::cframe(QWidget *parent)
     // Cargar usuarios desde el archivo, si no existe, crear archivo con usuario por defecto
     std::ifstream file("usuarios.xls");
     if (!file.is_open()) {
-        Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
-        Usuario B("AdminJefe","123","boss123","UNITEC","Jefe");
-        Usuario I("AdminIEDD","234","what123","UNITEC","IEDD");
-        Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador");
-        Usuario D("AdminDocente","678","teacher123","UNITEC","Docente");
-        Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor");
-        Usuario DD("AdminDecano","444","dean123","UNITEC","Decano");
-        Usuario DI("AdminDirector","222","director123","UNITEC","Director");
+        Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
+        Usuario B("AdminJefe","123","boss123","UNITEC","Jefe", "Ingenieria en Mecatronica");
+        Usuario I("AdminIEDD","234","what123","UNITEC","IEDD", "Ingenieria en Mecatronica");
+        Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador", "Ingenieria en Mecatronica");
+        Usuario D("AdminDocente","678","teacher123","UNITEC","Docente", "Ingenieria en Mecatronica");
+        Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor", "Ingenieria en Mecatronica");
+        Usuario DD("AdminDecano","444","dean123","UNITEC","Decano", "Ingenieria en Mecatronica");
+        Usuario DI("AdminDirector","222","director123","UNITEC","Director", "Ingenieria en Mecatronica");
 
         listaUsuarios.InsertarFin(u);
         listaUsuarios.InsertarFin(B);
@@ -517,16 +518,16 @@ void cframe::modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo)
     modificarDatosSilabo(nodo->getChild(nodo->getN()), id, pathNuevo); // Recursión en el hijo derecho
 }
 
-string cframe::obtenerNombre(std::string cuenta)
+Usuario* cframe::obtenerUsuario(std::string cuenta)
 {
     nodoD<Usuario> *actD = listaUsuarios.PrimPtr;
     while (actD != nullptr) {
         if (cuenta == actD->Dato.cuenta) {
-            return actD->Dato.name;
+            return &actD->Dato;
         }
         actD = actD->SigPtr;
     }
-    return "...";
+    return nullptr;
 }
 
 void cframe::pruebitaBotonesTab()
@@ -590,20 +591,30 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
 
 
         EstadoNombres nombres;
+        Usuario *u = obtenerUsuario(silabo->getSubidoPor());
         if (mostrar) {
+
+            /* Columnas
+             * MODIFICAR, VER DOCX, ORDEN DE INGRESO (ID), INGRESADO POR, #CUENTA, FACULTAD, CARRERA, CODIGO CLASE,
+             * PATH, OBSERVACION, RELOAD, # REVISIONES
+             */
+
+
+            string path = QDir::home().path().toStdString() + silabo->nombreArchivo;
             ui->RTW_revision->setRowCount(fila + 1);
             ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
             ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->RTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::number(silabo->getId())));
             ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(( nombres.nombres[silabo->getEstado()] ))));
-            ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getSubidoPor()))));
-            ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-            ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-            ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
-            ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+            ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString( u->getName() )));
+            ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString( u->getCuenta() )));
+            ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString( silabo->getFacultad() )));
+            ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString( silabo->getCarrera() )));
+            ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString( silabo->getCodigoClase()) ));
+            ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString( path )));
+            ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString( silabo->getObservacion() )));
+            ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem( QString::fromStdString("...") ));
+            ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
             fila++;
         }
@@ -796,6 +807,7 @@ void cframe::on_btn_registraruser_clicked()
     string clave = ui->le_claveR->text().toStdString();
     string institucion = ui->cb_institucionR->currentText().toStdString();
     string tipousuario = ui->cb_tipousuarioR->currentText().toStdString();
+    string carrera = ui->cb_carreraRegistro->currentText().toStdString();
 
     // Verificar que no haya espacios vacíos
     if (nombre.empty() || numeroCuenta.empty() || clave.empty() || institucion.empty() || tipousuario.empty()) {
@@ -814,7 +826,7 @@ void cframe::on_btn_registraruser_clicked()
     }
 
     // Si no se encuentra un usuario con el mismo número de cuenta, registrar el nuevo usuario
-    Usuario nuevoUser(nombre, numeroCuenta, clave, institucion, tipousuario);
+    Usuario nuevoUser(nombre, numeroCuenta, clave, institucion, tipousuario, carrera);
     listaUsuarios.InsertarFin(nuevoUser);
     listaUsuarios.guardarUsuarios(listaUsuarios);
 
