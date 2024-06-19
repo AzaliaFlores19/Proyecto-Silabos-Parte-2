@@ -18,14 +18,14 @@ private:
     string codigoClase;
     QString ruta;
     string nombreClase;
-    string subidoPor;
+    string subidoPor; // num cuenta user
     CuadroFechas cuadroFechas;
 
 public:
-    Silabo(int id, const string& nombrearchivo, const string& estado,
+    Silabo(int id, const string& nombrearchivo, const Estado estado,
            const string& observacion, int numeroderevisiones, const string& bytesarchivo,
            const string& facultad, const string& carrera, const string& codigoClase,
-           const QString& ruta, const string& nombreClase, const string& subidoPor, const CuadroFechas& cuadroFechas)
+           const QString& ruta, const string& nombreClase, const string subidoPor, const CuadroFechas& cuadroFechas)
         : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),
         facultad(facultad), carrera(carrera),
         codigoClase(codigoClase), ruta(ruta), nombreClase(nombreClase), subidoPor(subidoPor), cuadroFechas(cuadroFechas) {}
@@ -80,7 +80,7 @@ public:
         nombreClase = nuevoNombreClase;
     }
 
-    void setSubidoPor(const string& nuevoSubidoPor) {
+    void setSubidoPor(const int nuevoSubidoPor) {
         subidoPor = nuevoSubidoPor;
     }
 

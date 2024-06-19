@@ -3,22 +3,23 @@
 
 #include <fstream>
 #include <string>
+#include "Estado.h"
 using std::string;
 
 class Archivo {
 public:
     int id;
     std::string nombrearchivo;
-    string estado;
+    Estado estado;
     std::string observacion;
     int numeroderevisiones;
     std::string bytesarchivo;
 
     // Declaración y definición del constructor por defecto
-    Archivo() : id(0), nombrearchivo(""), estado(""), observacion(""), numeroderevisiones(0), bytesarchivo("") {}
+    Archivo() : id(0), nombrearchivo(""), estado(Estado(Prerevision)), observacion(""), numeroderevisiones(0), bytesarchivo("") {}
 
     // Constructor parametrizado
-    Archivo(int id, const std::string& nombrearchivo, const string& estado,
+    Archivo(int id, const std::string& nombrearchivo, const Estado estado,
             const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo)
         : id(id), nombrearchivo(nombrearchivo), estado(estado),
         observacion(observacion), numeroderevisiones(numeroderevisiones), bytesarchivo(bytesarchivo) {}
@@ -41,11 +42,11 @@ public:
         nombrearchivo = newNombreArchivo;
     }
 
-    string getEstado() const {
+    Estado getEstado() const {
         return estado;
     }
 
-    void setEstado(std::string newEstado) {
+    void setEstado(Estado newEstado) {
         estado = newEstado;
     }
 

@@ -319,9 +319,9 @@ void cframe::on_btn_silaboE_clicked()
         }
 
         CuadroFechas cuadroFechas; // Crear el objeto sin paréntesis
-        Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", "Prerevision", "...", 0, "bytes",
+        Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", Estado(Prerevision), "...", 0, "bytes",
                                          facultad, carrera, ui->le_codigoE->text().toStdString(), path,
-                                         ui->le_nombreClase->text().toStdString(), usuarioActual->getName(), cuadroFechas);
+                                         ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), cuadroFechas);
 
         this->arbolSilabo->insertar(nuevoSilabo);
         arbolSilabo->mostrarDetallesSilabos();
@@ -458,34 +458,35 @@ void cframe::modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo)
             }
             if (cambiarEstado) {
                 string nuevoEstado = ui->Rcb_cambiarE->currentText().toStdString();
+                Estado status(Aprobado); // dummy
 
                 // cuando lo tiene el jefe o el coordinador (lo manda a iedd o regresa a docente)
                 if (nuevoEstado == "Cargar silabo (Enviar a IEDD)"){
-                    nuevoEstado = "ListoRevision";
+                    status = Estado(ListoRevision);
                 }
                 if (nuevoEstado == "Rechazar"){
-                    nuevoEstado = "Prerevision";
+                    status = Estado(Prerevision);
                 }
 
 
                 // cuando lo tiene alguien de iedd (lo manda a consultor o regresa a jefe o coordinador)
                 if (nuevoEstado == "Listo para revision 1"){
-                    nuevoEstado = "Aprobado";
+                    status = Estado(Aprobado);
                 }
                 if (nuevoEstado == "Devolver a Academia"){
-                    nuevoEstado = "Prerevision";
+                    status = Estado(Prerevision);
                 }
 
                 // cuando lo tiene un consultor (lo manda a director o decano)
                 if (nuevoEstado == "Aprobado con condicion"){
-                    nuevoEstado = "AprobadoCondicion";
+                    status = Estado(AprobadoCondicion);
                 }
                 //No se pone el de aprobado porque del combobox ya se saca el texto de Aprobado
 
                 QMessageBox::information(this,"Cosa", QString::fromStdString(nuevoEstado)); // para ver a que estado esta cambiando
                 string nuevaObservacion=ui->Rle_comentario->text().toStdString();
 
-                silabo->setEstado(nuevoEstado);
+                silabo->setEstado(status);
                 silabo->setObservacion(nuevaObservacion);
                 pruebitaBotonesTab();
 
@@ -556,26 +557,27 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
         bool mostrar = false;
 
         if ((tipoUsuario == "Jefe" || tipoUsuario == "Coordinador") &&
-                (silabo->getEstado() == "Prerevision" || silabo->getEstado() == "DevueltoAcademia")) {
+                (silabo->getEstado() == Estado(Prerevision) || silabo->getEstado() == Estado(DevueltoAcademia))) {
             mostrar = true;
         } else if (tipoUsuario == "Coordinador" &&
-                   ((silabo->getEstado()) == "ListoRevision" || (silabo->getEstado()) == "CorreccionMayor" || (silabo->getEstado()) == "CorrecionMenor" || (silabo->getEstado()) == "AprobadoCondicion")) {
+                   ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(CorrecionMayor) || (silabo->getEstado()) == Estado(CorrecionMenor) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
             mostrar = true;
         } else if (tipoUsuario == "IEDD" &&
-                   ((silabo->getEstado()) == "ListoRevision" || (silabo->getEstado()) == "AprobadoIEDD" || (silabo->getEstado()) == "AprobadoCondicion")) {
+                   ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(AprobadoIEDD) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
             mostrar = true;
         } else if (tipoUsuario == "Consultor" &&
-                   ((silabo->getEstado()) == "ListoRevision" || (silabo->getEstado()) == "Aprobado" || (silabo->getEstado()) == "AprobadoCondicion")) {
+                   ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(Aprobado)) || (silabo->getEstado()) == Estado(AprobadoCondicion)) {
             mostrar = true;
         }
 
 
+        EstadoNombres nombres;
         if (mostrar) {
             ui->RTW_revision->setRowCount(fila + 1);
             ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
             ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->RTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::number(silabo->getId())));
-            ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString((silabo->getEstado()))));
+            ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(( nombres.nombres[silabo->getEstado()] ))));
             ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(obtenerNombre(silabo->getSubidoPor()))));
             ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
             ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
@@ -659,17 +661,19 @@ void cframe::recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget,
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if ((estadoMostrar == "Aprobado" && (silabo->getEstado()) == "Aprobado") ||
-                (estadoMostrar != "Aprobado" && (silabo->getEstado()) != "Aprobado")) {
+        if ((estadoMostrar == "Aprobado" && (silabo->getEstado()) == Estado(Aprobado)) ||
+                (estadoMostrar != "Aprobado" && (silabo->getEstado()) != Estado(Aprobado))) {
 
             int row = tableWidget->rowCount();
+
+            EstadoNombres names;
             tableWidget->insertRow(row);
             tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
             tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
             tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
             tableWidget->setItem(row, 4, new QTableWidgetItem(silabo->getRuta()));
-            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString((silabo->getEstado()))));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(( names.nombres[silabo->getEstado()] ))));
             tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
             tableWidget->setItem(row, 7, new QTableWidgetItem(QString::number(silabo->getId())));
             tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(silabo->getNumeroderevisiones())));
@@ -709,7 +713,7 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if (numCuenta == silabo->getSubidoPor() && ((silabo->getEstado()) == "Rechazar" || (silabo->getEstado()) == "Aprobado")) {
+        if (numCuenta == silabo->getSubidoPor() && ((silabo->getEstado()) == Estado(Rechazar) || (silabo->getEstado()) == Estado(Aprobado))) {
             ui->DRTW_revision->setRowCount(fila + 1);
             ui->DRTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->DRTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::number(silabo->getId())));

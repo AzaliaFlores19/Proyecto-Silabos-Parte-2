@@ -1,6 +1,14 @@
 #ifndef ESTADO_H
 #define ESTADO_H
 
+#include <string>
+
+using std::string;
+
+struct EstadoNombres {
+    string nombres[11] = {"Prerevision", "ListoRevision", "Aprobado", "AprobadoCondicion", "AprobadoIEDD", "SolicitudCambio", "DevueltoAcademia", "Coreccion", "CorreccionMayor", "CorrecionMenor", "Rechazar"};
+};
+
 enum Estado {
     // Cuando coordinador o jefe lo recibe
     Prerevision,
@@ -11,6 +19,7 @@ enum Estado {
     // Tipos de aprobacion (Consultor)
     Aprobado,
     AprobadoCondicion,
+    AprobadoIEDD,
 
     // Cambios
 
@@ -22,7 +31,9 @@ enum Estado {
     // Subidas despues de corregir (Consultor)
     Correcion,
     CorrecionMayor,
-    CorrecionMenor
+    CorrecionMenor,
+
+    Rechazar
 
 
 

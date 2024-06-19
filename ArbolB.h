@@ -133,32 +133,29 @@ public:
     }
 
 
-    void saveCuadroFechasToDB(int silaboId, string filePath) {
-         std::ifstream file(filePath, std::ifstream::binary);
+    void saveFileToDB(Silabo* silabo) {
+         string filePath = silabo->getRuta().toStdString();
+         std::ifstream file(filePath, std::ios::binary | std::ios::ate);
+             if (!file) {
+                 std::cerr << "Error: could not open file " << filePath << std::endl;
+                 return;
+             }
 
-         // Leer el archivo en un vector de
-         if (!file) {
-             std::cerr << "[saveFileToDB] Error: could not open file " << filePath << std::endl;
-             return;
-         }
+             std::streamsize size = file.tellg();
+             file.seekg(0, std::ios::beg);
 
-         std::streamsize size = file.tellg();
-         file.seekg(0, std::ios::beg);
+             std::vector<char> buffer(size);
+             if (!file.read(buffer.data(), size)) {
+                 std::cerr << "Error: could not read file " << filePath << std::endl;
+                 return;
+             }
 
-         std::vector<char> buffer(size);
-         if (!file.read(buffer.data(), size)) {
-             std::cerr << "[saveFileToDB] Error: could not read file " << filePath << std::endl;
-             return;
-         }
-
-         //DB.saveCuadroFechas(silaboId, buffer);
+         DB.saveSilaboFile(silabo, buffer);
     }
 
     void insertar(Silabo* silabo) {
         cantidadArbol++;
-
-        //saveFileToDB(silabo->id, silabo->getRuta().toStdString());
-
+        saveFileToDB(silabo);
 
         if (root->getN() == 2 * t - 1) {
             NodoArbolB* s = new NodoArbolB(t);

@@ -10,10 +10,10 @@ public:
     std::string archivoBlob;
 
     // Constructor por defecto
-    CuadroFechas() : Archivo(), silabo(0), archivoBlob("") {}
+    CuadroFechas() : Archivo(), silabo(-1), archivoBlob("") {}
 
     // Constructor parametrizado
-    CuadroFechas(int id, const std::string& nombrearchivo, const std::string& estado,
+    CuadroFechas(int id, const std::string& nombrearchivo, const Estado estado,
                  const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo,
                  int silabo, const std::string& archivoBlob)
         : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),
