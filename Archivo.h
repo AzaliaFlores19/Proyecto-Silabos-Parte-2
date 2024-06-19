@@ -4,25 +4,67 @@
 #include <fstream>
 #include <string>
 #include "Estado.h"
+#include <vector>
+#include <iostream>
 using std::string;
 
 class Archivo {
 public:
     int id;
-    std::string nombrearchivo;
+    string nombreArchivo;
     Estado estado;
-    std::string observacion;
-    int numeroderevisiones;
-    std::string bytesarchivo;
+    string observacion;
+    int revisiones = 0;
+    string ruta;
 
     // Declaración y definición del constructor por defecto
-    Archivo() : id(0), nombrearchivo(""), estado(Estado(Prerevision)), observacion(""), numeroderevisiones(0), bytesarchivo("") {}
+    Archivo() : id(0), nombreArchivo(""), estado(Estado(Prerevision)), observacion(""), revisiones(0), ruta("") {}
 
     // Constructor parametrizado
-    Archivo(int id, const std::string& nombrearchivo, const Estado estado,
-            const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo)
-        : id(id), nombrearchivo(nombrearchivo), estado(estado),
-        observacion(observacion), numeroderevisiones(numeroderevisiones), bytesarchivo(bytesarchivo) {}
+    Archivo(int id, string nombreArchivo, string ruta, Estado estado, string observacion, int revisiones) {
+        this->id = id;
+        this->nombreArchivo = nombreArchivo;
+        this->ruta = ruta;
+        this->estado = estado;
+        this->observacion = observacion;
+        this->revisiones = revisiones;
+    }
+
+    Archivo(int id, string nombreArchivo, string ruta, Estado estado, string observacion) {
+        this->id = id;
+        this->ruta = ruta;
+        this->nombreArchivo = nombreArchivo;
+        this->estado = estado;
+        this->observacion = observacion;
+        this->revisiones = 0;
+    }
+
+    std::vector<char> getFileToBytes() {
+        string filePath = ruta;
+        std::ifstream file(filePath, std::ios::binary | std::ios::ate);
+
+        std::vector<char> dummy; // por si hay error
+        if (!file) {
+            std::cerr << "[Archivo.getFileToBytes] Error: could not open file " << filePath << std::endl;
+
+
+            return dummy;
+        }
+
+
+        std::streamsize size = file.tellg();
+        file.seekg(0, std::ios::beg);
+        std::vector<char> buffer(size);
+
+
+        if (!file.read(buffer.data(), size)) {
+            std::cerr << "[Archivo.getFileToBytes] Error: could not read file " << filePath << std::endl;
+            return dummy;
+        }
+
+        return buffer;
+
+    }
 
     ~Archivo() {}
 
@@ -34,12 +76,20 @@ public:
         id = newId;
     }
 
-    const std::string& getNombreArchivo() const {
-        return nombrearchivo;
+    const string getNombreArchivo() const {
+        return nombreArchivo;
+    }
+
+    string getRuta() {
+        return ruta;
+    }
+
+    void settRuta(const string ruta) {
+        this->ruta = ruta;
     }
 
     void setNombreArchivo(const std::string& newNombreArchivo) {
-        nombrearchivo = newNombreArchivo;
+        nombreArchivo = newNombreArchivo;
     }
 
     Estado getEstado() const {
@@ -58,20 +108,12 @@ public:
         observacion = newObservacion;
     }
 
-    int getNumeroderevisiones() const {
-        return numeroderevisiones;
+    int getRevisiones() const {
+        return revisiones;
     }
 
     void setNumeroderevisiones(int newNumeroderevisiones) {
-        numeroderevisiones = newNumeroderevisiones;
-    }
-
-    const std::string& getBytesarchivo() const {
-        return bytesarchivo;
-    }
-
-    void setBytesarchivo(const std::string& newBytesarchivo) {
-        bytesarchivo = newBytesarchivo;
+        revisiones = newNumeroderevisiones;
     }
 };
 

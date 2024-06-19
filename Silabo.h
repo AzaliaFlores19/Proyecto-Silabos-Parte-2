@@ -8,6 +8,7 @@
 #include <numeric> // Asegúrate de incluir esta librería para std::accumulate
 #include "Archivo.h"
 #include "CuadroFechas.h"
+#include <iostream>
 
 using std::string;
 
@@ -16,19 +17,28 @@ private:
     string facultad;
     string carrera;
     string codigoClase;
-    QString ruta;
     string nombreClase;
     string subidoPor; // num cuenta user
-    CuadroFechas cuadroFechas;
+    CuadroFechas *cuadroFechas;
 
 public:
     Silabo(int id, const string& nombrearchivo, const Estado estado,
-           const string& observacion, int numeroderevisiones, const string& bytesarchivo,
-           const string& facultad, const string& carrera, const string& codigoClase,
-           const QString& ruta, const string& nombreClase, const string subidoPor, const CuadroFechas& cuadroFechas)
-        : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),
-        facultad(facultad), carrera(carrera),
-        codigoClase(codigoClase), ruta(ruta), nombreClase(nombreClase), subidoPor(subidoPor), cuadroFechas(cuadroFechas) {}
+                   const string& observacion, int numeroderevisiones,
+                   const string& facultad, const string& carrera, const string& codigoClase,
+                   const string& ruta, const string& nombreClase, const string subidoPor, CuadroFechas *cuadroFechas) {
+        this->id = id;
+        this->nombreArchivo = nombrearchivo;
+        this->estado = estado;
+        this->observacion = observacion;
+        this->revisiones= numeroderevisiones;
+        this->facultad = facultad;
+        this->carrera = carrera;
+        this->codigoClase = codigoClase;
+        this->ruta = ruta;
+        this->nombreClase = nombreClase;
+        this->subidoPor = subidoPor;
+        this->cuadroFechas = cuadroFechas;
+    }
 
     // Métodos getter
     string getFacultad() const {
@@ -43,10 +53,6 @@ public:
         return codigoClase;
     }
 
-    QString getRuta() const {
-        return ruta;
-    }
-
     string getNombreClase() const {
         return nombreClase;
     }
@@ -55,7 +61,7 @@ public:
         return subidoPor;
     }
 
-    CuadroFechas getCuadrofechas() const {
+    CuadroFechas* getCuadrofechas() const {
         return cuadroFechas;
     }
 
@@ -72,10 +78,6 @@ public:
         codigoClase = nuevoCodigoClase;
     }
 
-    void setRuta(const QString& nuevaRuta) {
-        ruta = nuevaRuta;
-    }
-
     void setNombreClase(const string& nuevoNombreClase) {
         nombreClase = nuevoNombreClase;
     }
@@ -84,7 +86,7 @@ public:
         subidoPor = nuevoSubidoPor;
     }
 
-    void setCuadrofechas(const CuadroFechas& newCuadrofechas) {
+    void setCuadrofechas(CuadroFechas *newCuadrofechas) {
         cuadroFechas = newCuadrofechas;
     }
 

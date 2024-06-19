@@ -114,6 +114,9 @@ private:
         }
     }
 
+void llenarDeDB() {
+
+}
 public:
     ArbolB(int t) : t(t), cantidadArbol(0) {
         root = new NodoArbolB(t);
@@ -122,6 +125,8 @@ public:
     NodoArbolB* getRaiz() const {
         return root;
     }
+
+
 
     int getCantidadArbol() const {
         return cantidadArbol;
@@ -132,30 +137,10 @@ public:
         mostrarDetalles(root);
     }
 
-
-    void saveFileToDB(Silabo* silabo) {
-         string filePath = silabo->getRuta().toStdString();
-         std::ifstream file(filePath, std::ios::binary | std::ios::ate);
-             if (!file) {
-                 std::cerr << "Error: could not open file " << filePath << std::endl;
-                 return;
-             }
-
-             std::streamsize size = file.tellg();
-             file.seekg(0, std::ios::beg);
-
-             std::vector<char> buffer(size);
-             if (!file.read(buffer.data(), size)) {
-                 std::cerr << "Error: could not read file " << filePath << std::endl;
-                 return;
-             }
-
-         DB.saveSilaboFile(silabo, buffer);
-    }
-
     void insertar(Silabo* silabo) {
         cantidadArbol++;
-        saveFileToDB(silabo);
+
+        DB.saveSilaboFile(silabo, silabo->getFileToBytes());
 
         if (root->getN() == 2 * t - 1) {
             NodoArbolB* s = new NodoArbolB(t);
