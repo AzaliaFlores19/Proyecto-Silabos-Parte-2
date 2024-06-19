@@ -23,7 +23,7 @@
       <x>20</x>
       <y>20</y>
       <width>1149</width>
-      <height>720</height>
+      <height>799</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>5</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -1541,7 +1541,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1228</width>
-     <height>20</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>

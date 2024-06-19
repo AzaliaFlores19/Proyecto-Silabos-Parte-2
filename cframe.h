@@ -10,6 +10,7 @@
 #include <ArbolB.h>
 #include <QTableWidgetItem>
 #include "CuadroFechas.h"
+#include "Database.h"
 
 using std::string;
 
@@ -22,6 +23,7 @@ class cframe : public QMainWindow
     Q_OBJECT
 
 public:
+    Database DB;
     cframe(QWidget *parent = nullptr);
     ~cframe();
 
@@ -95,6 +97,7 @@ private:
 
     // Método para convertir enum Estado a string
     std::string estado;
+
 };
 
 #endif // CFRAME_H

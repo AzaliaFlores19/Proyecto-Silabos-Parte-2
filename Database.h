@@ -10,6 +10,7 @@
 #include <vector>
 #include "Silabo.h"
 #include "CuadroFechas.h"
+#include "Usuario.h"
 
 using std::string, std::cout, std::vector;
 
@@ -182,6 +183,25 @@ public:
         file.close();
         qDebug() << "File successfully written to" << filePath;
         return true;
+    }
+
+    bool saveUser(Usuario user) {
+
+        QSqlQuery query(connection);
+
+        query.prepare("INSERT INTO Usuarios(numeroCuenta, nombre, clave, org) VALUEs(?, ?, ?, ?);");
+        query.bindValue(0, user.getCuenta().c_str());
+        query.bindValue(1, user.getName().c_str());
+        query.bindValue(2, user.getContrasena().c_str());
+        query.bindValue(3, user.getInstitucion().c_str());
+
+        if (!query.exec()) {
+            qDebug() << "[saveUser] error guardando.";
+            return false;
+        }
+
+        return true;
+
     }
 };
 

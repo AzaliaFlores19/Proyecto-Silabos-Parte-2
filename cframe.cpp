@@ -788,6 +788,8 @@ void cframe::on_DRTW_revision_cellClicked(int row, int column)
 //    }
 //}
 
+
+// ====================== REGISTRAR ===========================
 void cframe::on_btn_registraruser_clicked()
 {
     string nombre = ui->le_nombreR->text().toStdString();
@@ -816,6 +818,8 @@ void cframe::on_btn_registraruser_clicked()
     Usuario nuevoUser(nombre, numeroCuenta, clave, institucion, tipousuario);
     listaUsuarios.InsertarFin(nuevoUser);
     listaUsuarios.guardarUsuarios(listaUsuarios);
+
+    DB.saveUser(nuevoUser);
     limpiarRegistro();
     QMessageBox::information(this, "Registro Exitoso", "El usuario ha sido registrado exitosamente.");
 
