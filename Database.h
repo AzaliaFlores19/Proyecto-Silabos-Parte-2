@@ -13,7 +13,8 @@
 
 using std::string, std::cout, std::vector;
 
-class Database {
+class Database
+{
 
 private:
     QSqlDatabase connection;
@@ -21,7 +22,8 @@ private:
     /*
      * Crea las tablas de la DB.
      */
-    void prepareTables() {
+    void prepareTables()
+    {
         QStringList queries = {
             R"(
             CREATE TABLE Facultad (
@@ -61,59 +63,65 @@ private:
                 silabo INTEGER,
                 archivo BLOB,
                 FOREIGN KEY (silabo) REFERENCES Silabos(id)
-            );)"
-        };
+            );)"};
 
-        for (const QString& queryStr : queries) {
+        for (const QString &queryStr : queries)
+        {
             QSqlQuery query(connection);
-            if (!query.exec(queryStr)) {
+            if (!query.exec(queryStr))
+            {
                 qDebug() << "Error creating table:" << query.lastError().text();
             }
         }
     }
 
-
 public:
     const string databasePath = QDir::homePath().toStdString() + "/silabos.sql";
-    Database() {
+    Database()
+    {
         connection = QSqlDatabase::addDatabase("QSQLITE");
         connection.setDatabaseName(databasePath.c_str());
 
-       if (!connection.open()) {
-           cout << "Error al iniciar conexion.\n";
-           return;
-       }
+        if (!connection.open())
+        {
+            cout << "Error al iniciar conexion.\n";
+            return;
+        }
 
-       prepareTables();
-       //writePDF(1); era para prueba
+        prepareTables();
+        // writePDF(1); //era para prueba
     }
 
-    QSqlDatabase getConnection() {
+    QSqlDatabase getConnection()
+    {
         return connection;
     }
 
-    bool saveSilaboFile(Silabo *silabo, vector<char> buffer) {
+    bool saveSilaboFile(Silabo *silabo, vector<char> buffer)
+    {
         cout << "Saving silabo file\n...";
-            QSqlQuery query(connection);
+        QSqlQuery query(connection);
 
-            query.prepare("INSERT INTO Silabos(nombre, carrera, codigoClase, nombreClase, estado, subidoPor, archivo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            query.bindValue(0, QString::fromStdString(silabo->getNombreArchivo()));
-            query.bindValue(1, QString::fromStdString(silabo->getCarrera()));
-            query.bindValue(2, QString::fromStdString(silabo->getCodigoClase()));
-            query.bindValue(3, QString::fromStdString(silabo->getNombreClase()));
-            query.bindValue(4, silabo->getEstado());
-            query.bindValue(5, silabo->getSubidoPor().c_str());
-            query.bindValue(6, QByteArray(buffer.data(), (int) buffer.size() ));
+        query.prepare("INSERT INTO Silabos(nombre, carrera, codigoClase, nombreClase, estado, subidoPor, archivo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        query.bindValue(0, QString::fromStdString(silabo->getNombreArchivo()));
+        query.bindValue(1, QString::fromStdString(silabo->getCarrera()));
+        query.bindValue(2, QString::fromStdString(silabo->getCodigoClase()));
+        query.bindValue(3, QString::fromStdString(silabo->getNombreClase()));
+        query.bindValue(4, silabo->getEstado());
+        query.bindValue(5, silabo->getSubidoPor().c_str());
+        query.bindValue(6, QByteArray(buffer.data(), (int)buffer.size()));
 
-            if (!query.exec()) {
-                qDebug() << "Error: failed to insert silabo into database -" << query.lastError().text();
-                return false;
-            }
+        if (!query.exec())
+        {
+            qDebug() << "Error: failed to insert silabo into database -" << query.lastError().text();
+            return false;
+        }
 
-            if (!connection.commit()) {
-                qDebug() << "Error: failed to commit transaction -" << connection.lastError().text();
-                return false;
-            }
+        if (!connection.commit())
+        {
+            qDebug() << "Error: failed to commit transaction -" << connection.lastError().text();
+            return false;
+        }
 
         // TODO: Verificar si hay cuadro de fechas y guardarlo.
 
@@ -132,12 +140,14 @@ public:
         */
     }
 
-    bool writePDF(int silaboId) {
+    bool writePDF(int silaboId)
+    {
         QSqlQuery query(connection);
         query.prepare("SELECT codigoClase, nombre, archivo FROM Silabos WHERE id = ?");
         query.bindValue(0, silaboId);
 
-        if (!query.exec() || !query.next()) {
+        if (!query.exec() || !query.next())
+        {
             qDebug() << "Error: failed to retrieve file from database -" << query.lastError().text();
             return false;
         }
@@ -149,17 +159,20 @@ public:
         QDir homeDir = QDir::home();
         QDir silabosDir = homeDir.filePath("silabos");
 
-        if (!silabosDir.exists()) {
-            if (!homeDir.mkpath("silabos")) {
+        if (!silabosDir.exists())
+        {
+            if (!homeDir.mkpath("silabos"))
+            {
                 qDebug() << "Error: failed to create directory -" << silabosDir.path();
                 return false;
             }
         }
 
-        QString filePath = silabosDir.filePath(codigoClase + "_" + nombreArchivo + ".docx");
+        QString filePath = silabosDir.filePath(nombreArchivo + ".docx");
         QFile file(filePath);
 
-        if (!file.open(QIODevice::WriteOnly)) {
+        if (!file.open(QIODevice::WriteOnly))
+        {
             qDebug() << "Error: failed to open file for writing -" << filePath;
             return false;
         }
@@ -169,11 +182,6 @@ public:
         qDebug() << "File successfully written to" << filePath;
         return true;
     }
-
-
-
-
 };
-
 
 #endif // DATABASE_H

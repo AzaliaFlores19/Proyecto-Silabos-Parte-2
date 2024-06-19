@@ -17,6 +17,7 @@
 #include <sstream>
 #include <QModelIndex>
 #include <QVBoxLayout>
+#include <QFileInfo>
 
 using std::ofstream;
 using std::ios;
@@ -300,39 +301,57 @@ void cframe::limpiarEntrega()
     }
 }
 
+// ======================= Boton entregar silabo ==================
 void cframe::on_btn_silaboE_clicked()
 {
     if (ui->cb_facultadE->currentIndex() == 0 || ui->cb_carreraE->currentIndex() == 0 || ui->le_codigoE->text().isEmpty() || ui->le_pathE->text().isEmpty()) {
         QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
-    } else {
-        QMessageBox::information(this, "Enviado", "Datos han sido enviados");
-        cantSilabos = this->arbolSilabo->getCantidadArbol() + 1; // id sería cantidad en árbol más uno
+        return;
+    }
 
-        string facultad = ui->cb_facultadE->currentText().toStdString();
-        string carrera = ui->cb_carreraE->currentText().toStdString();
-        QString path = ui->le_pathE->text();
+    cantSilabos = this->arbolSilabo->getCantidadArbol() + 1; // id sería cantidad en árbol más uno
 
-        // Verificar que usuarioActual no sea nullptr
-        if (!usuarioActual) {
-            QMessageBox::critical(this, "Error", "Usuario no autenticado.");
+    string facultad = ui->cb_facultadE->currentText().toStdString();
+    string carrera = ui->cb_carreraE->currentText().toStdString();
+    QString path = ui->le_pathE->text();
+    QFileInfo fileInfo(path);
+
+    // Verificar que usuarioActual no sea nullptr
+    if (!usuarioActual) {
+        QMessageBox::critical(this, "Error", "Usuario no autenticado.");
+        return;
+    }
+
+
+    CuadroFechas *cuadroFechas = nullptr;
+
+    /*
+    // Determinar si hay que crear un cuadro de fechas
+    if (usuarioActual->getInstitucion() == "UNITEC") {
+        if (ui->le_pathCF->text().isEmpty()) {
+            QMessageBox::warning(this, "Datos no congruentes", "Favor adjunte cuadro de fechas.");
             return;
         }
 
-        CuadroFechas *cuadroFechas = new CuadroFechas(); // Crear el objeto sin paréntesis
-
-        Silabo* nuevoSilabo = new Silabo(cantSilabos, "NombreArchivo", Estado(Prerevision), "...", 0, facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(), ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), cuadroFechas);
-
-
-        this->arbolSilabo->insertar(nuevoSilabo);
-        arbolSilabo->mostrarDetallesSilabos();
-
-        // Mantener la opción de entrega visible después de insertar
-        limpiarEntrega();
-
-        // Asegurar visibilidad de los elementos relacionados
-        ui->frameE->setVisible(true);
-        ui->frameE2_2->setEnabled(true);
+        string filename = "CuadroFechas-" + fileInfo.fileName().toStdString();
+        cuadroFechas = new CuadroFechas(cantSilabos, filename, Estado(Prerevision), "...", 0, cantSilabos);
     }
+    */
+
+
+    Silabo* nuevoSilabo = new Silabo(cantSilabos, fileInfo.fileName().toStdString(), Estado(Prerevision), "...", 0, facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(), ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), cuadroFechas);
+
+
+    this->arbolSilabo->insertar(nuevoSilabo);
+    arbolSilabo->mostrarDetallesSilabos();
+
+    // Mantener la opción de entrega visible después de insertar
+    limpiarEntrega();
+
+    // Asegurar visibilidad de los elementos relacionados
+    ui->frameE->setVisible(true);
+    ui->frameE2_2->setEnabled(true);
+    QMessageBox::information(this, "Enviado", "Datos han sido enviados");
 }
 
 void cframe::on_btn_archivoE_clicked()
@@ -548,7 +567,7 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
 
     recorrerArbolParaTabla(nodo->getChild(0), fila, actD);
 
-    std::string tipoUsuario = usuarioActual->getTipo();
+    string tipoUsuario = (usuarioActual != nullptr) ? usuarioActual->getTipo(): "";
 
 
 

@@ -21,9 +21,9 @@ private:
                 Silabo* silabo = node->getSilabo(i);
                 std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarrera()
                           << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
-                          << ", Ruta: " << silabo->getRuta().toStdString() << ", Estado: " << silabo->getEstado()
+                          << ", Ruta: " << silabo->getRuta() << ", Estado: " << silabo->getEstado()
                           << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
-                          << ", Número de revisiones: " << silabo->getNumeroderevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< std::endl;
+                          << ", Número de revisiones: " << silabo->getRevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< std::endl;
             }
             mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
         }

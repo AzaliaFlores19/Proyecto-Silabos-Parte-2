@@ -7,17 +7,21 @@
 class CuadroFechas : public Archivo {
 public:
     int silabo;
-    std::string archivoBlob;
 
     // Constructor por defecto
-    CuadroFechas() : Archivo(), silabo(-1), archivoBlob("") {}
+    CuadroFechas() : Archivo(), silabo(-1) {}
 
     // Constructor parametrizado
-    CuadroFechas(int id, const std::string& nombrearchivo, const Estado estado,
-                 const std::string& observacion, int numeroderevisiones, const std::string& bytesarchivo,
-                 int silabo, const std::string& archivoBlob)
-        : Archivo(id, nombrearchivo, estado, observacion, numeroderevisiones, bytesarchivo),
-        silabo(silabo), archivoBlob(archivoBlob) {}
+    CuadroFechas(int id, std::string nombrearchivo, Estado estado,
+                               std::string observacion, int numeroderevisiones,
+                               int silabo) {
+        this->id = id;
+        this->nombreArchivo = nombrearchivo;
+        this->estado = estado;
+        this->observacion = std::move(observacion);
+        this->revisiones= numeroderevisiones;
+        this->silabo = silabo;
+    }
 
     // Métodos getter y setter
     int getSilabo() const {
@@ -26,14 +30,6 @@ public:
 
     void setSilabo(int newSilabo) {
         silabo = newSilabo;
-    }
-
-    const std::string& getArchivoBlob() const {
-        return archivoBlob;
-    }
-
-    void setArchivoBlob(const std::string& newArchivoBlob) {
-        archivoBlob = newArchivoBlob;
     }
 };
 
