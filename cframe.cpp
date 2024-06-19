@@ -450,10 +450,9 @@ void cframe::on_Rbtn_cambiar_clicked()
 
 void cframe::cambiarSilabo(int id, QString pathActual)
 {
-    QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos PDF", QDir::homePath(), "PDF Files (*.pdf)");
-    if (pathActual == filePath) { // buscar en el árbol
-        QMessageBox::warning(this, "No posible", "Ha seleccionado el mismo silabo");
-    } else if (!filePath.isEmpty()) {
+    QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
+
+    if (!filePath.isEmpty()) {
         cambiarPath = true;
         modificarDatosSilabo(arbolSilabo->getRaiz(), id, filePath);
     } else {
@@ -843,5 +842,40 @@ void cframe::limpiarRegistro()
     ui->cb_institucionR->setCurrentIndex(0);
     ui->cb_tipousuarioR->setCurrentIndex(0);
 
+}
+
+
+void cframe::on_btn_archivoCF_clicked()
+{
+     QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
+    if (!filePath.isEmpty()) {
+        ui->le_pathCF->setText(filePath);
+    }
+}
+
+void cframe::on_cb_facultadRegistro_currentIndexChanged(int i)
+{
+    QStringList items;
+    ui->cb_carreraRegistro->clear();
+    if (i == 1) {
+        items << "..." << "INGENIERÍA BIOMÉDICA" << "INGENIERÍA EN CIENCIA DE DATOS E INTELIGENCIA ARTIFICIAL" << "INGENIERÍA CIVIL" << "INGENIERÍA EN ENERGÍA" << "INGENIERÍA INDUSTRIAL Y DE SISTEMAS" << "INGENIERÍA EN MECATRÓNICA" << "INGENIERÍA EN SISTEMAS COMPUTACIONALES" << "INGENIERÍA EN TELECOMUNICACIONES Y ELECTRÓNICA"<<"INGENIERÍA EN INFORMÁTICA"<<"INGENIERÍA EN ELECTRÓNICA"<<"INGENIERÍA EN GESTIÓN LOGÍSTICA"<<"INGENIERÍA EN GESTIÓN DE AMBIENTE Y DESARROLLO";
+        ui->cb_carreraRegistro->addItems(items);
+    } else if (i == 2) {
+        items << "..." << "LICENCIATURA EN ADMINISTRACIÓN DE LA HOSPITALIDAD Y EL TURISMO" << "LICENCIATURA EN ADMINISTRACIÓN INDUSTRIAL E INTELICENCIA DE NEGOCIOS" << "LICENCIATURA EN AMINISTRACIÓN INDUSTRIAL Y EMPRENDIMIENTO" << "LICENCIATURA EN ADMINISTRACIÓN INDUSTRIAL Y OPERACIONES" << "LICENCIATURA EN DERECHO" << "LICENCIATURA EN FINANZAS Y ECONOMÍA" << "LICENCIATURA EN MERCADOTECNIA Y NEGOCIOS INTERNACIONALES" << "LICENCIATURA EN RELACIONES INTERNACIONALES"<<"LICENCIATURA EN CONTADURÍA PÚBLICA Y FINANZAS"<<"LICENCIATURA EN MERCADOTECNIA"<<"LICENCIATURA EN ADMINISTRACIÓN DE EMPRESAS"<<"LICENCIATURA EN RECURSOS HUMANOS"<<"LICENCIATURA EN ECONOMÍA"<<"LICENCIATURA EN PERIODISMO";
+        ui->cb_carreraRegistro->addItems(items);
+    } else if (i == 3) {
+        items << "..." << "LICENCIATURA EN ANIMACIÓN DIGITAL y DISEÑO INTERACTIVO" << "ARQUITECTURA" << "LICENCIATURA EN COMUNICACIÓN AUDIOVISUAL Y PUBLICITARIA" << "LICENCIATURA EN DISEÑO DE MODAS" << "LICENCIATURA EN DISEÑO GRÁFICO" << "LICENCIATURA EN GASTRONOMÍA";
+        ui->cb_carreraRegistro->addItems(items);
+    }else if (i == 4) {
+        items << "..." << "LICENCIATURA EN PSICOLOGÍA" << "MEDICINA Y CIRUGÍA" << "CIRUGÍA DENTAL" << "LICENCIATURA EN NUTRICIÓN" << "LICENCIATURA EN TERAPIA FÍSICA Y OCUPACIONAL" << "LICENCIATURA EN ENFERMERÍA";
+        ui->cb_carreraRegistro->addItems(items);
+    }else if (i == 5) {
+        items << "..." << "MAESTRÍA EN FINANZAS" << "MAESTRÍA EN GESTIÓN DEL MARKETING ESTRATÉGICO Y DIGITAL" << "MAESTRÍA EN DIRECCIÓN EMPRESARIAL" << "MAESTRÍA EN ADMINISTRACIÓN DE PROYECTOS" << "MAESTRÍA EN DERECHO EMPRESARIAL" << "MAESTRÍA EN DIRECCIÓN DE RECURSOS HUMANOS"<< "MAESTRÍA EN GESTIÓN DE OPERACIONES Y LOGÍSTICA" << "MAESTRÍA EN GESTIÓN DE TECNOLOGÍAS DE LA INFORMACIÓN"<< "MAESTRÍA EN SISTEMAS DE GESTIÓN DE LA CALIDAD INTEGRADOS" << "MAESTRÍA DE DIRECCIÓN DE LA COMUNICACIÓN CORPORATIVA" << "MAESTRÍA EN GESTIÓN DE ENERGÍAS RENOVABLES"<< "MAESTRÍA EN GESTIÓN DE SERVICIOS DE SALUD" << "MAESTRÍA EN GESTIÓN PÚBLICA" << "MAESTRIA EN DERECHOS HUMANOS"<< "MAESTRÍA EN PSICOLOGÍA CLÍNICA" << "MAESTRÍA EN DERECHO TRIBUTARIO" << "MAESTRÍA EN ANALÍTICA DE NEGOCIOS"<< "MAESTRÍA EN RESPONSABILIDAD SOCIAL Y SOSTENIBILIDAD" << "MAESTRÍA EN GESTIÓN DE LA INNOVACIÓN Y EL EMPRENDIMIENTO" << "MAESTRÍA EN DESARROLLO LOCAL Y COOPERACIÓN INTERNACIONAL" << "MAESTRÍA EN SALUD PÚBLICA" ;
+        ui->cb_carreraRegistro->addItems(items);
+    }
+    else if (i == 6) {
+        items << "..." << "TÉCNICO UNIVERSITARIO EN ENFERMERÍA AUXILIAR" << "TÉCNICO UNIVERSITARIO EN INSTALACIÓN DE REDES" << "TÉCNICO UNIVERSITARIO EN DESARROLLO DE APLICACIONES WEB" << "TÉCNICO UNIVERSITARIO EN DISEÑO DE INTERIORES" << "TÉCNICO UNIVERSITARIO BILINGÜE EN CALL CENTER" << "TÉCNICO UNIVERSITARIO EN INSTRUMENTACIÓN QUIRÚRGICA"<< "TÉCNICO UNIVERSITARIO EN URGENCIAS MÉDICAS" << "TÉCNICO UNIVERSITARIO BILINGÜE EN TURISMO"<< "TÉCNICO UNIVERSITARIO EN MARKETING DIGITAL" << "TÉCNICO UNIVERSITARIO EN DESARROLLO Y CUIDADO INFANTIL" << "TÉCNICO UNIVERSITARIO EN COMERCIALIZACIÓN Y PROMOCIÓN RETAIL"<< "TÉCNICO UNIVERSITARIO EN DISEÑO GRÁFICO" << "TÉCNICO UNIVERSITARIO EN ADMINISTRACIÓN";
+        ui->cb_carreraRegistro->addItems(items);
+    }
 }
 

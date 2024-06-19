@@ -58,6 +58,10 @@ private slots:
     void on_btn_registrarSalir_clicked();
     void limpiarRegistro();
 
+    void on_btn_archivoCF_clicked();
+
+    void on_cb_facultadRegistro_currentIndexChanged(int index);
+
 private:
     Ui::cframe *ui;
 

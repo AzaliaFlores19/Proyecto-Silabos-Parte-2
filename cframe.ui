@@ -1422,6 +1422,88 @@ Sesion</string>
              </widget>
             </item>
             <item>
+             <widget class="QLabel" name="lbl_facultadE_8">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Facultad:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cb_facultadRegistro">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <item>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FACULTAD DE INGENIERÍA</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FACULTAD DE CIENCIAS ADMINISTRATIVAS Y SOCIALES</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FACULTAD DE ARTE Y DISEÑO</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FACULTAD DE CIENCIAS DE LA SALUD</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FACULTAD DE POSTGRADO</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>FACULTAD DE TÉCNICOS</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbl_carreraE_2">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Programa Académico:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cb_carreraRegistro">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <item>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="btn_registraruser">
               <property name="palette">
                <palette>
@@ -1541,7 +1623,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1228</width>
-     <height>30</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
