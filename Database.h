@@ -89,7 +89,6 @@ public:
         }
 
         prepareTables();
-        // writePDF(1); //era para prueba
     }
 
     QSqlDatabase getConnection()
@@ -138,9 +137,11 @@ public:
             return true;
         }
         */
+
+        return true;
     }
 
-    bool writePDF(int silaboId)
+    bool writeFiles(int silaboId)
     {
         QSqlQuery query(connection);
         query.prepare("SELECT codigoClase, nombre, archivo FROM Silabos WHERE id = ?");
@@ -168,7 +169,7 @@ public:
             }
         }
 
-        QString filePath = silabosDir.filePath(nombreArchivo + ".docx");
+        QString filePath = silabosDir.filePath(nombreArchivo);
         QFile file(filePath);
 
         if (!file.open(QIODevice::WriteOnly))
