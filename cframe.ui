@@ -1504,6 +1504,9 @@ Sesion</string>
              </widget>
             </item>
             <item>
+             <widget class="QTableWidget" name="tw_usuarios"/>
+            </item>
+            <item>
              <widget class="QPushButton" name="btn_registraruser">
               <property name="palette">
                <palette>
@@ -1623,7 +1626,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1228</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

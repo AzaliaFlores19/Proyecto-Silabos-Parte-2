@@ -121,7 +121,7 @@ void cframe::on_tabWidget_currentChanged(int index)
         ui->tableWidget->setHorizontalHeaderLabels(headers);
 
 
-       // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
+        // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
     }else if(index==4){
         loginCheck = true;
         ui->tab_3->setEnabled(false);
@@ -135,54 +135,57 @@ void cframe::on_tabWidget_currentChanged(int index)
         ui->DRTW_revision->setHorizontalHeaderLabels(QStringList() << "VER DOCX" << "ORDEN DE INGRESO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "OBSERVACION" << "PATH" << "RELOAD");
         mostrarDocente(arbolSilabo->getRaiz(), 0, ui->lbl_cuentaE->text().toStdString());
     }
-//    if ((index == 2 || index == 3 || index == 4) && loginDocente) {
-//        cambio = QMessageBox::question(this, "Acceso Denegado", "Los docentes no tienen acceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-//        if (cambio == QMessageBox::Yes) {
-//            loginDocente = false;
-//            ui->tabWidget->setCurrentIndex(index);
-//            ui->tab_3->setEnabled(true);
-//            ui->tab_4->setEnabled(true);
-//            ui->tab_5->setEnabled(true);
-//            limpiarEntrega();
-//        } else {
-//            ui->tabWidget->setCurrentIndex(1);
-//        }
-//    } else if ((index == 1 || index == 3 || index == 4) && loginRevision) {
-//        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-//        if (cambio == QMessageBox::Yes) {
-//            loginRevision = false;
-//            ui->tabWidget->setCurrentIndex(index);
-//            ui->tab_2->setEnabled(true);
-//            ui->tab_4->setEnabled(true);
-//            ui->tab_5->setEnabled(true);
-//            limpiarRevision();
-//        } else {
-//            ui->tabWidget->setCurrentIndex(2);
-//        }
-//    } else if ((index == 1 || index == 2 || index == 4) && loginBoard) {
-//        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para visualizar\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-//        if (cambio == QMessageBox::Yes) {
-//            loginBoard = false;
-//            ui->tabWidget->setCurrentIndex(index);
-//            ui->tab_3->setEnabled(true);
-//            ui->tab_2->setEnabled(true);
-//            ui->tab_5->setEnabled(true);
-//            limpiarBoard();
-//        } else {
-//            ui->tabWidget->setCurrentIndex(3);
-//        }
-//    } else if ((index == 1 || index == 2 || index == 3) && loginCheck) {
-//        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-//        if (cambio == QMessageBox::Yes) {
-//            loginCheck = false;
-//            ui->tabWidget->setCurrentIndex(index);
-//            ui->tab_3->setEnabled(true);
-//            ui->tab_2->setEnabled(true);
-//            ui->tab_4->setEnabled(true);
-//        } else {
-//            ui->tabWidget->setCurrentIndex(4);
-//        }
-//    }
+    //    if ((index == 2 || index == 3 || index == 4) && loginDocente) {
+    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Los docentes no tienen acceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+    //        if (cambio == QMessageBox::Yes) {
+    //            loginDocente = false;
+    //            ui->tabWidget->setCurrentIndex(index);
+    //            ui->tab_3->setEnabled(true);
+    //            ui->tab_4->setEnabled(true);
+    //            ui->tab_5->setEnabled(true);
+    //            limpiarEntrega();
+    //        } else {
+    //            ui->tabWidget->setCurrentIndex(1);
+    //        }
+    //    } else if ((index == 1 || index == 3 || index == 4) && loginRevision) {
+    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+    //        if (cambio == QMessageBox::Yes) {
+    //            loginRevision = false;
+    //            ui->tabWidget->setCurrentIndex(index);
+    //            ui->tab_2->setEnabled(true);
+    //            ui->tab_4->setEnabled(true);
+    //            ui->tab_5->setEnabled(true);
+    //            limpiarRevision();
+    //        } else {
+    //            ui->tabWidget->setCurrentIndex(2);
+    //        }
+    //    } else if ((index == 1 || index == 2 || index == 4) && loginBoard) {
+    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para visualizar\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+    //        if (cambio == QMessageBox::Yes) {
+    //            loginBoard = false;
+    //            ui->tabWidget->setCurrentIndex(index);
+    //            ui->tab_3->setEnabled(true);
+    //            ui->tab_2->setEnabled(true);
+    //            ui->tab_5->setEnabled(true);
+    //            limpiarBoard();
+    //        } else {
+    //            ui->tabWidget->setCurrentIndex(3);
+    //        }
+    //    } else if ((index == 1 || index == 2 || index == 3) && loginCheck) {
+    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
+    //        if (cambio == QMessageBox::Yes) {
+    //            loginCheck = false;
+    //            ui->tabWidget->setCurrentIndex(index);
+    //            ui->tab_3->setEnabled(true);
+    //            ui->tab_2->setEnabled(true);
+    //            ui->tab_4->setEnabled(true);
+    //        } else {
+    //            ui->tabWidget->setCurrentIndex(4);
+    //        }
+    //    }
+    if (index == 5){
+        mostrarUsuarios();
+    }
 }
 
 void cframe::on_btn_sesion_clicked()
@@ -232,7 +235,7 @@ void cframe::on_btn_sesion_clicked()
                 ui->tabWidget->setTabEnabled(2, true);
                 ui->tabWidget->setTabEnabled(5, true);
                 items << "Listo para revision 1" << "Devolver a Academia";
-                 ui->Rcb_cambiarE->addItems(items);
+                ui->Rcb_cambiarE->addItems(items);
             }else if(usuarioActual->getTipo() == "Consultor"){
                 desactivarTabs();
                 ui->tabWidget->setTabEnabled(2, true);
@@ -833,6 +836,7 @@ void cframe::on_btn_registraruser_clicked()
     DB.saveUser(nuevoUser);
     limpiarRegistro();
     QMessageBox::information(this, "Registro Exitoso", "El usuario ha sido registrado exitosamente.");
+    mostrarUsuarios();
 
 }
 
@@ -859,7 +863,7 @@ void cframe::limpiarRegistro()
 
 void cframe::on_btn_archivoCF_clicked()
 {
-     QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
+    QString filePath = QFileDialog::getOpenFileName(this, "Explorador de Archivos Word Documents", QDir::homePath(), "Word Files (*.docx)");
     if (!filePath.isEmpty()) {
         ui->le_pathCF->setText(filePath);
     }
@@ -890,4 +894,77 @@ void cframe::on_cb_facultadRegistro_currentIndexChanged(int i)
         ui->cb_carreraRegistro->addItems(items);
     }
 }
+
+void cframe::mostrarUsuarios()
+{
+    // Limpiar el widget de tabla
+    ui->tw_usuarios->clear();
+    ui->tw_usuarios->setColumnCount(7);  // Ajusta según el número de columnas necesarias
+    QStringList headers = {"Número de Cuenta", "Nombre", "Clave", "Organización", "Tipo", "Carrera", "Cambiar Contraseña"};
+
+    ui->tw_usuarios->setHorizontalHeaderLabels(headers);
+    ui->tw_usuarios->setRowCount(listaUsuarios.Cantidad);
+    ui->tw_usuarios->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    // Recorrer la lista de usuarios y agregarlos a la tabla
+    nodoD<Usuario> *current = listaUsuarios.PrimPtr;
+    int row = 0;
+    while (current != nullptr) {
+        Usuario user = current->getDato();
+        ui->tw_usuarios->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(user.getCuenta())));
+        ui->tw_usuarios->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(user.getName())));
+        ui->tw_usuarios->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(user.getContrasena())));
+        ui->tw_usuarios->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(user.getInstitucion())));
+        ui->tw_usuarios->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(user.getTipo())));
+        ui->tw_usuarios->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(user.getCarrera())));
+        ui->tw_usuarios->setItem(row, 6, new QTableWidgetItem(QString::fromStdString("Cambiar")));
+
+
+        current = current->SigPtr;
+        row++;
+    }
+}
+
+
+
+void cframe::on_tw_usuarios_cellClicked(int row, int column)
+{
+    if (column == 6) { // la columna donde dice cambiar
+        bool ok;
+        QString nuevaContra = QInputDialog::getText(this, "Nueva Contraseña", "Ingrese la nueva contraseña:", QLineEdit::Normal, "", &ok);
+
+        if (ok && !nuevaContra.isEmpty()) {
+            // Obtener el número de cuenta del usuario seleccionado en la tabla
+            QString cuentaSeleccionada = ui->tw_usuarios->item(row, 0)->text();
+            std::string cuentaStr = cuentaSeleccionada.toStdString();
+
+            // Buscar el usuario en la lista
+            nodoD<Usuario> *current = listaUsuarios.PrimPtr;
+            while (current != nullptr) {
+                Usuario usuario = listaUsuarios.PrimPtr->getDato();
+
+                if (usuario.getCuenta() == cuentaStr) {
+                    // Actualizar la contraseña del usuario
+                    usuario.setContrasena(nuevaContra.toStdString());
+
+                    // Actualizar en la base de datos
+                    if (!DB.actualizarUsuario(usuario)) {
+                        QMessageBox::information(this, "Error", "No se ha podido actualizar la base de datos");
+                    } else {
+                        QMessageBox::information(this, "Éxito", "La contraseña ha sido actualizada correctamente");
+                    }
+                    break;
+                }
+
+                current = current->SigPtr;
+            }
+        } else {
+            QMessageBox::information(this, "Datos incompletos", "Por favor, no deje campos vacíos");
+        }
+
+        // Refrescar la tabla de usuarios para mostrar los cambios
+        mostrarUsuarios();
+    }
+}
+
 

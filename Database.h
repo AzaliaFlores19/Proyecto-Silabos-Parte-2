@@ -29,44 +29,44 @@ private:
         QStringList queries = {
             R"(
             CREATE TABLE IF NOT EXISTS Facultad (
-                id INTEGER PRIMARY KEY,
-                nombre TEXT
+            id INTEGER PRIMARY KEY,
+            nombre TEXT
             );)",
             R"(
             CREATE TABLE IF NOT EXISTS ProgramaAcademico (
-                id INTEGER PRIMARY KEY,
-                facultad INTEGER,
-                nombre TEXT,
-                FOREIGN KEY (facultad) REFERENCES Facultad(id)
+            id INTEGER PRIMARY KEY,
+            facultad INTEGER,
+            nombre TEXT,
+            FOREIGN KEY (facultad) REFERENCES Facultad(id)
             );)",
             R"(
             CREATE TABLE IF NOT EXISTS Usuarios (
-                numeroCuenta TEXT PRIMARY KEY,
-                nombre TEXT,
-                clave TEXT,
-                org TEXT,
-                tipo TEXT,
-                carrera TEXT
+            numeroCuenta TEXT PRIMARY KEY,
+            nombre TEXT,
+            clave TEXT,
+            org TEXT,
+            tipo TEXT,
+            carrera TEXT
             );)",
             R"(
             CREATE TABLE IF NOT EXISTS Silabos (
-                id INTEGER PRIMARY KEY,
-                nombre TEXT,
-                carrera INTEGER,
-                codigoClase VARCHAR(6),
-                nombreClase TEXT,
-                estado INTEGER,
-                subidoPor TEXT,
-                archivo BLOB,
-                FOREIGN KEY (carrera) REFERENCES ProgramaAcademico(id),
-                FOREIGN KEY (subidoPor) REFERENCES Usuarios(numeroCuenta)
+            id INTEGER PRIMARY KEY,
+            nombre TEXT,
+            carrera INTEGER,
+            codigoClase VARCHAR(6),
+            nombreClase TEXT,
+            estado INTEGER,
+            subidoPor TEXT,
+            archivo BLOB,
+            FOREIGN KEY (carrera) REFERENCES ProgramaAcademico(id),
+            FOREIGN KEY (subidoPor) REFERENCES Usuarios(numeroCuenta)
             );)",
             R"(
             CREATE TABLE IF NOT EXISTS CuadroFechas (
-                id INTEGER PRIMARY KEY,
-                silabo INTEGER,
-                archivo BLOB,
-                FOREIGN KEY (silabo) REFERENCES Silabos(id)
+            id INTEGER PRIMARY KEY,
+            silabo INTEGER,
+            archivo BLOB,
+            FOREIGN KEY (silabo) REFERENCES Silabos(id)
             );)"
         };
 
@@ -227,13 +227,32 @@ public:
             string tipo = query.value(4).toString().toStdString();
             string carrera = query.value(5).toString().toStdString();
 
-            Usuario user(numeroCuenta, nombre, clave, org, tipo, carrera);
+            Usuario user(nombre, numeroCuenta, clave, org, tipo, carrera);
             usuarios.InsertarFin(user);
         }
 
         qDebug() << "Users successfully loaded from database.";
         return true;
     }
+
+    bool actualizarUsuario(Usuario user) {
+        if (!connection.isOpen()) return false;
+
+        QSqlQuery query(connection);
+        query.prepare("UPDATE Usuarios SET clave = :clave WHERE numeroCuenta = :numeroCuenta;");
+        query.bindValue(":clave", QString::fromStdString(user.getContrasena()));
+        query.bindValue(":numeroCuenta", QString::fromStdString(user.getCuenta()));
+
+        if (!query.exec()) {
+            qDebug() << "Error al ejecutar el query de actualización del usuario:" << query.lastError().text();
+            return false;
+        }
+        qDebug() << "Usuario actualizado correctamente. Cuenta:" << QString::fromStdString(user.getCuenta()) << "Nueva contraseña:" << QString::fromStdString(user.getContrasena());
+
+        return true;
+    }
+
+
 
 };
 

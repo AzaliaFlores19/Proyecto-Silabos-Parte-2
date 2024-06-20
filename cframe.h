@@ -11,6 +11,7 @@
 #include <QTableWidgetItem>
 #include "CuadroFechas.h"
 #include "Database.h"
+#include <QInputDialog>
 
 using std::string;
 
@@ -62,6 +63,8 @@ private slots:
 
     void on_cb_facultadRegistro_currentIndexChanged(int index);
 
+    void on_tw_usuarios_cellClicked(int row, int column);
+
 private:
     Ui::cframe *ui;
 
@@ -98,6 +101,11 @@ private:
     void mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta);
 
     Usuario *usuarioActual = nullptr;
+
+
+
+    //cambiar contra
+    void mostrarUsuarios();
 
     // Método para convertir enum Estado a string
     std::string estado;
