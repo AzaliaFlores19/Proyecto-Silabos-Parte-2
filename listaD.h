@@ -83,63 +83,63 @@ bool listaD<tipo>::Vacia() const
     return PrimPtr==nullptr;
 }
 
-template<typename tipo>
-void listaD<tipo>::guardarExcelUsuarios(std::ofstream &file, listaD<Usuario> &listaUsuarios)
-{
-    nodoD<Usuario> *tmp = listaUsuarios.PrimPtr;
-    while (tmp != nullptr) {
-        Usuario usuario = tmp->getDato();
-        file << usuario.getName() << "\t"
-             << usuario.getCuenta() << "\t"
-             << usuario.getContrasena() << "\t"
-             << usuario.getInstitucion() << "\t"
-             << usuario.getTipo() << "\n";
-        tmp = tmp->SigPtr;
-    }
-}
+// template<typename tipo>
+// void listaD<tipo>::guardarExcelUsuarios(std::ofstream &file, listaD<Usuario> &listaUsuarios)
+// {
+//     nodoD<Usuario> *tmp = listaUsuarios.PrimPtr;
+//     while (tmp != nullptr) {
+//         Usuario usuario = tmp->getDato();
+//         file << usuario.getName() << "\t"
+//              << usuario.getCuenta() << "\t"
+//              << usuario.getContrasena() << "\t"
+//              << usuario.getInstitucion() << "\t"
+//              << usuario.getTipo() << "\n";
+//         tmp = tmp->SigPtr;
+//     }
+// }
 
-template<typename tipo>
-void listaD<tipo>::guardarUsuarios(listaD<Usuario> &listaUsuarios)
-{
-    std::ifstream file;
-    file.open("usuarios.xls");
-    file.close();
+// template<typename tipo>
+// void listaD<tipo>::guardarUsuarios(listaD<Usuario> &listaUsuarios)
+// {
+//     std::ifstream file;
+//     file.open("usuarios.xls");
+//     file.close();
 
-    std::ofstream File("usuarios.xls");  // Abre el archivo en modo de escritura
-    if (File.is_open()) {
-        File << "Nombre\tCuenta\tContrasena\tInstitucion\tTipo Usuario\n";
-        guardarExcelUsuarios(File, listaUsuarios);
-        File.close();
-        cout << "XLS exportado\n";
-    } else {
-        cerr << "Error en el archivo\n";
-    }
-}
+//     std::ofstream File("usuarios.xls");  // Abre el archivo en modo de escritura
+//     if (File.is_open()) {
+//         File << "Nombre\tCuenta\tContrasena\tInstitucion\tTipo Usuario\n";
+//         guardarExcelUsuarios(File, listaUsuarios);
+//         File.close();
+//         cout << "XLS exportado\n";
+//     } else {
+//         cerr << "Error en el archivo\n";
+//     }
+// }
 
-template<typename tipo>
-void listaD<tipo>::cargarUsuarios()
-{
-    std::ifstream file("usuarios.xls");
-    if (file.is_open()) {
+// template<typename tipo>
+// void listaD<tipo>::cargarUsuarios()
+// {
+//     std::ifstream file("usuarios.xls");
+//     if (file.is_open()) {
 
-        string header;
-        std::getline(file, header);
+//         string header;
+//         std::getline(file, header);
 
-        string nombre, cuenta, contrasena, institucion, tipousuario, carrera;
-        while (file >> nombre >> cuenta >> contrasena >> institucion >> tipousuario >> carrera) {
-            Usuario nuevo(nombre, cuenta, contrasena, institucion, tipousuario, carrera);
-            InsertarFin(nuevo);
-        }
-        file.close();
-        cout << "Usuarios cargados desde el archivo\n";
-    } else {
-        cerr << "Error al abrir el archivo\n";
-    }
+//         string nombre, cuenta, contrasena, institucion, tipousuario, carrera;
+//         while (file >> nombre >> cuenta >> contrasena >> institucion >> tipousuario >> carrera) {
+//             Usuario nuevo(nombre, cuenta, contrasena, institucion, tipousuario, carrera);
+//             InsertarFin(nuevo);
+//         }
+//         file.close();
+//         cout << "Usuarios cargados desde el archivo\n";
+//     } else {
+//         cerr << "Error al abrir el archivo\n";
+//     }
 
-//    if (std::remove("usuarios.xls") != 0 ) {
-//        std::cerr << "Error al eliminar el archivo.\n";
-//    } else {
-//        cout << "Archivo eliminado exitosamente.\n";
+//   if (std::remove("usuarios.xls") != 0 ) {
+//     std::cerr << "Error al eliminar el archivo.\n";
+// } else {
+//       cout << "Archivo eliminado exitosamente.\n";
 //    }
-}
+// }
 #endif // LISTAD_H
