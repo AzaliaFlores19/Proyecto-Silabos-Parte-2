@@ -1,9 +1,0 @@
-Nombre	Cuenta	Contrasena	Institucion	Tipo Usuario
-AdminGlobal	101010	admin	UNITEC	GLOBAL
-AdminJefe	123	boss123	UNITEC	Jefe
-AdminIEDD	234	what123	UNITEC	IEDD
-AdminCoordinador	567	co123	UNITEC	Coordinador
-AdminDocente	678	teacher123	UNITEC	Docente
-AdminConsulor	789	consultor123	UNITEC	Consultor
-AdminDecano	444	dean123	UNITEC	Decano
-AdminDirector	222	director123	UNITEC	Director

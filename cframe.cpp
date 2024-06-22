@@ -52,29 +52,31 @@ cframe::cframe(QWidget *parent)
     // ============= Cargar usuario de prueba ===============
 
     // Cargar usuarios desde el archivo, si no existe, crear archivo con usuario por defecto
-    std::ifstream file("usuarios.xls");
-    if (!file.is_open()) {
-        Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
-        Usuario B("AdminJefe","123","boss123","UNITEC","Jefe", "Ingenieria en Mecatronica");
-        Usuario I("AdminIEDD","234","what123","UNITEC","IEDD", "Ingenieria en Mecatronica");
-        Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador", "Ingenieria en Mecatronica");
-        Usuario D("AdminDocente","678","teacher123","UNITEC","Docente", "Ingenieria en Mecatronica");
-        Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor", "Ingenieria en Mecatronica");
-        Usuario DD("AdminDecano","444","dean123","UNITEC","Decano", "Ingenieria en Mecatronica");
-        Usuario DI("AdminDirector","222","director123","UNITEC","Director", "Ingenieria en Mecatronica");
+    // std::ifstream file("usuarios.xls");
+    // if (!file.is_open()) {
 
-        listaUsuarios.InsertarFin(u);
-        listaUsuarios.InsertarFin(B);
-        listaUsuarios.InsertarFin(I);
-        listaUsuarios.InsertarFin(C);
-        listaUsuarios.InsertarFin(D);
-        listaUsuarios.InsertarFin(CC);
-        listaUsuarios.InsertarFin(DD);
-        listaUsuarios.InsertarFin(DI);
-        listaUsuarios.guardarUsuarios(listaUsuarios);
-    } else {
-        listaUsuarios.cargarUsuarios();
-    }
+    //     listaUsuarios.guardarUsuarios(listaUsuarios);
+    // } else {
+    //     listaUsuarios.cargarUsuarios();
+    // }
+
+    Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
+    Usuario B("AdminJefe","123","boss123","UNITEC","Jefe", "Ingenieria en Mecatronica");
+    Usuario I("AdminIEDD","234","what123","UNITEC","IEDD", "Ingenieria en Mecatronica");
+    Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador", "Ingenieria en Mecatronica");
+    Usuario D("AdminDocente","678","teacher123","UNITEC","Docente", "Ingenieria en Mecatronica");
+    Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor", "Ingenieria en Mecatronica");
+    Usuario DD("AdminDecano","444","dean123","UNITEC","Decano", "Ingenieria en Mecatronica");
+    Usuario DI("AdminDirector","222","director123","UNITEC","Director", "Ingenieria en Mecatronica");
+
+    listaUsuarios.InsertarFin(u);
+    listaUsuarios.InsertarFin(B);
+    listaUsuarios.InsertarFin(I);
+    listaUsuarios.InsertarFin(C);
+    listaUsuarios.InsertarFin(D);
+    listaUsuarios.InsertarFin(CC);
+    listaUsuarios.InsertarFin(DD);
+    listaUsuarios.InsertarFin(DI);
 
     desactivarTabs();
 }
@@ -831,7 +833,7 @@ void cframe::on_btn_registraruser_clicked()
     // Si no se encuentra un usuario con el mismo número de cuenta, registrar el nuevo usuario
     Usuario nuevoUser(nombre, numeroCuenta, clave, institucion, tipousuario, carrera);
     listaUsuarios.InsertarFin(nuevoUser);
-    listaUsuarios.guardarUsuarios(listaUsuarios);
+    //listaUsuarios.guardarUsuarios(listaUsuarios);
 
     DB.saveUser(nuevoUser);
     limpiarRegistro();

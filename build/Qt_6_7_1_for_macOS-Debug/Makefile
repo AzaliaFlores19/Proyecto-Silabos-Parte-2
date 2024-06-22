@@ -877,6 +877,8 @@ moc_cframe.cpp: ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlerror.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
 		/Users/coleexz/Qt/6.7.1/macos/libexec/moc
 	/Users/coleexz/Qt/6.7.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=15 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-clang -I/Users/coleexz/Documents/GitHub/Proyecto-Silabos-Parte-2 -I/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers -I/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/coleexz/Qt/6.7.1/macos/lib ../../cframe.h -o moc_cframe.cpp
 
@@ -932,6 +934,8 @@ main.o: ../../main.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlerror.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
@@ -965,6 +969,8 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Headers/qsqlerror.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
 		ui_cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers/QImage \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Headers/qimage.h \
@@ -983,7 +989,9 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QModelIndex \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qabstractitemmodel.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qboxlayout.h
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QFileInfo \
+		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qfileinfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cframe.o ../../cframe.cpp
 
 moc_cframe.o: moc_cframe.cpp 

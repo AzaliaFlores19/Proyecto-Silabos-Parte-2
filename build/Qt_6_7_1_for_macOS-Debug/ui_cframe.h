@@ -132,6 +132,11 @@ public:
     QComboBox *cb_institucionR;
     QLabel *lbl_facultadE_6;
     QComboBox *cb_tipousuarioR;
+    QLabel *lbl_facultadE_8;
+    QComboBox *cb_facultadRegistro;
+    QLabel *lbl_carreraE_2;
+    QComboBox *cb_carreraRegistro;
+    QTableWidget *tw_usuarios;
     QPushButton *btn_registraruser;
     QPushButton *btn_registrarSalir;
     QMenuBar *menubar;
@@ -141,13 +146,13 @@ public:
     {
         if (cframe->objectName().isEmpty())
             cframe->setObjectName("cframe");
-        cframe->resize(1038, 687);
+        cframe->resize(1228, 838);
         centralwidget = new QWidget(cframe);
         centralwidget->setObjectName("centralwidget");
         centralwidget->setEnabled(true);
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(20, 20, 1149, 720));
+        verticalLayoutWidget->setGeometry(QRect(20, 20, 1149, 799));
         verticalLayout = new QVBoxLayout(verticalLayoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
@@ -769,6 +774,43 @@ public:
 
         verticalLayout_10->addWidget(cb_tipousuarioR);
 
+        lbl_facultadE_8 = new QLabel(frame);
+        lbl_facultadE_8->setObjectName("lbl_facultadE_8");
+        lbl_facultadE_8->setFont(font1);
+
+        verticalLayout_10->addWidget(lbl_facultadE_8);
+
+        cb_facultadRegistro = new QComboBox(frame);
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->addItem(QString());
+        cb_facultadRegistro->setObjectName("cb_facultadRegistro");
+        cb_facultadRegistro->setFont(font);
+
+        verticalLayout_10->addWidget(cb_facultadRegistro);
+
+        lbl_carreraE_2 = new QLabel(frame);
+        lbl_carreraE_2->setObjectName("lbl_carreraE_2");
+        lbl_carreraE_2->setFont(font1);
+
+        verticalLayout_10->addWidget(lbl_carreraE_2);
+
+        cb_carreraRegistro = new QComboBox(frame);
+        cb_carreraRegistro->addItem(QString());
+        cb_carreraRegistro->setObjectName("cb_carreraRegistro");
+        cb_carreraRegistro->setFont(font);
+
+        verticalLayout_10->addWidget(cb_carreraRegistro);
+
+        tw_usuarios = new QTableWidget(frame);
+        tw_usuarios->setObjectName("tw_usuarios");
+
+        verticalLayout_10->addWidget(tw_usuarios);
+
         btn_registraruser = new QPushButton(frame);
         btn_registraruser->setObjectName("btn_registraruser");
         QPalette palette11;
@@ -801,7 +843,7 @@ public:
         cframe->setCentralWidget(centralwidget);
         menubar = new QMenuBar(cframe);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1038, 26));
+        menubar->setGeometry(QRect(0, 0, 1228, 25));
         cframe->setMenuBar(menubar);
         statusbar = new QStatusBar(cframe);
         statusbar->setObjectName("statusbar");
@@ -892,6 +934,18 @@ public:
         cb_tipousuarioR->setItemText(3, QCoreApplication::translate("cframe", "IEDD", nullptr));
         cb_tipousuarioR->setItemText(4, QCoreApplication::translate("cframe", "Consultor", nullptr));
         cb_tipousuarioR->setItemText(5, QCoreApplication::translate("cframe", "Decano", nullptr));
+
+        lbl_facultadE_8->setText(QCoreApplication::translate("cframe", "Facultad:", nullptr));
+        cb_facultadRegistro->setItemText(0, QCoreApplication::translate("cframe", "...", nullptr));
+        cb_facultadRegistro->setItemText(1, QCoreApplication::translate("cframe", "FACULTAD DE INGENIER\303\215A", nullptr));
+        cb_facultadRegistro->setItemText(2, QCoreApplication::translate("cframe", "FACULTAD DE CIENCIAS ADMINISTRATIVAS Y SOCIALES", nullptr));
+        cb_facultadRegistro->setItemText(3, QCoreApplication::translate("cframe", "FACULTAD DE ARTE Y DISE\303\221O", nullptr));
+        cb_facultadRegistro->setItemText(4, QCoreApplication::translate("cframe", "FACULTAD DE CIENCIAS DE LA SALUD", nullptr));
+        cb_facultadRegistro->setItemText(5, QCoreApplication::translate("cframe", "FACULTAD DE POSTGRADO", nullptr));
+        cb_facultadRegistro->setItemText(6, QCoreApplication::translate("cframe", "FACULTAD DE T\303\211CNICOS", nullptr));
+
+        lbl_carreraE_2->setText(QCoreApplication::translate("cframe", "Programa Acad\303\251mico:", nullptr));
+        cb_carreraRegistro->setItemText(0, QCoreApplication::translate("cframe", "...", nullptr));
 
         btn_registraruser->setText(QCoreApplication::translate("cframe", "Registrar", nullptr));
         btn_registrarSalir->setText(QCoreApplication::translate("cframe", "Salir", nullptr));
