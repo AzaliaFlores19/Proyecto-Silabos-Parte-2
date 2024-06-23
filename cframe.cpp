@@ -126,9 +126,6 @@ void cframe::on_tabWidget_currentChanged(int index)
         // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
     }else if(index==4){
         loginCheck = true;
-        ui->tab_3->setEnabled(false);
-        ui->tab_2->setEnabled(false);
-        ui->tab_4->setEnabled(false);
         ui->Dframe2->setVisible(true);
         ui->Dbtn_salir->setVisible(true);
 
@@ -259,6 +256,7 @@ void cframe::on_btn_sesion_clicked()
                 ui->tabWidget->setTabEnabled(3, true);
             }else if(usuarioActual->getTipo() == "GLOBAL"){
                 activarTabs(); // ACTIVAR TODOS LOS TABS PARA EL USUARIO GLOBAL
+                loginRevision = true;
             }
 
             ui->le_cuentaE->setText("");
