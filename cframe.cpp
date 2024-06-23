@@ -943,7 +943,7 @@ void cframe::on_tw_usuarios_cellClicked(int row, int column)
             // Buscar el usuario en la lista
             nodoD<Usuario> *current = listaUsuarios.PrimPtr;
             while (current != nullptr) {
-                Usuario usuario = listaUsuarios.PrimPtr->getDato();
+                Usuario usuario = current->getDato();
 
                 if (usuario.getCuenta() == cuentaStr) {
                     // Actualizar la contraseña del usuario
@@ -953,6 +953,8 @@ void cframe::on_tw_usuarios_cellClicked(int row, int column)
                     if (!DB.actualizarUsuario(usuario)) {
                         QMessageBox::information(this, "Error", "No se ha podido actualizar la base de datos");
                     } else {
+                        // Actualizar el dato en el nodo de la lista
+                        current->Dato= usuario;
                         QMessageBox::information(this, "Éxito", "La contraseña ha sido actualizada correctamente");
                     }
                     break;

@@ -194,7 +194,7 @@ public:
 
         QSqlQuery query(connection);
 
-        query.prepare("INSERT INTO Usuarios(numeroCuenta, nombre, clave, org, tipo, carrera) VALUEs(?, ?, ?, ?, ?, ?);");
+        query.prepare("INSERT INTO Usuarios(numeroCuenta, nombre, clave, org, tipo, carrera) VALUES(?, ?, ?, ?, ?, ?);");
         query.bindValue(0, user.getCuenta().c_str());
         query.bindValue(1, user.getName().c_str());
         query.bindValue(2, user.getContrasena().c_str());
@@ -236,7 +236,9 @@ public:
     }
 
     bool actualizarUsuario(Usuario user) {
-        if (!connection.isOpen()) return false;
+        if (!connection.isOpen()){
+            connection.open();
+        }
 
         QSqlQuery query(connection);
         query.prepare("UPDATE Usuarios SET clave = :clave WHERE numeroCuenta = :numeroCuenta;");
@@ -251,7 +253,6 @@ public:
 
         return true;
     }
-
 
 
 };
