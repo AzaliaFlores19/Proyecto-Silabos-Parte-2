@@ -675,7 +675,7 @@ void cframe::on_Bbtn_proceso_clicked()
     ui->tableWidget->setRowCount(0);
 
     QStringList headers;
-    headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
     ui->tableWidget->setColumnCount(headers.size());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -704,11 +704,12 @@ void cframe::recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget,
             tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
             tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(( names.nombres[silabo->getEstado()] ))));
-            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::number(silabo->getId())));
-            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(( names.nombres[silabo->getEstado()] ))));
+            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(silabo->getId())));
+            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
         }
     }
 

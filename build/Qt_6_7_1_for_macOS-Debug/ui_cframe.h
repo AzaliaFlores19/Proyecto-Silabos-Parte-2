@@ -48,9 +48,6 @@ public:
     QLineEdit *le_cuentaE;
     QPushButton *btn_sesion;
     QLabel *lbl_b2M;
-    QPushButton *btn_entregarM_2;
-    QPushButton *btn_revision_2;
-    QPushButton *btn_dashboardM_2;
     QWidget *tab_2;
     QVBoxLayout *verticalLayout_4;
     QLabel *lbl_pngE;
@@ -255,43 +252,6 @@ public:
 
         verticalLayout_2->addWidget(lbl_b2M);
 
-        btn_entregarM_2 = new QPushButton(tab);
-        btn_entregarM_2->setObjectName("btn_entregarM_2");
-        QPalette palette4;
-        palette4.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette4.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette4.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        btn_entregarM_2->setPalette(palette4);
-        QFont font3;
-        font3.setFamilies({QString::fromUtf8("Cambria")});
-        font3.setPointSize(14);
-        font3.setBold(false);
-        btn_entregarM_2->setFont(font3);
-
-        verticalLayout_2->addWidget(btn_entregarM_2);
-
-        btn_revision_2 = new QPushButton(tab);
-        btn_revision_2->setObjectName("btn_revision_2");
-        QPalette palette5;
-        palette5.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette5.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette5.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        btn_revision_2->setPalette(palette5);
-        btn_revision_2->setFont(font3);
-
-        verticalLayout_2->addWidget(btn_revision_2);
-
-        btn_dashboardM_2 = new QPushButton(tab);
-        btn_dashboardM_2->setObjectName("btn_dashboardM_2");
-        QPalette palette6;
-        palette6.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette6.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette6.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        btn_dashboardM_2->setPalette(palette6);
-        btn_dashboardM_2->setFont(font3);
-
-        verticalLayout_2->addWidget(btn_dashboardM_2);
-
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName("tab_2");
@@ -408,21 +368,21 @@ public:
 
         btn_silaboE = new QPushButton(frameE);
         btn_silaboE->setObjectName("btn_silaboE");
-        QPalette palette7;
-        palette7.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette7.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette7.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        btn_silaboE->setPalette(palette7);
+        QPalette palette4;
+        palette4.setBrush(QPalette::Active, QPalette::Button, brush);
+        palette4.setBrush(QPalette::Inactive, QPalette::Button, brush);
+        palette4.setBrush(QPalette::Disabled, QPalette::Button, brush);
+        btn_silaboE->setPalette(palette4);
         btn_silaboE->setFont(font2);
 
         verticalLayout_3->addWidget(btn_silaboE);
 
         btn_closeE = new QPushButton(frameE);
         btn_closeE->setObjectName("btn_closeE");
-        QFont font4;
-        font4.setFamilies({QString::fromUtf8("Sans Serif Collection")});
-        font4.setPointSize(7);
-        btn_closeE->setFont(font4);
+        QFont font3;
+        font3.setFamilies({QString::fromUtf8("Sans Serif Collection")});
+        font3.setPointSize(7);
+        btn_closeE->setFont(font3);
 
         verticalLayout_3->addWidget(btn_closeE);
 
@@ -472,10 +432,10 @@ public:
 
         Rbtn_cambiar = new QPushButton(frame_2);
         Rbtn_cambiar->setObjectName("Rbtn_cambiar");
-        QFont font5;
-        font5.setFamilies({QString::fromUtf8("Sans Serif Collection")});
-        font5.setPointSize(11);
-        Rbtn_cambiar->setFont(font5);
+        QFont font4;
+        font4.setFamilies({QString::fromUtf8("Sans Serif Collection")});
+        font4.setPointSize(11);
+        Rbtn_cambiar->setFont(font4);
 
         gridLayout_11->addWidget(Rbtn_cambiar, 4, 1, 1, 1);
 
@@ -603,31 +563,31 @@ public:
         gridLayout_17->setObjectName("gridLayout_17");
         Dlabel2 = new QLabel(Dframe2);
         Dlabel2->setObjectName("Dlabel2");
-        QPalette palette8;
+        QPalette palette5;
         QBrush brush3(QColor(6, 36, 88, 255));
         brush3.setStyle(Qt::SolidPattern);
-        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette8.setBrush(QPalette::Active, QPalette::Text, brush3);
+        palette5.setBrush(QPalette::Active, QPalette::WindowText, brush3);
+        palette5.setBrush(QPalette::Active, QPalette::Text, brush3);
         QBrush brush4(QColor(6, 36, 88, 128));
         brush4.setStyle(Qt::SolidPattern);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette8.setBrush(QPalette::Active, QPalette::PlaceholderText, brush4);
+        palette5.setBrush(QPalette::Active, QPalette::PlaceholderText, brush4);
 #endif
-        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
-        palette8.setBrush(QPalette::Inactive, QPalette::Text, brush3);
+        palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette5.setBrush(QPalette::Inactive, QPalette::Text, brush3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette8.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush4);
+        palette5.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush4);
 #endif
         QBrush brush5(QColor(120, 120, 120, 255));
         brush5.setStyle(Qt::SolidPattern);
-        palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush5);
-        palette8.setBrush(QPalette::Disabled, QPalette::Text, brush5);
+        palette5.setBrush(QPalette::Disabled, QPalette::WindowText, brush5);
+        palette5.setBrush(QPalette::Disabled, QPalette::Text, brush5);
         QBrush brush6(QColor(0, 0, 0, 128));
         brush6.setStyle(Qt::SolidPattern);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette8.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
+        palette5.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
 #endif
-        Dlabel2->setPalette(palette8);
+        Dlabel2->setPalette(palette5);
 
         gridLayout_17->addWidget(Dlabel2, 0, 0, 1, 1);
 
@@ -638,23 +598,23 @@ public:
 
         Dlabel = new QLabel(Dframe2);
         Dlabel->setObjectName("Dlabel");
-        QPalette palette9;
-        palette9.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette9.setBrush(QPalette::Active, QPalette::Text, brush3);
+        QPalette palette6;
+        palette6.setBrush(QPalette::Active, QPalette::WindowText, brush3);
+        palette6.setBrush(QPalette::Active, QPalette::Text, brush3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette9.setBrush(QPalette::Active, QPalette::PlaceholderText, brush4);
+        palette6.setBrush(QPalette::Active, QPalette::PlaceholderText, brush4);
 #endif
-        palette9.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
-        palette9.setBrush(QPalette::Inactive, QPalette::Text, brush3);
+        palette6.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette6.setBrush(QPalette::Inactive, QPalette::Text, brush3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette9.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush4);
+        palette6.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush4);
 #endif
-        palette9.setBrush(QPalette::Disabled, QPalette::WindowText, brush5);
-        palette9.setBrush(QPalette::Disabled, QPalette::Text, brush5);
+        palette6.setBrush(QPalette::Disabled, QPalette::WindowText, brush5);
+        palette6.setBrush(QPalette::Disabled, QPalette::Text, brush5);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
-        palette9.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
+        palette6.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush6);
 #endif
-        Dlabel->setPalette(palette9);
+        Dlabel->setPalette(palette6);
 
         gridLayout_17->addWidget(Dlabel, 0, 2, 1, 1);
 
@@ -669,11 +629,11 @@ public:
         verticalLayout_5->setObjectName("verticalLayout_5");
         Dbtn_sesion = new QPushButton(Dframe1);
         Dbtn_sesion->setObjectName("Dbtn_sesion");
-        QPalette palette10;
-        palette10.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette10.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette10.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        Dbtn_sesion->setPalette(palette10);
+        QPalette palette7;
+        palette7.setBrush(QPalette::Active, QPalette::Button, brush);
+        palette7.setBrush(QPalette::Inactive, QPalette::Button, brush);
+        palette7.setBrush(QPalette::Disabled, QPalette::Button, brush);
+        Dbtn_sesion->setPalette(palette7);
         Dbtn_sesion->setFont(font2);
 
         verticalLayout_5->addWidget(Dbtn_sesion);
@@ -813,22 +773,22 @@ public:
 
         btn_registraruser = new QPushButton(frame);
         btn_registraruser->setObjectName("btn_registraruser");
-        QPalette palette11;
-        palette11.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette11.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette11.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        btn_registraruser->setPalette(palette11);
+        QPalette palette8;
+        palette8.setBrush(QPalette::Active, QPalette::Button, brush);
+        palette8.setBrush(QPalette::Inactive, QPalette::Button, brush);
+        palette8.setBrush(QPalette::Disabled, QPalette::Button, brush);
+        btn_registraruser->setPalette(palette8);
         btn_registraruser->setFont(font2);
 
         verticalLayout_10->addWidget(btn_registraruser);
 
         btn_registrarSalir = new QPushButton(frame);
         btn_registrarSalir->setObjectName("btn_registrarSalir");
-        QPalette palette12;
-        palette12.setBrush(QPalette::Active, QPalette::Button, brush);
-        palette12.setBrush(QPalette::Inactive, QPalette::Button, brush);
-        palette12.setBrush(QPalette::Disabled, QPalette::Button, brush);
-        btn_registrarSalir->setPalette(palette12);
+        QPalette palette9;
+        palette9.setBrush(QPalette::Active, QPalette::Button, brush);
+        palette9.setBrush(QPalette::Inactive, QPalette::Button, brush);
+        palette9.setBrush(QPalette::Disabled, QPalette::Button, brush);
+        btn_registrarSalir->setPalette(palette9);
         btn_registrarSalir->setFont(font2);
 
         verticalLayout_10->addWidget(btn_registrarSalir);
@@ -843,7 +803,7 @@ public:
         cframe->setCentralWidget(centralwidget);
         menubar = new QMenuBar(cframe);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1228, 25));
+        menubar->setGeometry(QRect(0, 0, 1228, 24));
         cframe->setMenuBar(menubar);
         statusbar = new QStatusBar(cframe);
         statusbar->setObjectName("statusbar");
@@ -851,7 +811,7 @@ public:
 
         retranslateUi(cframe);
 
-        tabWidget->setCurrentIndex(5);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(cframe);
@@ -866,9 +826,6 @@ public:
         lbl_contraE_6->setText(QCoreApplication::translate("cframe", "Clave:", nullptr));
         btn_sesion->setText(QCoreApplication::translate("cframe", "Iniciar Sesion", nullptr));
         lbl_b2M->setText(QString());
-        btn_entregarM_2->setText(QCoreApplication::translate("cframe", "ENTREGA", nullptr));
-        btn_revision_2->setText(QCoreApplication::translate("cframe", "REVISION", nullptr));
-        btn_dashboardM_2->setText(QCoreApplication::translate("cframe", "VER DASHBOARD", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("cframe", "MENU", nullptr));
         lbl_pngE->setText(QString());
         lbl_b2M_2->setText(QString());
