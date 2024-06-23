@@ -121,6 +121,7 @@ void cframe::on_tabWidget_currentChanged(int index)
         headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
         ui->tableWidget->setColumnCount(headers.size());
         ui->tableWidget->setHorizontalHeaderLabels(headers);
+        DB.loadSilabos(arbolSilabo);
 
 
         // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
@@ -542,7 +543,7 @@ void cframe::pruebitaBotonesTab()
 
     ui->RTW_revision->setHorizontalHeaderLabels(QStringList() << "MODIFICAR" << "VER DOCX" << "ORDEN DE INGRESO" << "ESTADO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "PATH" << "OBSERVACION" << "RELOAD" << "# REVISIONES");
     int fila = 0;
-
+    DB.loadSilabos(arbolSilabo->getRaiz());
     recorrerArbolParaTabla(arbolSilabo->getRaiz(), fila, listaUsuarios.PrimPtr);
 }
 

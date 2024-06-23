@@ -12,6 +12,7 @@
 #include "CuadroFechas.h"
 #include "Usuario.h"
 #include "listaD.h"
+#include <ArbolB.h>
 
 using std::string, std::cout, std::vector;
 
@@ -253,6 +254,36 @@ public:
 
         return true;
     }
+
+    bool loadSilabos(ArbolB &arbolSilabos) {
+        QSqlQuery query(connection);
+
+        if (!query.exec("SELECT id, nombre, carrera, codigoClase, nombreClase, estado, subidoPor, archivo FROM Silabos")) {
+            qDebug() << "Error: failed to retrieve silabos from database -" << query.lastError().text();
+            return false;
+        }
+
+        while (query.next()) {
+            int id = query.value(0).toInt();
+            string nombreArchivo = query.value(1).toString().toStdString();
+            string carrera = query.value(2).toString().toStdString();
+            string codigoClase = query.value(3).toString().toStdString();
+            string nombreClase = query.value(4).toString().toStdString();
+            Estado estado = static_cast<Estado>(query.value(5).toInt());
+            string subidoPor = query.value(6).toString().toStdString();
+            QByteArray archivoDataArray = query.value(7).toByteArray();
+            //            CuadroFechas* cuadrofecha = new CuadroFechas(id, nombreArchivo,estado,observacion,revisiones,id);
+
+            // Crear objeto Silabo con el archivo
+            //Silabo* silabo = new Silabo(id,nombreArchivo,estado,". . .",0,"",carrera,codigoClase,ruta,nombreClase,subidoPor,cuadrofecha);
+            //arbolSilabos.insertar(silabo);
+
+        }
+
+        qDebug() << "Silabos successfully loaded from database.";
+        return true;
+    }
+
 
 
 };
