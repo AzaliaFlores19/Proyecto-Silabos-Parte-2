@@ -699,45 +699,42 @@ void cframe::on_Bbtn_proceso_clicked()
     recorrerArbolParaTableEnProceso(arbolSilabo->getRaiz(), ui->tableWidget);
 }
 
-void cframe::recorrerArbolParaTableAprobados(NodoArbolB *nodo, QTableWidget *tableWidget)
-{
+void cframe::recorrerArbolParaTableAprobados(NodoArbolB *nodo, QTableWidget *tableWidget) {
     if (nodo == nullptr) {
         return;
     }
 
     recorrerArbolParaTableAprobados(nodo->getChild(0), tableWidget);
     EstadoNombres nombres;
+
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        int row = tableWidget->rowCount();
-        tableWidget->insertRow(row);
+        // Solo insertar una nueva fila si el usuario actual y el estado del silabo cumplen las condiciones
+        if (usuarioActual->getInstitucion() == silabo->getInstitucion() && nombres.nombres[silabo->getEstado()] == "Aprobado") {
+            int row = tableWidget->rowCount();
+            tableWidget->insertRow(row);
 
-        EstadoNombres names;
-        if (usuarioActual->getInstitucion() == silabo->getInstitucion()) {
-            if(nombres.nombres[silabo->estado] == "Aprobado"){
+            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
+            tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
+            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
+            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
+            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
-                tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-                tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-                tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
-                tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-                tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
-                tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
-                tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-                tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getEstado()])));
-                tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-                tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
-                tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
-
-                if (silabo->getInstitucion() == "UNITEC") {
-                    //                    //<< "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
-                    //                    tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
-                    //                    tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
-                    //                    tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
-                    //                    tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
-                    //                    tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
-                    //                    tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
-                }
+            if (silabo->getInstitucion() == "UNITEC") {
+                // ESTO EXPLOTA EL CODIGO - ACORDARSE DE DESCOMENTARLO EN LA OTRA FUNCION TAMBIEN
+                // tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
+                // tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getCuadrofechas()->getEstado()])));
+                // tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
+                // tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
+                // tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
+                // tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
             }
         }
     }
@@ -745,52 +742,50 @@ void cframe::recorrerArbolParaTableAprobados(NodoArbolB *nodo, QTableWidget *tab
     recorrerArbolParaTableAprobados(nodo->getChild(nodo->getN()), tableWidget);
 }
 
-void cframe::recorrerArbolParaTableEnProceso(NodoArbolB *nodo, QTableWidget *tableWidget)
-{
+
+void cframe::recorrerArbolParaTableEnProceso(NodoArbolB *nodo, QTableWidget *tableWidget) {
     if (nodo == nullptr) {
         return;
     }
 
     recorrerArbolParaTableEnProceso(nodo->getChild(0), tableWidget);
     EstadoNombres nombres;
+
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        int row = tableWidget->rowCount();
-        tableWidget->insertRow(row);
+        // Solo insertar una nueva fila si el usuario actual y el estado del silabo cumplen las condiciones
+        if (usuarioActual->getInstitucion() == silabo->getInstitucion() && nombres.nombres[silabo->getEstado()] != "Aprobado") {
+            int row = tableWidget->rowCount();
+            tableWidget->insertRow(row);
 
-        EstadoNombres names;
-        if (usuarioActual->getInstitucion() == silabo->getInstitucion()) {
-            if(nombres.nombres[silabo->estado] != "Aprobado"){
+            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
+            tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
+            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
+            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
+            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
-                tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-                tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-                tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
-                tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-                tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
-                tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
-                tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-                tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getEstado()])));
-                tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-                tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
-                tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
-
-                if (silabo->getInstitucion() == "UNITEC") {
-                    // ESTO EXPLOTA EL PROGRAMA
-                    //<< "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
-                    //                    tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
-                    //                    tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
-                    //                    tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
-                    //                    tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
-                    //                    tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
-                    //                    tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
-                }
+            if (silabo->getInstitucion() == "UNITEC") {
+                //ESTO EXPLOTA EL CODIGO
+                // tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
+                // tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getCuadrofechas()->getEstado()])));
+                // tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
+                // tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
+                // tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
+                // tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
             }
         }
     }
 
     recorrerArbolParaTableEnProceso(nodo->getChild(nodo->getN()), tableWidget);
 }
+
 
 
 
