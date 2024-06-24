@@ -315,6 +315,8 @@ public:
             string institucion = query.value(10).toString().toStdString();
 
             // Agregar prints de las variables
+
+            /*
             qDebug() << "id:" << id;
             qDebug() << "nombreArchivo:" << QString::fromStdString(nombreArchivo);
             qDebug() << "estado:" << static_cast<int>(estado);
@@ -326,6 +328,7 @@ public:
             qDebug() << "nombreClase:" << QString::fromStdString(nombreClase);
             qDebug() << "subidoPor:" << QString::fromStdString(subidoPor);
             qDebug() << "institucion:" << QString::fromStdString(institucion);
+            */
 
             Silabo *newSilabo = new Silabo(id, nombreArchivo, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, nullptr);
             arbolSilabos->insertar(newSilabo);

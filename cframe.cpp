@@ -62,8 +62,6 @@ cframe::cframe(QWidget *parent)
     DB.loadUsers(listaUsuarios);
     DB.loadSilabos(arbolSilabo);
 
-    arbolSilabo->mostrarDetallesSilabos(*arbolSilabo);
-
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(ui->tabWidget);
     QWidget *centralWidget = new QWidget(this);
@@ -73,15 +71,17 @@ cframe::cframe(QWidget *parent)
     ui->tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->tabWidget->setMinimumSize(800, 600);
 
-    Usuario UA("AdminGlobalCeutec","111111","admin","CEUTEC","GLOBAL","Relaciones Internacionales");
-    Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
-    Usuario B("AdminJefe","123","boss123","UNITEC","Jefe", "Ingenieria en Mecatronica");
-    Usuario I("AdminIEDD","234","what123","UNITEC","IEDD", "Ingenieria en Mecatronica");
-    Usuario C("AdminCoordinador","567","co123","UNITEC","Coordinador", "Ingenieria en Mecatronica");
-    Usuario D("AdminDocente","678","teacher123","UNITEC","Docente", "Ingenieria en Mecatronica");
-    Usuario CC("AdminConsulor","789","consultor123","UNITEC","Consultor", "Ingenieria en Mecatronica");
-    Usuario DD("AdminDecano","444","dean123","UNITEC","Decano", "Ingenieria en Mecatronica");
-    Usuario DI("AdminDirector","222","director123","UNITEC","Director", "Ingenieria en Mecatronica");
+    //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
+    Usuario UA("Ceutec","010101","admin","CEUTEC","GLOBAL","Relaciones Internacionales");
+    Usuario u("Unitec", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales");
+
+    Usuario B("Jefe","111111","passboss","UNITEC","Jefe", "Ingenieria en Mecatronica");
+    Usuario I("IEDD","222222","passiedd","UNITEC","IEDD", "Ingenieria en Mecatronica");
+    Usuario C("Coordinador","3333333","passcord","UNITEC","Coordinador", "Ingenieria en Mecatronica");
+    Usuario D("Docente","000000","passteacher","UNITEC","Docente", "Ingenieria en Mecatronica");
+    Usuario CC("Consultor","444444","passcost","UNITEC","Consultor", "Ingenieria en Mecatronica");
+    Usuario DD("Decano","555555","passdean","UNITEC","Decano", "Ingenieria en Mecatronica");
+    Usuario DI("Director","666666","passdirector","UNITEC","Director", "Ingenieria en Mecatronica");
 
     listaUsuarios.InsertarFin(u);
     listaUsuarios.InsertarFin(B);
