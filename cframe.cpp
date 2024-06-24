@@ -81,6 +81,7 @@ cframe::cframe(QWidget *parent)
     //     listaUsuarios.cargarUsuarios();
     // }
 
+    Usuario UA("AdminGlobalCeutec","111111","admin","CEUTEC","GLOBAL","Relaciones Internacionales");
     Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS
     Usuario B("AdminJefe","123","boss123","UNITEC","Jefe", "Ingenieria en Mecatronica");
     Usuario I("AdminIEDD","234","what123","UNITEC","IEDD", "Ingenieria en Mecatronica");
@@ -98,6 +99,7 @@ cframe::cframe(QWidget *parent)
     listaUsuarios.InsertarFin(CC);
     listaUsuarios.InsertarFin(DD);
     listaUsuarios.InsertarFin(DI);
+    listaUsuarios.InsertarFin(UA);
 
     desactivarTabs();
 }
@@ -281,10 +283,17 @@ void cframe::on_btn_sesion_clicked()
                 loginRevision = true;
             }
 
+            if(usuarioActual->getInstitucion()=="UNITEC"){
+                quitarBotonCuadroFecha(false);
+            }else{
+                quitarBotonCuadroFecha(true);
+            }
+
             ui->le_cuentaE->setText("");
             ui->le_claveE->setText("");
             //Por mientras para saber que tipo de usuario esta ingresando
             QMessageBox::warning(this, "Tipo usuario", QString::fromStdString(usuarioActual->getTipo()));
+            ui->tab->setEnabled(false);
         } else {
             QMessageBox::warning(this, "Login", "Contraseña incorrecta.");
         }
@@ -301,6 +310,7 @@ void cframe::on_btn_closeE_clicked()
     limpiarEntrega();
     ui->tabWidget->setCurrentIndex(0);
     desactivarTabs();
+    ui->tab->setEnabled(true);
     ui->tabWidget->tabBar()->hide();
 }
 
@@ -459,6 +469,7 @@ void cframe::on_Rbtn_cerrar_clicked()
     ui->tab_2->setEnabled(true);
     ui->tab_4->setEnabled(true);
     ui->tab_5->setEnabled(true);
+    ui->tab->setEnabled(true);
     limpiarRevision();
     ui->tabWidget->setCurrentIndex(0);
     desactivarTabs();
@@ -591,6 +602,13 @@ void cframe::activarTabs()
     }
 }
 
+void cframe::quitarBotonCuadroFecha(bool estado)
+{
+    ui->btn_archivoCF->setHidden(estado);
+    ui->le_pathCF->setHidden(estado);
+    ui->lbl_archivoCF->setHidden(estado);
+}
+
 void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> *actD)
 {
     if (nodo == nullptr || actD == nullptr) {
@@ -704,7 +722,15 @@ void cframe::on_Bbtn_proceso_clicked()
     ui->tableWidget->setRowCount(0);
 
     QStringList headers;
-    headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    if(usuarioActual->getInstitucion()=="CEUTEC"){
+        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    }else{
+        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones"
+                << "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
+    }
+
+
+
     ui->tableWidget->setColumnCount(headers.size());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -722,31 +748,43 @@ void cframe::recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget,
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if ((estadoMostrar == "Aprobado" && (silabo->getEstado()) == Estado(Aprobado)) ||
-                (estadoMostrar != "Aprobado" && (silabo->getEstado()) != Estado(Aprobado))) {
-
+        if (usuarioActual->getInstitucion() == silabo->getInstitucion()) {
             int row = tableWidget->rowCount();
+            tableWidget->insertRow(row);
 
             EstadoNombres names;
-            tableWidget->insertRow(row);
+
             tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
             tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
             tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
             tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
-            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(( names.nombres[silabo->getEstado()] ))));
-            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::number(silabo->getId())));
-            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
+            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getEstado()])));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
+            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+
+            if (silabo->getInstitucion() == "UNITEC") {
+                //<< "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
+                tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
+                tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
+                tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
+                tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
+                tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
+                tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
+            }
         }
     }
 
     recorrerArbolParaTable(nodo->getChild(nodo->getN()), tableWidget, estadoMostrar);
 }
 
+
 void cframe::on_Bbtn_cerrar_clicked()
 {
+    ui->tab->setEnabled(true);
     loginBoard = false;
     limpiarBoard();
     desactivarTabs();
@@ -796,7 +834,9 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
 
 void cframe::on_Dbtn_salir_clicked()
 {
+    ui->tab->setEnabled(true);
     ui->DRTW_revision->clear();
+    ui->tab->setEnabled(true);
     ui->tab_3->setEnabled(true);
     ui->tab_2->setEnabled(true);
     ui->tab_4->setEnabled(true);

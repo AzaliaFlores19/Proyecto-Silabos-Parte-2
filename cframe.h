@@ -82,6 +82,8 @@ private:
     void desactivarTabs(); // Desactiva todas las tabs menos la de login
     void activarTabs(); // Desactiva todas las tabs menos la de login
 
+    void quitarBotonCuadroFecha(bool estado);
+
     void cambiarSilabo(int id, QString pathActual);
     void modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo);
     Usuario* obtenerUsuario(string cuenta);

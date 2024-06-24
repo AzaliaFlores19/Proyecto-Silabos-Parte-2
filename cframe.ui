@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -221,7 +221,6 @@
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>16</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -423,7 +422,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Archivo de cuadro de fechas::</string>
+               <string>Archivo de cuadro de fechas:</string>
               </property>
              </widget>
             </item>
@@ -487,7 +486,6 @@
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -784,7 +782,6 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1315,7 +1312,6 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1367,7 +1363,6 @@ Sesion</string>
                <font>
                 <family>Sans Serif Collection</family>
                 <pointsize>11</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1392,7 +1387,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1228</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

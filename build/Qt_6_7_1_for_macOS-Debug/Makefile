@@ -53,9 +53,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../main.cpp \
-		../../cframe.cpp moc_cframe.cpp
+		../../cframe.cpp qrc_images.cpp \
+		moc_cframe.cpp
 OBJECTS       = main.o \
 		cframe.o \
+		qrc_images.o \
 		moc_cframe.o
 DIST          = /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/spec_pre.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/device_config.prf \
@@ -552,6 +554,7 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/yacc.prf \
 		/Users/coleexz/Qt/6.7.1/macos/mkspecs/features/lex.prf \
 		../../ProyectoSilabos.pro \
+		../../images.qrc \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Resources/QtGui.prl \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Resources/QtSql.prl \
@@ -787,6 +790,7 @@ Makefile: ../../ProyectoSilabos.pro /Users/coleexz/Qt/6.7.1/macos/mkspecs/macx-c
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/yacc.prf:
 /Users/coleexz/Qt/6.7.1/macos/mkspecs/features/lex.prf:
 ../../ProyectoSilabos.pro:
+../../images.qrc:
 /Users/coleexz/Qt/6.7.1/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 /Users/coleexz/Qt/6.7.1/macos/lib/QtGui.framework/Resources/QtGui.prl:
 /Users/coleexz/Qt/6.7.1/macos/lib/QtSql.framework/Resources/QtSql.prl:
@@ -815,6 +819,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../../images.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ArbolB.h ../../Archivo.h ../../CuadroFechas.h ../../Database.h ../../Estado.h ../../NodoArbolB.h ../../Silabo.h ../../Usuario.h ../../cframe.h ../../listaD.h ../../nodoD.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../main.cpp ../../cframe.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../cframe.ui $(DISTDIR)/
@@ -843,8 +848,19 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_images.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_images.cpp
+qrc_images.cpp: ../../images.qrc \
+		/Users/coleexz/Qt/6.7.1/macos/libexec/rcc \
+		../../imInicio.jpg \
+		../../imRegistro.jpg \
+		../../imBoard.jpg \
+		../../imEntrega.jpg \
+		../../imRevision.jpg \
+		../../imDocente.jpg
+	/Users/coleexz/Qt/6.7.1/macos/libexec/rcc -name images --no-zstd ../../images.qrc -o qrc_images.cpp
+
 compiler_moc_header_make_all: moc_cframe.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_cframe.cpp
@@ -901,7 +917,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -993,6 +1009,9 @@ cframe.o: ../../cframe.cpp ../../cframe.h \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/QFileInfo \
 		/Users/coleexz/Qt/6.7.1/macos/lib/QtCore.framework/Headers/qfileinfo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cframe.o ../../cframe.cpp
+
+qrc_images.o: qrc_images.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_images.o qrc_images.cpp
 
 moc_cframe.o: moc_cframe.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_cframe.o moc_cframe.cpp
