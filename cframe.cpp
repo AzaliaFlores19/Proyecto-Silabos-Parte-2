@@ -592,7 +592,7 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
         bool mostrar = false;
 
         if ((tipoUsuario == "Jefe" || tipoUsuario == "Coordinador") &&
-                (silabo->getEstado() == Estado(Prerevision) || silabo->getEstado() == Estado(DevueltoAcademia))) {
+                (silabo->getEstado() == Estado(Prerevision) || silabo->getEstado() == Estado(DevueltoAcademia)) && usuarioActual->getCarrera() == silabo->getCarrera()) {
             mostrar = true;
         } else if (tipoUsuario == "IEDD" &&
                    ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(CorrecionMayor) || (silabo->getEstado()) == Estado(CorrecionMenor) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
