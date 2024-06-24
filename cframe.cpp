@@ -590,13 +590,9 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
                    ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(CorrecionMayor) || (silabo->getEstado()) == Estado(CorrecionMenor) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
             mostrar = true;
         } else if (tipoUsuario == "Consultor" &&
-                   ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(AprobadoIEDD) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
+                   ((silabo->getEstado()) == Estado(AprobadoIEDD) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
             mostrar = true;
-        } /*else if (tipoUsuario == "Consultor" &&
-                   ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(Aprobado)) || (silabo->getEstado()) == Estado(AprobadoCondicion)) {
-            mostrar = true;
-        }*/
-
+        }
 
         EstadoNombres nombres;
         Usuario *u = obtenerUsuario(silabo->getSubidoPor());
