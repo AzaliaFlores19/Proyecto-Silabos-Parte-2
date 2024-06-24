@@ -1079,3 +1079,19 @@ void cframe::on_tw_usuarios_cellClicked(int row, int column)
 }
 
 
+
+void cframe::on_tableWidget_cellClicked(int row, int column)
+{
+    if (column == 0) {
+           int silaboId = ui->tableWidget->item(row, 10)->text().toInt();
+           // Write the file to the local system from the database
+           if (Database().writeFiles(silaboId)) {
+               // If successfully written, open the file
+               QString path = QDir::home().filePath("silabos/" + ui->tableWidget->item(row, 1)->text());
+               QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+           } else {
+               qDebug() << "Error: failed to write file from database";
+           }
+    }
+}
+
