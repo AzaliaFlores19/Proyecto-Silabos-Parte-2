@@ -608,7 +608,7 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
              */
 
 
-            string path = QDir::home().path().toStdString() + silabo->nombreArchivo;
+            string path = silabo->getNombreArchivo();
             ui->RTW_revision->setRowCount(fila + 1);
             ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
             ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
@@ -653,8 +653,16 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
             ui->Rcb_cambiarE->addItems(items);
         }
     } else if (column == 1) {
-        QString selectedFilePath = ui->RTW_revision->item(row, 9)->text();
-        QDesktopServices::openUrl(QUrl::fromLocalFile(selectedFilePath));
+        int silaboId = ui->RTW_revision->item(row, 2)->text().toInt();
+        // Write the file to the local system from the database
+        if (Database().writeFiles(silaboId)) {
+            // If successfully written, open the file
+            QString path = QDir::home().filePath("silabos/" + ui->RTW_revision->item(row, 9)->text());
+            QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+        } else {
+            qDebug() << "Error: failed to write file from database";
+        }
+
     } else if (column == 11) {
         cambiarSilabo(ui->RTW_revision->item(row, 2)->text().toInt(), ui->RTW_revision->item(row, 9)->text());
     }
