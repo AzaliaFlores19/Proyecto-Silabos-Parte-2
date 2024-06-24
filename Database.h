@@ -275,6 +275,34 @@ public:
 
     }
 
+    bool updateSilabo(Silabo *silabo) {
+        QSqlQuery query(connection);
+
+        query.prepare("UPDATE Silabos SET nombre = ?, estado = ?, carrera = ?, observacion = ?, revisiones = ?, facultad = ?, codigoClase = ?, nombreClase = ?, subidoPor = ?, institucion = ? WHERE id = ?");
+        query.bindValue(0, silabo->getNombreArchivo().c_str());
+        query.bindValue(1, silabo->getEstado());
+        query.bindValue(2, silabo->getCarrera().c_str());
+        query.bindValue(3, silabo->getObservacion().c_str());
+        query.bindValue(4, silabo->getRevisiones());
+        query.bindValue(5, silabo->getFacultad().c_str());
+        query.bindValue(6, silabo->getCodigoClase().c_str());
+        query.bindValue(7, silabo->getNombreClase().c_str());
+        query.bindValue(8, silabo->getSubidoPor().c_str());
+        query.bindValue(9, silabo->getInstitucion().c_str());
+        query.bindValue(10, silabo->getId());
+
+        if (!query.exec()) {
+            qDebug() << "Error: failed to update silabo in database -" << query.lastError().text();
+            return false;
+        }
+
+        qDebug() << "Silabo successfully updated in the database.";
+        return true;
+    }
+
+
+
+
     bool actualizarUsuario(Usuario user) {
         if (!connection.isOpen()){
             connection.open();

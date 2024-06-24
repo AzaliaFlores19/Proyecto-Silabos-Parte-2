@@ -546,6 +546,8 @@ void cframe::modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo)
                 silabo->setObservacion(nuevaObservacion);
                 pruebitaBotonesTab();
 
+                DB.updateSilabo(silabo);
+
                 cambiarEstado = false;
                 return;
             }
