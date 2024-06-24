@@ -6,7 +6,7 @@
 using std::string;
 
 struct EstadoNombres {
-    string nombres[11] = {"Prerevision", "ListoRevision", "Aprobado", "AprobadoCondicion", "AprobadoIEDD", "SolicitudCambio", "DevueltoAcademia", "Coreccion", "CorreccionMayor", "CorrecionMenor", "Rechazar"};
+    string nombres[11] = {"Prerevision", "ListoRevision", "Aprobado", "AprobadoCondicion", "AprobadoIEDD", "SolicitudCambio", "DevueltoAcademia", "Correccion", "CorreccionMayor", "CorrecionMenor", "Rechazar"};
 };
 
 enum Estado {

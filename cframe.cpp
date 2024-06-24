@@ -489,7 +489,7 @@ void cframe::modificarDatosSilabo(NodoArbolB *nodo, int id, QString pathNuevo)
 
                 // cuando lo tiene alguien de iedd (lo manda a consultor o regresa a jefe o coordinador)
                 if (nuevoEstado == "Listo para revision 1"){
-                    status = Estado(Aprobado);
+                    status = Estado(AprobadoIEDD);
                 }
                 if (nuevoEstado == "Devolver a Academia"){
                     status = Estado(Prerevision);
@@ -589,13 +589,13 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
         } else if (tipoUsuario == "IEDD" &&
                    ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(CorrecionMayor) || (silabo->getEstado()) == Estado(CorrecionMenor) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
             mostrar = true;
-        } else if (tipoUsuario == "IEDD" &&
+        } else if (tipoUsuario == "Consultor" &&
                    ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(AprobadoIEDD) || (silabo->getEstado()) == Estado(AprobadoCondicion))) {
             mostrar = true;
-        } else if (tipoUsuario == "Consultor" &&
+        } /*else if (tipoUsuario == "Consultor" &&
                    ((silabo->getEstado()) == Estado(ListoRevision) || (silabo->getEstado()) == Estado(Aprobado)) || (silabo->getEstado()) == Estado(AprobadoCondicion)) {
             mostrar = true;
-        }
+        }*/
 
 
         EstadoNombres nombres;
@@ -667,7 +667,13 @@ void cframe::on_Bbtn_aceptados_clicked()
     ui->tableWidget->setRowCount(0);
 
     QStringList headers;
-    headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    if(usuarioActual->getInstitucion()=="CEUTEC"){
+        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+    }else{
+        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Ruta" <<"Estado" << "Observación" << "ID" << "Número de Revisiones"
+                << "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
+    }
+
     ui->tableWidget->setColumnCount(headers.size());
     ui->tableWidget->setHorizontalHeaderLabels(headers);
 
@@ -724,13 +730,13 @@ void cframe::recorrerArbolParaTableAprobados(NodoArbolB *nodo, QTableWidget *tab
                 tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
                 if (silabo->getInstitucion() == "UNITEC") {
-                    //<< "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
-                    tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
-                    tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
-                    tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
-                    tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
-                    tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
-                    tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
+                    //                    //<< "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
+                    //                    tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
+                    //                    tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
+                    //                    tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
+                    //                    tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
+                    //                    tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
+                    //                    tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
                 }
             }
         }
@@ -772,12 +778,12 @@ void cframe::recorrerArbolParaTableEnProceso(NodoArbolB *nodo, QTableWidget *tab
                 if (silabo->getInstitucion() == "UNITEC") {
                     // ESTO EXPLOTA EL PROGRAMA
                     //<< "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
-//                    tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
-//                    tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
-//                    tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
-//                    tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
-//                    tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
-//                    tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
+                    //                    tableWidget->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getNombreArchivo())));
+                    //                    tableWidget->setItem(row, 12, new QTableWidgetItem(QString::fromStdString(names.nombres[silabo->getCuadrofechas()->getEstado()])));
+                    //                    tableWidget->setItem(row, 13, new QTableWidgetItem(QString::fromStdString(silabo->getCuadrofechas()->getObservacion())));
+                    //                    tableWidget->setItem(row, 14, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getRevisiones())));
+                    //                    tableWidget->setItem(row, 15, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getSilabo())));
+                    //                    tableWidget->setItem(row, 16, new QTableWidgetItem(QString::number(silabo->getCuadrofechas()->getId())));
                 }
             }
         }
