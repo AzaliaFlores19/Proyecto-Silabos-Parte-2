@@ -354,13 +354,13 @@ void cframe::on_btn_silaboE_clicked()
 
     if (usuarioActual->getInstitucion() == "CEUTEC") {
         nuevoSilabo = new Silabo(cantSilabos, fileInfo.fileName().toStdString(), Estado(Prerevision), "...", 0,
-                                 facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(),
+                                 facultad, carrera, ui->le_codigoE->text().toStdString(),
                                  ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), usuarioActual->getInstitucion(), cuadroFechas);
     } else {
         cuadroFechas = new CuadroFechas(cantCuadroFechas, fileInfoCuadro.fileName().toStdString(), Estado(Prerevision), "...", 0, cantSilabos);
         cantCuadroFechas++;
         nuevoSilabo = new Silabo(cantSilabos, fileInfo.fileName().toStdString(), Estado(Prerevision), "...", 0,
-                                 facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(),
+                                 facultad, carrera, ui->le_codigoE->text().toStdString(),
                                  ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), usuarioActual->getInstitucion(), cuadroFechas);
     }
     cantSilabos++;
@@ -370,6 +370,8 @@ void cframe::on_btn_silaboE_clicked()
         return;
     }
 
+
+    DB.saveSilabo(nuevoSilabo, path.toStdString());
     this->arbolSilabo->insertar(nuevoSilabo);
 
     arbolSilabo->mostrarDetallesSilabos(*arbolSilabo);

@@ -12,7 +12,7 @@
 #include "CuadroFechas.h"
 #include "Usuario.h"
 #include "listaD.h"
-#include <ArbolB.h>
+#include "ArbolB.h"
 
 using std::string, std::cout, std::vector;
 
@@ -45,11 +45,12 @@ private:
             codigoClase VARCHAR(6),
             nombreClase TEXT,
             estado INTEGER,
-            subidoPor int,
+            subidoPor string,
             archivo BLOB,
             observacion TEXT,
             facultad TEXT,
             revisiones int,
+            institucion TEXT,
             FOREIGN KEY (carrera) REFERENCES ProgramaAcademico(id),
             FOREIGN KEY (subidoPor) REFERENCES Usuarios(numeroCuenta)
             );)",
@@ -94,19 +95,47 @@ public:
         return connection;
     }
 
-    bool saveSilaboFile(Silabo *silabo, vector<char> buffer)
+    vector<char> getBufferFromPath(string path) {
+        std::ifstream file(path, std::ios::binary | std::ios::ate);
+         if (!file) {
+             std::cerr << "Error: could not open file " << path << std::endl;
+
+             vector<char> dummy;
+             return dummy;
+         }
+
+         std::streamsize size = file.tellg();
+         file.seekg(0, std::ios::beg);
+
+         std::vector<char> buffer(size);
+         if (!file.read(buffer.data(), size)) {
+             std::cerr << "Error: could not read file " << path << std::endl;
+             vector<char> dummy;
+             return dummy;
+         }
+
+         return buffer;
+    }
+
+    bool saveSilabo(Silabo *silabo, string path)
     {
         cout << "Saving silabo file\n...";
+        vector<char> buffer = this->getBufferFromPath(path);
         QSqlQuery query(connection);
 
-        query.prepare("INSERT INTO Silabos(nombre, carrera, codigoClase, nombreClase, estado, subidoPor, archivo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        query.bindValue(0, QString::fromStdString(silabo->getNombreArchivo()));
-        query.bindValue(1, QString::fromStdString(silabo->getCarrera()));
-        query.bindValue(2, QString::fromStdString(silabo->getCodigoClase()));
-        query.bindValue(3, QString::fromStdString(silabo->getNombreClase()));
-        query.bindValue(4, silabo->getEstado());
-        query.bindValue(5, silabo->getSubidoPor().c_str());
-        query.bindValue(6, QByteArray(buffer.data(), (int)buffer.size()));
+        query.prepare("INSERT INTO Silabos(nombre, estado, carrera, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, archivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        query.bindValue(0, silabo->getNombreArchivo().c_str() );
+        query.bindValue(1, silabo->getEstado());
+        query.bindValue(2, silabo->getCarrera().c_str() );
+        query.bindValue(3, silabo->getObservacion().c_str() );
+        query.bindValue(4, silabo->getRevisiones() );
+        query.bindValue(5, silabo->getFacultad().c_str());
+        query.bindValue(6, silabo->getCarrera().c_str() );
+        query.bindValue(7, silabo->getCodigoClase().c_str() );
+        query.bindValue(8, silabo->getNombreClase().c_str() );
+        query.bindValue(9, silabo->getSubidoPor().c_str() );
+        query.bindValue(10, silabo->getInstitucion().c_str() );
+        query.bindValue(11, QByteArray(buffer.data(), (int) buffer.size() ));
 
         if (!query.exec())
         {
@@ -227,6 +256,25 @@ public:
         return true;
     }
 
+    Usuario getUsuarioFromCuenta(string numCuenta) {
+        QSqlQuery query(connection);
+
+        query.prepare("SELECT numeroCuenta, nombre, clave, org, tipo, carrera FROM Usuarios WHERE id = ?;");
+        query.bindValue(0, QString::fromStdString(numCuenta));
+
+        while(query.next()) {
+            string nombre = query.value(1).toString().toStdString();
+            string clave = query.value(2).toString().toStdString();
+            string org = query.value(3).toString().toStdString();
+            string tipo = query.value(4).toString().toStdString();
+            string carrera = query.value(5).toString().toStdString();
+
+            Usuario user(nombre, numCuenta, clave, org, tipo, carrera);
+            return user;
+        }
+
+    }
+
     bool actualizarUsuario(Usuario user) {
         if (!connection.isOpen()){
             connection.open();
@@ -246,34 +294,40 @@ public:
         return true;
     }
 
-//    bool loadSilabos(ArbolB &arbolSilabos) {
-//        QSqlQuery query(connection);
+    bool loadSilabos(ArbolB &arbolSilabos) {
+        QSqlQuery query(connection);
+         if (!query.exec("SELECT id, nombre, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion FROM Silabos")) {
+            qDebug() << "Error: failed to retrieve silabos from database -" << query.lastError().text();
+            return false;
+        }
 
-//        if (!query.exec("SELECT id, nombre, carrera, codigoClase, nombreClase, estado, subidoPor, archivo FROM Silabos")) {
-//            qDebug() << "Error: failed to retrieve silabos from database -" << query.lastError().text();
-//            return false;
-//        }
+        while (query.next()) {
+            int id = query.value(0).toInt();
+            string nombreArchivo = query.value(1).toString().toStdString();
+            Estado estado = static_cast<Estado>( query.value(2).toInt() );
+            string observacion = query.value(3).toString().toStdString();
+            int revisiones = query.value(4).toInt();
+            string facultad = query.value(5).toString().toStdString();
+            string carrera = query.value(6).toString().toStdString();
+            string codigoClase = query.value(7).toString().toStdString();
+            string nombreClase = query.value(8).toString().toStdString();
+            string subidoPor = query.value(9).toString().toStdString();
+            string institucion = query.value(10).toString().toStdString();
 
-//        while (query.next()) {
-//            int id = query.value(0).toInt();
-//            string nombreArchivo = query.value(1).toString().toStdString();
-//            string carrera = query.value(2).toString().toStdString();
-//            string codigoClase = query.value(3).toString().toStdString();
-//            string nombreClase = query.value(4).toString().toStdString();
-//            Estado estado = static_cast<Estado>(query.value(5).toInt());
-//            string subidoPor = query.value(6).toString().toStdString();
-//            QByteArray archivoDataArray = query.value(7).toByteArray();
-//            //            CuadroFechas* cuadrofecha = new CuadroFechas(id, nombreArchivo,estado,observacion,revisiones,id);
+            Silabo newSilabo(id, nombreArchivo, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, nullptr);
 
-//            // Crear objeto Silabo con el archivo
-//            //Silabo* silabo = new Silabo(id,nombreArchivo,estado,". . .",0,"",carrera,codigoClase,ruta,nombreClase,subidoPor,cuadrofecha);
-//            //arbolSilabos.insertar(silabo);
 
-//        }
+            //            CuadroFechas* cuadrofecha = new CuadroFechas(id, nombreArchivo,estado,observacion,revisiones,id);
 
-//        qDebug() << "Silabos successfully loaded from database.";
-//        return true;
-//    }
+            // Crear objeto Silabo con el archivo
+            //Silabo* silabo = new Silabo(id,nombreArchivo,estado,". . .",0,"",carrera,codigoClase,ruta,nombreClase,subidoPor,cuadrofecha);
+            //arbolSilabos.insertar(silabo);
+
+        }
+
+        qDebug() << "Silabos successfully loaded from database.";
+        return true;
+    }
 
 
 

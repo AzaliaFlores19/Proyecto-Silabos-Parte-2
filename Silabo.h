@@ -9,6 +9,7 @@
 #include "Archivo.h"
 #include "CuadroFechas.h"
 #include <iostream>
+#include "Usuario.h"
 
 using std::string;
 
@@ -26,7 +27,7 @@ public:
     Silabo(int id, const string& nombrearchivo, const Estado estado,
                    const string& observacion, int numeroderevisiones,
                    const string& facultad, const string& carrera, const string& codigoClase,
-                   const string& ruta, const string& nombreClase, const string subidoPor, string institucion, CuadroFechas *cuadroFechas) {
+                   const string& nombreClase, const string subidoPor, string institucion, CuadroFechas *cuadroFechas) {
         this->id = id;
         this->nombreArchivo = nombrearchivo;
         this->estado = estado;
@@ -35,7 +36,6 @@ public:
         this->facultad = facultad;
         this->carrera = carrera;
         this->codigoClase = codigoClase;
-        this->ruta = ruta;
         this->nombreClase = nombreClase;
         this->subidoPor = subidoPor;
         this->cuadroFechas = cuadroFechas;

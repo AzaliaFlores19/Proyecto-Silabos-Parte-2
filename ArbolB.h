@@ -3,13 +3,13 @@
 
 #include "NodoArbolB.h"
 #include <iostream>
-#include <Database.h>
 #include <fstream>
 #include <vector>
+#include <iostream>
 
+using std::cout;
 class ArbolB {
 private:
-    Database DB;
     NodoArbolB* root;
     int t;
     int cantidadArbol;
@@ -149,8 +149,6 @@ public:
 
     void insertar(Silabo* silabo) {
         cantidadArbol++;
-
-        DB.saveSilaboFile(silabo, silabo->getFileToBytes());
 
         if (root->getN() == 2 * t - 1) {
             NodoArbolB* s = new NodoArbolB(t);
