@@ -105,6 +105,8 @@ private:
 
     Usuario *usuarioActual = nullptr;
 
+    bool hayUsuarioLogeado = false;
+
 
 
     //cambiar contra

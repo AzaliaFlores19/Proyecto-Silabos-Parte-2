@@ -123,83 +123,43 @@ void cframe::on_btn_dashboardM_2_clicked()
 void cframe::on_tabWidget_currentChanged(int index)
 {
     QMessageBox::StandardButton cambio;
-    if(index==2){
-        pruebitaBotonesTab();
-    }else if(index==3){
+    if (hayUsuarioLogeado == true){
 
-        // Limpiar el QTableWidget antes de agregar nuevos datos
-        ui->tableWidget->clear();
-        ui->tableWidget->setRowCount(0); // Limpiar todas las filas existentes
+        if(index==2){ // Tab revision
+            pruebitaBotonesTab();
+        }else if(index==3){ // Tab board
 
-        // Agregar encabezados de columna al QTableWidget
-        QStringList headers;
-        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
-        ui->tableWidget->setColumnCount(headers.size());
-        ui->tableWidget->setHorizontalHeaderLabels(headers);
-        //DB.loadSilabos(arbolSilabo);----->comente aqui
+            // Limpiar el QTableWidget antes de agregar nuevos datos
+            ui->tableWidget->clear();
+            ui->tableWidget->setRowCount(0); // Limpiar todas las filas existentes
+
+            // Agregar encabezados de columna al QTableWidget
+            QStringList headers;
+            headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+            ui->tableWidget->setColumnCount(headers.size());
+            ui->tableWidget->setHorizontalHeaderLabels(headers);
+            //DB.loadSilabos(arbolSilabo);----->comente aqui
 
 
-        // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
-    }else if(index==4){
-        loginCheck = true;
-        ui->Dframe2->setVisible(true);
-        ui->Dbtn_salir->setVisible(true);
+            // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
+        }else if(index==4){ // Tab docente
+            loginCheck = true;
+            ui->Dframe2->setVisible(true);
+            ui->Dbtn_salir->setVisible(true);
 
-        ui->DRTW_revision->clearContents();
-        ui->DRTW_revision->setColumnCount(10); // tab 2 tw_doble
-        ui->DRTW_revision->setHorizontalHeaderLabels(QStringList() << "VER DOCX" << "ORDEN DE INGRESO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "OBSERVACION" << "PATH" << "RELOAD");
-        mostrarDocente(arbolSilabo->getRaiz(), 0, ui->lbl_cuentaE->text().toStdString());
-    }
-    //    if ((index == 2 || index == 3 || index == 4) && loginDocente) {
-    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Los docentes no tienen acceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-    //        if (cambio == QMessageBox::Yes) {
-    //            loginDocente = false;
-    //            ui->tabWidget->setCurrentIndex(index);
-    //            ui->tab_3->setEnabled(true);
-    //            ui->tab_4->setEnabled(true);
-    //            ui->tab_5->setEnabled(true);
-    //            limpiarEntrega();
-    //        } else {
-    //            ui->tabWidget->setCurrentIndex(1);
-    //        }
-    //    } else if ((index == 1 || index == 3 || index == 4) && loginRevision) {
-    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-    //        if (cambio == QMessageBox::Yes) {
-    //            loginRevision = false;
-    //            ui->tabWidget->setCurrentIndex(index);
-    //            ui->tab_2->setEnabled(true);
-    //            ui->tab_4->setEnabled(true);
-    //            ui->tab_5->setEnabled(true);
-    //            limpiarRevision();
-    //        } else {
-    //            ui->tabWidget->setCurrentIndex(2);
-    //        }
-    //    } else if ((index == 1 || index == 2 || index == 4) && loginBoard) {
-    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para visualizar\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-    //        if (cambio == QMessageBox::Yes) {
-    //            loginBoard = false;
-    //            ui->tabWidget->setCurrentIndex(index);
-    //            ui->tab_3->setEnabled(true);
-    //            ui->tab_2->setEnabled(true);
-    //            ui->tab_5->setEnabled(true);
-    //            limpiarBoard();
-    //        } else {
-    //            ui->tabWidget->setCurrentIndex(3);
-    //        }
-    //    } else if ((index == 1 || index == 2 || index == 3) && loginCheck) {
-    //        cambio = QMessageBox::question(this, "Acceso Denegado", "Ya ha iniciado sesión solo para otro proceso\n¿Desea cerrar sesión? ", QMessageBox::Yes | QMessageBox::No);
-    //        if (cambio == QMessageBox::Yes) {
-    //            loginCheck = false;
-    //            ui->tabWidget->setCurrentIndex(index);
-    //            ui->tab_3->setEnabled(true);
-    //            ui->tab_2->setEnabled(true);
-    //            ui->tab_4->setEnabled(true);
-    //        } else {
-    //            ui->tabWidget->setCurrentIndex(4);
-    //        }
-    //    }
-    if (index == 5){
-        mostrarUsuarios();
+            ui->DRTW_revision->clearContents();
+            ui->DRTW_revision->setColumnCount(9); // tab 2 tw_doble
+            ui->DRTW_revision->setHorizontalHeaderLabels(QStringList() << "VER DOCX" << "ORDEN DE INGRESO"
+                                                         << "INGRESADO POR" << "ESTADO"
+                                                         << "CARRERA" << "CODIGO CLASE" << "RUTA"
+                                                         << "# REVISIONES" << "CUADRO FECHAS");
+
+            mostrarDocente(arbolSilabo->getRaiz(), 0, usuarioActual->getCuenta());
+        }
+
+        if (index == 5){
+            mostrarUsuarios();
+        }
     }
 }
 
@@ -230,8 +190,6 @@ void cframe::on_btn_sesion_clicked()
         if (user->contrasena == pwd) {
             usuarioActual = user;
             QStringList items;
-
-
 
             //Habilitar tabs correspondientes al usuario
             if (usuarioActual->getTipo() == "Docente"){
@@ -286,6 +244,7 @@ void cframe::on_btn_sesion_clicked()
             //Por mientras para saber que tipo de usuario esta ingresando
             QMessageBox::warning(this, "Tipo usuario", QString::fromStdString(usuarioActual->getTipo()));
             ui->tab->setEnabled(false);
+            hayUsuarioLogeado = true;
         } else {
             QMessageBox::warning(this, "Login", "Contraseña incorrecta.");
         }
@@ -807,23 +766,29 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
     if (nodo == nullptr) {
         return;
     }
-
+    EstadoNombres nombres;
     mostrarDocente(nodo->getChild(0), fila, numCuenta);
 
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
-        if (numCuenta == silabo->getSubidoPor() && ((silabo->getEstado()) == Estado(Rechazar) || (silabo->getEstado()) == Estado(Aprobado))) {
+        if (silabo->getSubidoPor() == numCuenta ) {
             ui->DRTW_revision->setRowCount(fila + 1);
             ui->DRTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("VER")));
             ui->DRTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::number(silabo->getId())));
             ui->DRTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
-            ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
             ui->DRTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             ui->DRTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            ui->DRTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-            ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString("NUEVO SILABO")));
+            ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            ui->DRTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+
+            if(usuarioActual->institucion == "UNITEC"){
+                ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString("VER CUADRO")));
+            }else{
+                ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString("NO APLICA")));
+            }
+
 
             fila++;
         }
