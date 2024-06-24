@@ -29,6 +29,27 @@ cframe::cframe(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QImage menu(":/new/prefix1/imInicio.jpg");
+           ui->lbl_pngM->setPixmap(QPixmap::fromImage(menu));
+           ui->Dlabel->setStyleSheet("background-color: #062458;");
+            ui->Dlabel2->setStyleSheet("background-color: #062458;");
+
+           QImage entrega(":/new/prefix1/imEntrega.jpg");
+           ui->lbl_pngE->setPixmap(QPixmap::fromImage(entrega));
+
+           QImage revision(":/new/prefix1/imRevision.jpg");
+           ui->lbl_pngR->setPixmap(QPixmap::fromImage(revision));
+
+           QImage board(":/new/prefix1/imBoard.jpg");
+           ui->lbl_pngB->setPixmap(QPixmap::fromImage(board));
+
+           QImage docente(":/new/prefix1/imDocente.jpg");
+           ui->lbl_pngD->setPixmap(QPixmap::fromImage(docente));
+
+           QImage registro(":/new/prefix1/imRegistro.jpg");
+           ui->lbl_pngRegistrar->setPixmap(QPixmap::fromImage(registro));
+
+
     ui->frameE->setVisible(true);
     ui->frameR->setVisible(true);
     ui->frameB->setVisible(true);
@@ -121,7 +142,7 @@ void cframe::on_tabWidget_currentChanged(int index)
         headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
         ui->tableWidget->setColumnCount(headers.size());
         ui->tableWidget->setHorizontalHeaderLabels(headers);
-        DB.loadSilabos(arbolSilabo);
+       //DB.loadSilabos(arbolSilabo);----->comente aqui
 
 
         // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
@@ -543,7 +564,7 @@ void cframe::pruebitaBotonesTab()
 
     ui->RTW_revision->setHorizontalHeaderLabels(QStringList() << "MODIFICAR" << "VER DOCX" << "ORDEN DE INGRESO" << "ESTADO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "PATH" << "OBSERVACION" << "RELOAD" << "# REVISIONES");
     int fila = 0;
-    DB.loadSilabos(arbolSilabo->getRaiz());
+    //DB.loadSilabos(arbolSilabo->getRaiz());------>comente aqui
     recorrerArbolParaTabla(arbolSilabo->getRaiz(), fila, listaUsuarios.PrimPtr);
 }
 
@@ -731,7 +752,7 @@ void cframe::limpiarBoard()
     ui->tab_2->setEnabled(true);
     ui->tab_5->setEnabled(true);
 
-    ui->frameB1->setEnabled(true);
+
 }
 
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1228</width>
-    <height>838</height>
+    <height>940</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>1149</width>
-      <height>799</height>
+      <width>2054</width>
+      <height>942</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -70,7 +70,7 @@
         </palette>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>5</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -81,7 +81,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLabel" name="lbl_b1M">
+          <widget class="QLabel" name="lbl_pngM">
            <property name="palette">
             <palette>
              <active>
@@ -123,53 +123,6 @@
             <string/>
            </property>
            <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lbl_pngMenu">
-           <property name="palette">
-            <palette>
-             <active>
-              <colorrole role="Button">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>203</red>
-                 <green>232</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </active>
-             <inactive>
-              <colorrole role="Button">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>203</red>
-                 <green>232</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </inactive>
-             <disabled>
-              <colorrole role="Button">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>203</red>
-                 <green>232</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </disabled>
-            </palette>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
             <bool>true</bool>
            </property>
           </widget>
@@ -183,20 +136,11 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="le_claveE">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0">
              <widget class="QLabel" name="lbl_cuentaE">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>16</pointsize>
                </font>
               </property>
               <property name="text">
@@ -204,11 +148,20 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="le_claveE">
+              <property name="font">
+               <font>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="lbl_contraE_6">
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
+                <pointsize>16</pointsize>
                </font>
               </property>
               <property name="text">
@@ -220,7 +173,7 @@
              <widget class="QLineEdit" name="le_cuentaE">
               <property name="font">
                <font>
-                <pointsize>11</pointsize>
+                <pointsize>16</pointsize>
                </font>
               </property>
              </widget>
@@ -267,7 +220,7 @@
               <property name="font">
                <font>
                 <family>Sans Serif Collection</family>
-                <pointsize>11</pointsize>
+                <pointsize>16</pointsize>
                 <weight>50</weight>
                 <bold>false</bold>
                </font>
@@ -280,16 +233,6 @@
            </layout>
           </widget>
          </item>
-         <item>
-          <widget class="QLabel" name="lbl_b2M">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="tab_2">
@@ -297,26 +240,6 @@
          <string>ENTREGA</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QLabel" name="lbl_pngE">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lbl_b2M_2">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QFrame" name="frameE">
            <property name="enabled">
@@ -329,6 +252,16 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QLabel" name="lbl_pngE">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="scaledContents">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QLabel" name="lbl_facultadE">
               <property name="font">
@@ -588,16 +521,6 @@ Sesion</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_5">
          <item row="1" column="0">
-          <widget class="QLabel" name="lbl_b2M_3">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
           <widget class="QFrame" name="frameR">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -756,28 +679,7 @@ Sesion</string>
          <string>BOARD</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QLabel" name="lbl_pngD">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="scaledContents">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
-          <widget class="QFrame" name="frameB1">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_13"/>
-          </widget>
-         </item>
-         <item row="2" column="0">
           <widget class="QFrame" name="frameB">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -813,6 +715,16 @@ Sesion</string>
            </layout>
           </widget>
          </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="lbl_pngB">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="tab_5">
@@ -821,6 +733,77 @@ Sesion</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_18">
          <item row="2" column="0">
+          <widget class="QFrame" name="Dframe1">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QPushButton" name="Dbtn_sesion">
+              <property name="palette">
+               <palette>
+                <active>
+                 <colorrole role="Button">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>203</red>
+                    <green>232</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="Button">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>203</red>
+                    <green>232</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled>
+                 <colorrole role="Button">
+                  <brush brushstyle="SolidPattern">
+                   <color alpha="255">
+                    <red>203</red>
+                    <green>232</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </disabled>
+               </palette>
+              </property>
+              <property name="font">
+               <font>
+                <family>Sans Serif Collection</family>
+                <pointsize>11</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>REVISAR</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="Dbtn_salir">
+              <property name="text">
+               <string>SALIR</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="3" column="0">
           <widget class="QFrame" name="Dframe2">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1032,83 +1015,12 @@ Sesion</string>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QFrame" name="Dframe1">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <widget class="QPushButton" name="Dbtn_sesion">
-              <property name="palette">
-               <palette>
-                <active>
-                 <colorrole role="Button">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>203</red>
-                    <green>232</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </active>
-                <inactive>
-                 <colorrole role="Button">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>203</red>
-                    <green>232</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </inactive>
-                <disabled>
-                 <colorrole role="Button">
-                  <brush brushstyle="SolidPattern">
-                   <color alpha="255">
-                    <red>203</red>
-                    <green>232</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </disabled>
-               </palette>
-              </property>
-              <property name="font">
-               <font>
-                <family>Sans Serif Collection</family>
-                <pointsize>11</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>REVISAR</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="Dbtn_salir">
-              <property name="text">
-               <string>SALIR</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="lbl_b2M_4">
+          <widget class="QLabel" name="lbl_pngD">
            <property name="text">
             <string/>
            </property>
            <property name="scaledContents">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -1120,6 +1032,28 @@ Sesion</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_11">
          <item>
+          <widget class="QLabel" name="lbl_pngRegistrar">
+           <property name="minimumSize">
+            <size>
+             <width>1000</width>
+             <height>70</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>200</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QFrame" name="frame">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1128,18 +1062,6 @@ Sesion</string>
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_10">
-            <item>
-             <widget class="QLabel" name="lbl_facultadE_2">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Creación de un nuevo usuario</string>
-              </property>
-             </widget>
-            </item>
             <item>
              <widget class="QLabel" name="lbl_facultadE_7">
               <property name="font">
@@ -1470,7 +1392,7 @@ Sesion</string>
      <x>0</x>
      <y>0</y>
      <width>1228</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

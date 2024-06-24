@@ -15,18 +15,18 @@ private:
     int cantidadArbol;
 
     void mostrarDetalles(NodoArbolB* node) {
-        if (node != nullptr) {
-            for (int i = 0; i < node->getN(); i++) {
-                mostrarDetalles(node->getChild(i));
-                Silabo* silabo = node->getSilabo(i);
-                std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarrera()
-                          << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
-                          << ", Ruta: " << silabo->getRuta() << ", Estado: " << silabo->getEstado()
-                          << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
-                          << ", Número de revisiones: " << silabo->getRevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< "Cuadro de Fechas: " << silabo->getCuadrofechas()->getNombreArchivo() <<std::endl;
-            }
-            mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
-        }
+//        if (node != nullptr) {
+//            for (int i = 0; i < node->getN(); i++) {
+//                mostrarDetalles(node->getChild(i));
+//                Silabo* silabo = node->getSilabo(i);
+//                std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarrera()
+//                          << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
+//                          << ", Ruta: " << silabo->getRuta() << ", Estado: " << silabo->getEstado()
+//                          << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
+//                 //         << ", Número de revisiones: " << silabo->getRevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< "Cuadro de Fechas: " << silabo->getCuadrofechas()->getNombreArchivo() <<std::endl;
+//            }
+//            mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
+//        }
     }
 
     void split(NodoArbolB* x, int i, NodoArbolB* y) {
