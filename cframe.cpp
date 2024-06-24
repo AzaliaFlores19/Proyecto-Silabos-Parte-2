@@ -381,7 +381,7 @@ void cframe::on_btn_silaboE_clicked()
     DB.saveSilabo(nuevoSilabo, path.toStdString());
     this->arbolSilabo->insertar(nuevoSilabo);
 
-    arbolSilabo->mostrarDetallesSilabos(*arbolSilabo);
+    //arbolSilabo->mostrarDetallesSilabos(*arbolSilabo);
 
     // Mantener la opción de entrega visible después de insertar
     limpiarEntrega();
@@ -663,7 +663,7 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
             ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString( silabo->getCodigoClase()) ));
             ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString( path )));
             ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString( silabo->getObservacion() )));
-            ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem( QString::fromStdString("...") ));
+            ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem( QString::fromStdString("...") ));
             ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
             fila++;
@@ -915,6 +915,7 @@ void cframe::on_btn_registraruser_clicked()
 
 void cframe::on_btn_registrarSalir_clicked()
 {
+    ui->tab->setEnabled(true);
     ui->tabWidget->setCurrentIndex(0);
     desactivarTabs();
     ui->tabWidget->tabBar()->hide();
