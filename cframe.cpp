@@ -691,9 +691,19 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
             qDebug() << "Error: failed to write file from database";
         }
 
-    } else if (column == 11) {
+    }else if(column == 2){
+        int cuadroID = ui->RTW_revision->item(row, 3)->text().toInt();
+        // Write the file to the local system from the database
+        if (Database().writeFiles(cuadroID)) {
+            // If successfully written, open the file
+            QString path = QDir::home().filePath("silabos/" + ui->RTW_revision->item(row, 11)->text());
+            QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+        } else {
+            qDebug() << "Error: failed to write file from database";
+        }
+    }/*else if (column == 11) {
         cambiarSilabo(ui->RTW_revision->item(row, 2)->text().toInt(), ui->RTW_revision->item(row, 9)->text());
-    }
+    }*/
 }
 
 
@@ -726,7 +736,7 @@ void cframe::on_Bbtn_proceso_clicked()
         headers << "VER SILABO" <<"Path silabo"<< "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Estado" << "Observacion" << "ID" << "Número de Revisiones";
     }else{
         headers <<"VER SILABO" <<"Path silabo"<<"Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" <<"Estado" << "Observación" << "ID" << "Número de Revisiones"
-                << "VER CUADRO" <<"Path cuadro";
+               << "VER CUADRO" <<"Path cuadro";
     }
 
     ui->tableWidget->setColumnCount(headers.size());
@@ -1087,15 +1097,15 @@ void cframe::on_tw_usuarios_cellClicked(int row, int column)
 void cframe::on_tableWidget_cellClicked(int row, int column)
 {
     if (column == 0) {
-           int silaboId = ui->tableWidget->item(row, 10)->text().toInt();
-           // Write the file to the local system from the database
-           if (Database().writeFiles(silaboId)) {
-               // If successfully written, open the file
-               QString path = QDir::home().filePath("silabos/" + ui->tableWidget->item(row, 1)->text());
-               QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-           } else {
-               qDebug() << "Error: failed to write file from database";
-           }
+        int silaboId = ui->tableWidget->item(row, 10)->text().toInt();
+        // Write the file to the local system from the database
+        if (Database().writeFiles(silaboId)) {
+            // If successfully written, open the file
+            QString path = QDir::home().filePath("silabos/" + ui->tableWidget->item(row, 1)->text());
+            QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+        } else {
+            qDebug() << "Error: failed to write file from database";
+        }
     }
 }
 
