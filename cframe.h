@@ -74,7 +74,8 @@ private:
     void limpiarBoard();
 
     void recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> *actD);
-    void recorrerArbolParaTable(NodoArbolB *nodo, QTableWidget *tableWidget, const std::string &estado);
+    void recorrerArbolParaTableAprobados(NodoArbolB *nodo, QTableWidget *tableWidget);
+    void recorrerArbolParaTableEnProceso(NodoArbolB *nodo, QTableWidget *tableWidget);
     bool todo = false;
 
     void pruebitaBotonesTab();
