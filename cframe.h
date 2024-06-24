@@ -66,6 +66,8 @@ private slots:
     void on_tw_usuarios_cellClicked(int row, int column);
 
 
+    void on_tableWidget_cellClicked(int row, int column);
+
 private:
     Ui::cframe *ui;
 
