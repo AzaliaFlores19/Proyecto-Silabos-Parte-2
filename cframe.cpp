@@ -672,9 +672,9 @@ void cframe::on_Bbtn_aceptados_clicked()
 
     QStringList headers;
     if(usuarioActual->getInstitucion()=="CEUTEC"){
-        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+        headers << "VER" << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
     }else{
-        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Ruta" <<"Estado" << "Observación" << "ID" << "Número de Revisiones"
+        headers << "VER" <<"Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Ruta" <<"Estado" << "Observación" << "ID" << "Número de Revisiones"
                 << "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
     }
 
@@ -691,9 +691,9 @@ void cframe::on_Bbtn_proceso_clicked()
 
     QStringList headers;
     if(usuarioActual->getInstitucion()=="CEUTEC"){
-        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
+        headers << "VER" << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Ruta" << "Estado" << "Observacion" << "ID" << "Número de Revisiones";
     }else{
-        headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Ruta" <<"Estado" << "Observación" << "ID" << "Número de Revisiones"
+        headers <<"VER" <<"Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Nombre de la Clase" << "Institucion" << "Ruta" <<"Estado" << "Observación" << "ID" << "Número de Revisiones"
                 << "Nombre de Cuadro de Fechas" << "Estado Cuadro de Fechas" << "Observaciones Cuadro de Fechas" <<"Numero de Revisiones Cuadro de Fechas" << "ID Silabo" << "ID Cuadro de Fechas";
     }
 
@@ -719,17 +719,18 @@ void cframe::recorrerArbolParaTableAprobados(NodoArbolB *nodo, QTableWidget *tab
             int row = tableWidget->rowCount();
             tableWidget->insertRow(row);
 
-            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
-            tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
-            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
-            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
-            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
-            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString("ABRIR")));
+            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
+            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
+            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
+            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
+            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getId())));
+            tableWidget->setItem(row, 11, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
             if (silabo->getInstitucion() == "UNITEC") {
                 // ESTO EXPLOTA EL CODIGO - ACORDARSE DE DESCOMENTARLO EN LA OTRA FUNCION TAMBIEN
@@ -763,17 +764,18 @@ void cframe::recorrerArbolParaTableEnProceso(NodoArbolB *nodo, QTableWidget *tab
             int row = tableWidget->rowCount();
             tableWidget->insertRow(row);
 
-            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
-            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
-            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
-            tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
-            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
-            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
-            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
-            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
-            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::number(silabo->getId())));
-            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+            tableWidget->setItem(row, 0, new QTableWidgetItem(QString::fromStdString("ABRIR")));
+            tableWidget->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(silabo->getFacultad())));
+            tableWidget->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
+            tableWidget->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(silabo->getSubidoPor())));
+            tableWidget->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
+            tableWidget->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(silabo->getNombreClase())));
+            tableWidget->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(silabo->getInstitucion())));
+            tableWidget->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            tableWidget->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
+            tableWidget->setItem(row, 9, new QTableWidgetItem(QString::fromStdString(silabo->getObservacion())));
+            tableWidget->setItem(row, 10, new QTableWidgetItem(QString::number(silabo->getId())));
+            tableWidget->setItem(row, 11, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
             if (silabo->getInstitucion() == "UNITEC") {
                 //ESTO EXPLOTA EL CODIGO
