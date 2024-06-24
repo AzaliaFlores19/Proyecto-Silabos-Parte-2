@@ -1167,6 +1167,11 @@ Sesion</string>
               </item>
               <item>
                <property name="text">
+                <string>Jefe</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string>Coordinador</string>
                </property>
               </item>
@@ -1178,6 +1183,11 @@ Sesion</string>
               <item>
                <property name="text">
                 <string>Consultor</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Director</string>
                </property>
               </item>
               <item>
