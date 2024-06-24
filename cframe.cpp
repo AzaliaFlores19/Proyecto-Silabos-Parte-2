@@ -369,6 +369,10 @@ void cframe::on_btn_archivoE_clicked()
         } else {
             QMessageBox::warning(this, "Nombre de archivo incorrecto", "El archivo debe llamarse " + nombreA_Esperado);
         }
+
+        if (usuarioActual->getInstitucion() == "UNITEC") {
+            ui->le_pathCF->clear();
+        }
     }
 }
 
