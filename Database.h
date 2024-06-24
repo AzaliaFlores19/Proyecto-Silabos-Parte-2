@@ -50,14 +50,13 @@ private:
             observacion TEXT,
             facultad TEXT,
             revisiones int,
-            institucion TEXT,
-            FOREIGN KEY (carrera) REFERENCES ProgramaAcademico(id),
-            FOREIGN KEY (subidoPor) REFERENCES Usuarios(numeroCuenta)
+            institucion TEXT
             );)",
             R"(
             CREATE TABLE IF NOT EXISTS CuadroFechas (
             id INTEGER PRIMARY KEY,
             silabo INTEGER,
+            nombre text,
             archivo BLOB,
             FOREIGN KEY (silabo) REFERENCES Silabos(id)
             );)"
@@ -96,26 +95,49 @@ public:
     }
 
     vector<char> getBufferFromPath(string path) {
+        qDebug() << "[fileBuffer] Opening file:" << QString::fromStdString(path);
         std::ifstream file(path, std::ios::binary | std::ios::ate);
-         if (!file) {
-             std::cerr << "Error: could not open file " << path << std::endl;
+        if (!file) {
+            qDebug() << "[fileBuffer] Error: could not open file" << QString::fromStdString(path);
+            vector<char> dummy;
+            return dummy;
+        }
 
-             vector<char> dummy;
-             return dummy;
-         }
+        std::streamsize size = file.tellg();
+        qDebug() << "[fileBuffer] File size:" << size << "bytes";
+        file.seekg(0, std::ios::beg);
 
-         std::streamsize size = file.tellg();
-         file.seekg(0, std::ios::beg);
+        std::vector<char> buffer(size);
+        if (!file.read(buffer.data(), size)) {
+            qDebug() << "[fileBuffer] Error: could not read file" << QString::fromStdString(path);
+            vector<char> dummy;
+            return dummy;
+        }
 
-         std::vector<char> buffer(size);
-         if (!file.read(buffer.data(), size)) {
-             std::cerr << "Error: could not read file " << path << std::endl;
-             vector<char> dummy;
-             return dummy;
-         }
-
-         return buffer;
+        qDebug() << "[fileBuffer] File read successfully:" << QString::fromStdString(path);
+        return buffer;
     }
+
+
+    bool saveCuadroFechas(CuadroFechas *cuadro, string path, string nombre) {
+        vector<char> buffer = this->getBufferFromPath(path);
+
+        QSqlQuery query(connection);
+
+        query.prepare("INSERT INTO CuadroFechas(silabo, archivo, nombre) VALUES(?, ?, ?);");
+        query.bindValue(0, cuadro->getSilabo());
+        query.bindValue(1, QByteArray(buffer.data(), (int) buffer.size()));
+        query.bindValue(2, nombre.c_str());
+
+        if (!query.exec())
+        {
+            qDebug() << "Error: failed to insert silabo into database -" << query.lastError().text();
+            return false;
+        }
+
+        return true;
+    }
+
 
     bool saveSilabo(Silabo *silabo, string path)
     {
@@ -148,22 +170,6 @@ public:
             qDebug() << "Error: failed to commit transaction -" << connection.lastError().text();
             return false;
         }
-
-        // TODO: Verificar si hay cuadro de fechas y guardarlo.
-
-        /*
-        query.prepare("INSERT INTO CuadroFechas (silabo, archivo) VALUES (?, ?)");
-        query.bindValue(0, silabo->getId());
-        query.bindValue(1, QByteArray(buffer.data(), static_cast<int>(buffer.size())));
-
-        if (!query.exec()) {
-            qDebug() << "Error: failed to insert file into database -" << query.lastError().text();
-            return false;
-        } else {
-            qDebug() << "File successfully saved to the database.";
-            return true;
-        }
-        */
 
         return true;
     }
@@ -207,9 +213,38 @@ public:
 
         file.write(fileData);
         file.close();
-        qDebug() << "File successfully written to" << filePath;
+        qDebug() << "[silabo] File successfully written to" << filePath;
+
+        // ======= Escribir cuadro fechas ====================
+
+        QSqlQuery ex(connection);
+        ex.prepare("SELECT nombre, archivo FROM CuadroFechas WHERE silabo = ?;");
+        ex.bindValue(0, silaboId);
+
+        if (!ex.exec() || !ex.next()) {
+            qDebug() << "Error: failed to retrieve file from database -" << ex.lastError().text();
+            return false;
+        }
+
+        QString filename = ex.value(0).toString();
+        fileData = ex.value(1).toByteArray();
+        QString fechasFilePath = silabosDir.filePath(filename);
+
+        QFile f(fechasFilePath);
+
+        if (!f.open(QIODevice::WriteOnly))
+        {
+            qDebug() << "Error: failed to open file for writing -" << fechasFilePath;
+            return false;
+        }
+
+        f.write(fileData);
+        f.close();
+        qDebug() << "[fechas] File successfully written to" << fechasFilePath;
+
         return true;
     }
+
 
     bool saveUser(Usuario user) {
 
@@ -273,6 +308,8 @@ public:
             return user;
         }
 
+        Usuario u("", "", "", "", "", "");
+        return u;
     }
 
     bool updateSilabo(Silabo *silabo) {
@@ -370,6 +407,30 @@ public:
         qDebug() << "Silabos successfully loaded from database.";
         return true;
     }
+
+    CuadroFechas* getCuadroFechasFromSilabo(int silaboId, Estado estado, string observacion, int revisiones) {
+        QSqlQuery query(connection);
+        query.prepare("SELECT id, nombre, archivo FROM CuadroFechas WHERE silabo = ?");
+        query.bindValue(0, silaboId);
+
+        if (!query.exec()) {
+            qDebug() << "Error: failed to retrieve CuadroFechas from database -" << query.lastError().text();
+            return nullptr;
+        }
+
+        if (query.next()) {
+            int id = query.value(0).toInt();
+            string nombre = query.value(1).toString().toStdString();
+
+            // Crear y devolver un objeto CuadroFechas con los datos obtenidos
+            CuadroFechas* cuadroFechas = new CuadroFechas(id, nombre, estado, observacion, revisiones, silaboId);
+            return cuadroFechas;
+        } else {
+            qDebug() << "No CuadroFechas found for silaboId -" << silaboId;
+            return nullptr;
+        }
+    }
+
 };
 
 #endif // DATABASE_H

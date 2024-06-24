@@ -373,6 +373,10 @@ void cframe::on_btn_silaboE_clicked()
         return;
     }
 
+    if (cuadroFechas != nullptr) {
+        DB.saveCuadroFechas(cuadroFechas, pathCuadro.toStdString(), fileInfoCuadro.fileName().toStdString());
+    }
+
 
     DB.saveSilabo(nuevoSilabo, path.toStdString());
     this->arbolSilabo->insertar(nuevoSilabo);
