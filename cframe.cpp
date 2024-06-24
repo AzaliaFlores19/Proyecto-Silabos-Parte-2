@@ -674,11 +674,11 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
             ui->Rcb_cambiarE->addItems(items);
         }
     } else if (column == 1) {
-        int silaboId = ui->RTW_revision->item(row, 2)->text().toInt();
+        int silaboId = ui->RTW_revision->item(row, 3)->text().toInt();
         // Write the file to the local system from the database
         if (Database().writeFiles(silaboId)) {
             // If successfully written, open the file
-            QString path = QDir::home().filePath("silabos/" + ui->RTW_revision->item(row, 9)->text());
+            QString path = QDir::home().filePath("silabos/" + ui->RTW_revision->item(row, 10)->text());
             QDesktopServices::openUrl(QUrl::fromLocalFile(path));
         } else {
             qDebug() << "Error: failed to write file from database";
