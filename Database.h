@@ -395,18 +395,17 @@ public:
             qDebug() << "institucion:" << QString::fromStdString(institucion);
             */
 
-            Silabo *newSilabo = new Silabo(id, nombreArchivo, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, nullptr);
+
+            CuadroFechas* cuadro = getCuadroFechasFromSilabo(id, estado, observacion, revisiones);
+            Silabo *newSilabo = new Silabo(id, nombreArchivo, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, cuadro);
             arbolSilabos->insertar(newSilabo);
 
-            // CuadroFechas* cuadrofecha = new CuadroFechas(id, nombreArchivo, estado, observacion, revisiones, id);
-            // Crear objeto Silabo con el archivo
-            // Silabo* silabo = new Silabo(id, nombreArchivo, estado, ". . .", 0, "", carrera, codigoClase, ruta, nombreClase, subidoPor, cuadrofecha);
-            // arbolSilabos.insertar(silabo);
         }
 
         qDebug() << "Silabos successfully loaded from database.";
         return true;
     }
+
 
     CuadroFechas* getCuadroFechasFromSilabo(int silaboId, Estado estado, string observacion, int revisiones) {
         QSqlQuery query(connection);
