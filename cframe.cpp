@@ -543,7 +543,7 @@ void cframe::pruebitaBotonesTab()
     ui->RTW_revision->setColumnCount(13); // tab 2 tw_doble
 
     if (usuarioActual->getInstitucion() == "CEUTEC"){
-        ui->RTW_revision->setHorizontalHeaderLabels(QStringList() << "MODIFICAR" << "VER SILABO" << "ORDEN DE INGRESO" << "ESTADO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "PATH" << "OBSERVACION" << "RELOAD" << "# REVISIONES");
+        ui->RTW_revision->setHorizontalHeaderLabels(QStringList() << "MODIFICAR" << "VER SILABO" <<"VER CUADRO" <<"ORDEN DE INGRESO" << "ESTADO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "PATH" << "OBSERVACION" << "RELOAD" << "# REVISIONES");
     }else{
         ui->RTW_revision->setHorizontalHeaderLabels(QStringList() << "MODIFICAR" << "VER SILABO" << "VER CUADRO"<< "ORDEN DE INGRESO" << "ESTADO" << "INGRESADO POR" << "# CUENTA" << "FACULTAD" << "CARRERA" << "CODIGO CLASE" << "PATH SILABO" <<"PATH CUADRO" << "OBSERVACION" << "RELOAD" << "# REVISIONES");
     }
@@ -619,17 +619,18 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
                 ui->RTW_revision->setRowCount(fila + 1);
                 ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
                 ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
-                ui->RTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::number(silabo->getId())));
-                ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(( nombres.nombres[silabo->getEstado()] ))));
-                ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString( u->getName() )));
-                ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString( u->getCuenta() )));
-                ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString( silabo->getFacultad() )));
-                ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString( silabo->getCarrera() )));
-                ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString( silabo->getCodigoClase()) ));
-                ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString( path )));
-                ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString( silabo->getObservacion() )));
-                ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem( QString::fromStdString("...") ));
-                ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+                ui->RTW_revision->setItem(fila, 2, new QTableWidgetItem(QString::fromStdString("N\A")));
+                ui->RTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::number(silabo->getId())));
+                ui->RTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(( nombres.nombres[silabo->getEstado()] ))));
+                ui->RTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString( u->getName() )));
+                ui->RTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString( u->getCuenta() )));
+                ui->RTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::fromStdString( silabo->getFacultad() )));
+                ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString( silabo->getCarrera() )));
+                ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString( silabo->getCodigoClase()) ));
+                ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString( path )));
+                ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::fromStdString( silabo->getObservacion() )));
+                ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem( QString::fromStdString("...") ));
+                ui->RTW_revision->setItem(fila, 13, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
             }else if (usuarioActual->getInstitucion() == "UNITEC" && silabo->getInstitucion() == "UNITEC"){
                 string pathCuadro = silabo->getCuadrofechas()->getNombreArchivo();
@@ -859,6 +860,8 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
     for (int i = 0; i < nodo->getN(); i++) {
         Silabo *silabo = nodo->getSilabo(i);
 
+        string path = silabo->getNombreArchivo();
+
         if (silabo->getSubidoPor() == numCuenta ) {
             ui->DRTW_revision->setRowCount(fila + 1);
             ui->DRTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("VER")));
@@ -867,8 +870,10 @@ void cframe::mostrarDocente(NodoArbolB *nodo, int fila, string numCuenta)
             ui->DRTW_revision->setItem(fila, 3, new QTableWidgetItem(QString::fromStdString(nombres.nombres[silabo->getEstado()])));
             ui->DRTW_revision->setItem(fila, 4, new QTableWidgetItem(QString::fromStdString(silabo->getCarrera())));
             ui->DRTW_revision->setItem(fila, 5, new QTableWidgetItem(QString::fromStdString(silabo->getCodigoClase())));
-            ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(silabo->getRuta())));
+            ui->DRTW_revision->setItem(fila, 6, new QTableWidgetItem(QString::fromStdString(path)));
             ui->DRTW_revision->setItem(fila, 7, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
+
+
 
             if(usuarioActual->institucion == "UNITEC"){
                 ui->DRTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString("VER CUADRO")));
@@ -901,8 +906,17 @@ void cframe::on_Dbtn_salir_clicked()
 void cframe::on_DRTW_revision_cellClicked(int row, int column)
 {
     if (column == 0) {
-        QString selectedFilePath = ui->DRTW_revision->item(row, 8)->text();
-        QDesktopServices::openUrl(QUrl::fromLocalFile(selectedFilePath));
+
+        int silaboId = ui->DRTW_revision->item(row, 1)->text().toInt();
+        // Write the file to the local system from the database
+        if (Database().writeFiles(silaboId)) {
+            // If successfully written, open the file
+            QString path = QDir::home().filePath("silabos/" + ui->DRTW_revision->item(row, 6)->text());
+            QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+        } else {
+            qDebug() << "Error: failed to write file from database";
+        }
+
     } else if (column == 9) {
         cambiarSilabo(ui->DRTW_revision->item(row, 1)->text().toInt(), ui->DRTW_revision->item(row, 8)->text());
     }
