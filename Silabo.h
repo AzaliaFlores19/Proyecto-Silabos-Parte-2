@@ -14,6 +14,7 @@ using std::string;
 
 class Silabo : public Archivo {
 private:
+    string institucion;
     string facultad;
     string carrera;
     string codigoClase;
@@ -25,7 +26,7 @@ public:
     Silabo(int id, const string& nombrearchivo, const Estado estado,
                    const string& observacion, int numeroderevisiones,
                    const string& facultad, const string& carrera, const string& codigoClase,
-                   const string& ruta, const string& nombreClase, const string subidoPor, CuadroFechas *cuadroFechas) {
+                   const string& ruta, const string& nombreClase, const string subidoPor, string institucion, CuadroFechas *cuadroFechas) {
         this->id = id;
         this->nombreArchivo = nombrearchivo;
         this->estado = estado;
@@ -38,6 +39,7 @@ public:
         this->nombreClase = nombreClase;
         this->subidoPor = subidoPor;
         this->cuadroFechas = cuadroFechas;
+        this->institucion = institucion;
     }
 
     // Métodos getter
@@ -93,6 +95,13 @@ public:
     // Método toNum
     long toNum() const {
         return std::accumulate(codigoClase.begin(), codigoClase.end(), 0L);
+    }
+    string getInstitucion() const{
+        return institucion;
+
+    }
+    void setInstitucion(const string &newInstitucion){
+        institucion = newInstitucion;
     }
 };
 

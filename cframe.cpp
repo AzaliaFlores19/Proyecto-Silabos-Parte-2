@@ -30,24 +30,24 @@ cframe::cframe(QWidget *parent)
     ui->setupUi(this);
 
     QImage menu(":/new/prefix1/imInicio.jpg");
-           ui->lbl_pngM->setPixmap(QPixmap::fromImage(menu));
-           ui->Dlabel->setStyleSheet("background-color: #062458;");
-            ui->Dlabel2->setStyleSheet("background-color: #062458;");
+    ui->lbl_pngM->setPixmap(QPixmap::fromImage(menu));
+    ui->Dlabel->setStyleSheet("background-color: #062458;");
+    ui->Dlabel2->setStyleSheet("background-color: #062458;");
 
-           QImage entrega(":/new/prefix1/imEntrega.jpg");
-           ui->lbl_pngE->setPixmap(QPixmap::fromImage(entrega));
+    QImage entrega(":/new/prefix1/imEntrega.jpg");
+    ui->lbl_pngE->setPixmap(QPixmap::fromImage(entrega));
 
-           QImage revision(":/new/prefix1/imRevision.jpg");
-           ui->lbl_pngR->setPixmap(QPixmap::fromImage(revision));
+    QImage revision(":/new/prefix1/imRevision.jpg");
+    ui->lbl_pngR->setPixmap(QPixmap::fromImage(revision));
 
-           QImage board(":/new/prefix1/imBoard.jpg");
-           ui->lbl_pngB->setPixmap(QPixmap::fromImage(board));
+    QImage board(":/new/prefix1/imBoard.jpg");
+    ui->lbl_pngB->setPixmap(QPixmap::fromImage(board));
 
-           QImage docente(":/new/prefix1/imDocente.jpg");
-           ui->lbl_pngD->setPixmap(QPixmap::fromImage(docente));
+    QImage docente(":/new/prefix1/imDocente.jpg");
+    ui->lbl_pngD->setPixmap(QPixmap::fromImage(docente));
 
-           QImage registro(":/new/prefix1/imRegistro.jpg");
-           ui->lbl_pngRegistrar->setPixmap(QPixmap::fromImage(registro));
+    QImage registro(":/new/prefix1/imRegistro.jpg");
+    ui->lbl_pngRegistrar->setPixmap(QPixmap::fromImage(registro));
 
 
     ui->frameE->setVisible(true);
@@ -142,7 +142,7 @@ void cframe::on_tabWidget_currentChanged(int index)
         headers << "Facultad" << "Carrera" << "Numero de Cuenta" << "Código de Clase" << "Ruta" << "Estado" << "Observación" << "ID" << "Número de Revisiones";
         ui->tableWidget->setColumnCount(headers.size());
         ui->tableWidget->setHorizontalHeaderLabels(headers);
-       //DB.loadSilabos(arbolSilabo);----->comente aqui
+        //DB.loadSilabos(arbolSilabo);----->comente aqui
 
 
         // recorrerArbolParaTable(arbolSilabo->getRaiz(), ui->tableWidget, "Prerevision");
@@ -330,7 +330,7 @@ void cframe::limpiarEntrega()
 // ======================= Boton entregar silabo ==================
 void cframe::on_btn_silaboE_clicked()
 {
-    if (ui->cb_facultadE->currentIndex() == 0 || ui->cb_carreraE->currentIndex() == 0 || ui->le_codigoE->text().isEmpty() || ui->le_pathE->text().isEmpty()) {
+    if (ui->cb_facultadE->currentIndex() == 0 || ui->cb_carreraE->currentIndex() == 0 || ui->le_codigoE->text().isEmpty() || ui->le_pathE->text().isEmpty() || (ui->le_pathCF->text().isEmpty() && usuarioActual->institucion == "UNITEC")) {
         QMessageBox::warning(this, "Datos no congruentes", "Favor no deje campos sin completar");
         return;
     }
@@ -340,7 +340,9 @@ void cframe::on_btn_silaboE_clicked()
     string facultad = ui->cb_facultadE->currentText().toStdString();
     string carrera = ui->cb_carreraE->currentText().toStdString();
     QString path = ui->le_pathE->text();
+    QString pathCuadro = ui->le_pathCF->text();
     QFileInfo fileInfo(path);
+    QFileInfo fileInfoCuadro(pathCuadro);
 
     // Verificar que usuarioActual no sea nullptr
     if (!usuarioActual) {
@@ -348,28 +350,30 @@ void cframe::on_btn_silaboE_clicked()
         return;
     }
 
-
     CuadroFechas *cuadroFechas = nullptr;
+    Silabo *nuevoSilabo = nullptr;
 
-    /*
-    // Determinar si hay que crear un cuadro de fechas
-    if (usuarioActual->getInstitucion() == "UNITEC") {
-        if (ui->le_pathCF->text().isEmpty()) {
-            QMessageBox::warning(this, "Datos no congruentes", "Favor adjunte cuadro de fechas.");
-            return;
-        }
-
-        string filename = "CuadroFechas-" + fileInfo.fileName().toStdString();
-        cuadroFechas = new CuadroFechas(cantSilabos, filename, Estado(Prerevision), "...", 0, cantSilabos);
+    if (usuarioActual->getInstitucion() == "CEUTEC") {
+        nuevoSilabo = new Silabo(cantSilabos, fileInfo.fileName().toStdString(), Estado(Prerevision), "...", 0,
+                                 facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(),
+                                 ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), usuarioActual->getInstitucion(), cuadroFechas);
+    } else {
+        cuadroFechas = new CuadroFechas(cantCuadroFechas, fileInfoCuadro.fileName().toStdString(), Estado(Prerevision), "...", 0, cantSilabos);
+        cantCuadroFechas++;
+        nuevoSilabo = new Silabo(cantSilabos, fileInfo.fileName().toStdString(), Estado(Prerevision), "...", 0,
+                                 facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(),
+                                 ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), usuarioActual->getInstitucion(), cuadroFechas);
     }
-    */
+    cantSilabos++;
 
-
-    Silabo* nuevoSilabo = new Silabo(cantSilabos, fileInfo.fileName().toStdString(), Estado(Prerevision), "...", 0, facultad, carrera, ui->le_codigoE->text().toStdString(), path.toStdString(), ui->le_nombreClase->text().toStdString(), usuarioActual->getCuenta(), cuadroFechas);
-
+    if (nuevoSilabo == nullptr) {
+        QMessageBox::critical(this, "Error", "No se pudo crear el objeto Silabo.");
+        return;
+    }
 
     this->arbolSilabo->insertar(nuevoSilabo);
-    arbolSilabo->mostrarDetallesSilabos();
+
+    arbolSilabo->mostrarDetallesSilabos(*arbolSilabo);
 
     // Mantener la opción de entrega visible después de insertar
     limpiarEntrega();
@@ -378,6 +382,9 @@ void cframe::on_btn_silaboE_clicked()
     ui->frameE->setVisible(true);
     ui->frameE2_2->setEnabled(true);
     QMessageBox::information(this, "Enviado", "Datos han sido enviados");
+
+    // QMessageBox::warning(this, "Institucion", QString::fromStdString(usuarioActual->getInstitucion()));
+    // QMessageBox::warning(this, "Institucion", QString::fromStdString(nuevoSilabo->getInstitucion()));
 }
 
 void cframe::on_btn_archivoE_clicked()

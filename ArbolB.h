@@ -15,18 +15,28 @@ private:
     int cantidadArbol;
 
     void mostrarDetalles(NodoArbolB* node) {
-//        if (node != nullptr) {
-//            for (int i = 0; i < node->getN(); i++) {
-//                mostrarDetalles(node->getChild(i));
-//                Silabo* silabo = node->getSilabo(i);
-//                std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarrera()
-//                          << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
-//                          << ", Ruta: " << silabo->getRuta() << ", Estado: " << silabo->getEstado()
-//                          << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
-//                 //         << ", Número de revisiones: " << silabo->getRevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< "Cuadro de Fechas: " << silabo->getCuadrofechas()->getNombreArchivo() <<std::endl;
-//            }
-//            mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
-//        }
+        if (node != nullptr) {
+            for (int i = 0; i < node->getN(); i++) {
+                mostrarDetalles(node->getChild(i));
+                Silabo* silabo = node->getSilabo(i);
+                std::cout <<"----------------------------------------------------------------------------------------------------------------------------------------------------";
+                std::cout << "Facultad: " << silabo->getFacultad() << ", Carrera: " << silabo->getCarrera()
+                          << ", Nombre del curso: " << silabo->getNombreClase() << ", Código de clase: " << silabo->getCodigoClase()
+                          << ", Ruta: " << silabo->getRuta() << ", Estado: " << silabo->getEstado()
+                          << ", Observación: " << silabo->getObservacion() << ", ID: " << silabo->getId()
+                          << ", Número de revisiones: " << silabo->getRevisiones() << ", Subido Por: "<< silabo->getSubidoPor()<< ", Institucion: "<<silabo->getInstitucion();
+                if(silabo->getInstitucion() == "UNITEC"){
+                    std::cout << "\n\n" <<"Nombre del Cuadro de Fechas: "<<silabo->getCuadrofechas()->getNombreArchivo()
+                              <<  "Observaciones: "<< silabo->getCuadrofechas()->getObservacion() << "Revisiones: " << silabo->getCuadrofechas()->getRevisiones()
+                               << "Ruta: " << silabo->getCuadrofechas()->getRuta() << "ID Silabo: " << silabo->getCuadrofechas()->getSilabo()
+                               << "ID Cuadro Fecha: " << silabo->getCuadrofechas()->getId() << std::endl;
+                }else if (silabo->getInstitucion()=="CEUTEC"){
+                    cout<<"NO HAY CUADRO DE FECHAS"<<std::endl;
+                }
+                std::cout <<"----------------------------------------------------------------------------------------------------------------------------------------------------";
+            }
+            mostrarDetalles(node->getChild(node->getN()));  // Recursión en el último hijo
+        }
     }
 
     void split(NodoArbolB* x, int i, NodoArbolB* y) {
@@ -114,9 +124,9 @@ private:
         }
     }
 
-void llenarDeDB() {
+    void llenarDeDB() {
 
-}
+    }
 public:
     ArbolB(int t) : t(t), cantidadArbol(0) {
         root = new NodoArbolB(t);
@@ -132,9 +142,9 @@ public:
         return cantidadArbol;
     }
 
-    void mostrarDetallesSilabos() {
+    void mostrarDetallesSilabos(ArbolB &arbol) {
         std::cout << "Detalles de todos los Silabos en el Arbol B:" << std::endl;
-        mostrarDetalles(root);
+        mostrarDetalles(arbol.getRaiz());
     }
 
     void insertar(Silabo* silabo) {

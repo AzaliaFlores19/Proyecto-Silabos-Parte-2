@@ -13,8 +13,8 @@ public:
 
     // Constructor parametrizado
     CuadroFechas(int id, std::string nombrearchivo, Estado estado,
-                               std::string observacion, int numeroderevisiones,
-                               int silabo) {
+                 std::string observacion, int numeroderevisiones,
+                 int silabo) {
         this->id = id;
         this->nombreArchivo = nombrearchivo;
         this->estado = estado;
