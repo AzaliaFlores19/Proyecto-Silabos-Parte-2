@@ -659,9 +659,9 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
 {
     if (column == 0) {
         QString dato = ui->RTW_revision->item(row, 8)->text() + "    Observacion:" + ui->RTW_revision->item(row, 10)->text();
-        id = ui->RTW_revision->item(row, 2)->text().toInt();
+        id = ui->RTW_revision->item(row, 3)->text().toInt();
         ui->Rle_seleccion->setText(dato);
-        QString estado = ui->RTW_revision->item(row, 3)->text();
+        QString estado = ui->RTW_revision->item(row, 4)->text();
         ui->Rle_estadoA->setText(estado);
 
         std::string tipoUsuario = usuarioActual->getTipo();
@@ -669,7 +669,7 @@ void cframe::on_RTW_revision_cellClicked(int row, int column)
         if (tipoUsuario == "Consultor") {
             QStringList items;
             ui->Rcb_cambiarE->clear();
-            if (ui->RTW_revision->item(row,3)->text().toStdString()=="Aprobado") {
+            if (ui->RTW_revision->item(row,4)->text().toStdString()=="Aprobado") {
                 items << "..." << "Aprobar" << "Aprobado con condicion";
             } else {
                 items << "..." << "Aprobado" << "Correcion Mayor" << "Correcion Menor";
