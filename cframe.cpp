@@ -60,6 +60,9 @@ cframe::cframe(QWidget *parent)
 
     // -= Cargar usuarios desde la DB =-
     DB.loadUsers(listaUsuarios);
+    DB.loadSilabos(arbolSilabo);
+
+    arbolSilabo->mostrarDetallesSilabos(*arbolSilabo);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(ui->tabWidget);

@@ -294,9 +294,9 @@ public:
         return true;
     }
 
-    bool loadSilabos(ArbolB &arbolSilabos) {
+    bool loadSilabos(ArbolB *arbolSilabos) {
         QSqlQuery query(connection);
-         if (!query.exec("SELECT id, nombre, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion FROM Silabos")) {
+        if (!query.exec("SELECT id, nombre, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion FROM Silabos")) {
             qDebug() << "Error: failed to retrieve silabos from database -" << query.lastError().text();
             return false;
         }
@@ -304,7 +304,7 @@ public:
         while (query.next()) {
             int id = query.value(0).toInt();
             string nombreArchivo = query.value(1).toString().toStdString();
-            Estado estado = static_cast<Estado>( query.value(2).toInt() );
+            Estado estado = static_cast<Estado>(query.value(2).toInt());
             string observacion = query.value(3).toString().toStdString();
             int revisiones = query.value(4).toInt();
             string facultad = query.value(5).toString().toStdString();
@@ -314,23 +314,31 @@ public:
             string subidoPor = query.value(9).toString().toStdString();
             string institucion = query.value(10).toString().toStdString();
 
-            Silabo newSilabo(id, nombreArchivo, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, nullptr);
+            // Agregar prints de las variables
+            qDebug() << "id:" << id;
+            qDebug() << "nombreArchivo:" << QString::fromStdString(nombreArchivo);
+            qDebug() << "estado:" << static_cast<int>(estado);
+            qDebug() << "observacion:" << QString::fromStdString(observacion);
+            qDebug() << "revisiones:" << revisiones;
+            qDebug() << "facultad:" << QString::fromStdString(facultad);
+            qDebug() << "carrera:" << QString::fromStdString(carrera);
+            qDebug() << "codigoClase:" << QString::fromStdString(codigoClase);
+            qDebug() << "nombreClase:" << QString::fromStdString(nombreClase);
+            qDebug() << "subidoPor:" << QString::fromStdString(subidoPor);
+            qDebug() << "institucion:" << QString::fromStdString(institucion);
 
+            Silabo *newSilabo = new Silabo(id, nombreArchivo, estado, observacion, revisiones, facultad, carrera, codigoClase, nombreClase, subidoPor, institucion, nullptr);
+            arbolSilabos->insertar(newSilabo);
 
-            //            CuadroFechas* cuadrofecha = new CuadroFechas(id, nombreArchivo,estado,observacion,revisiones,id);
-
+            // CuadroFechas* cuadrofecha = new CuadroFechas(id, nombreArchivo, estado, observacion, revisiones, id);
             // Crear objeto Silabo con el archivo
-            //Silabo* silabo = new Silabo(id,nombreArchivo,estado,". . .",0,"",carrera,codigoClase,ruta,nombreClase,subidoPor,cuadrofecha);
-            //arbolSilabos.insertar(silabo);
-
+            // Silabo* silabo = new Silabo(id, nombreArchivo, estado, ". . .", 0, "", carrera, codigoClase, ruta, nombreClase, subidoPor, cuadrofecha);
+            // arbolSilabos.insertar(silabo);
         }
 
         qDebug() << "Silabos successfully loaded from database.";
         return true;
     }
-
-
-
 };
 
 #endif // DATABASE_H
