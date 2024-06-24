@@ -611,7 +611,7 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
             string path = silabo->getNombreArchivo();
 
 
-            if (usuarioActual->getInstitucion() == "CEUTEC"){
+            if (usuarioActual->getInstitucion() == "CEUTEC" && silabo->getInstitucion() == "CEUTEC"){
                 ui->RTW_revision->setRowCount(fila + 1);
                 ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
                 ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
@@ -627,8 +627,8 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
                 ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem( QString::fromStdString("...") ));
                 ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
 
-            }else{
-                //string pathCuadro = silabo->getCuadrofechas()->getNombreArchivo();
+            }else if (usuarioActual->getInstitucion() == "UNITEC" && silabo->getInstitucion() == "UNITEC"){
+                string pathCuadro = silabo->getCuadrofechas()->getNombreArchivo();
                 ui->RTW_revision->setRowCount(fila + 1);
                 ui->RTW_revision->setItem(fila, 0, new QTableWidgetItem(QString::fromStdString("EDITAR")));
                 ui->RTW_revision->setItem(fila, 1, new QTableWidgetItem(QString::fromStdString("VER")));
@@ -641,7 +641,7 @@ void cframe::recorrerArbolParaTabla(NodoArbolB *nodo, int &fila, nodoD<Usuario> 
                 ui->RTW_revision->setItem(fila, 8, new QTableWidgetItem(QString::fromStdString( silabo->getCarrera() )));
                 ui->RTW_revision->setItem(fila, 9, new QTableWidgetItem(QString::fromStdString( silabo->getCodigoClase()) ));
                 ui->RTW_revision->setItem(fila, 10, new QTableWidgetItem(QString::fromStdString( path )));
-                //ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::fromStdString( pathCuadro )));
+                ui->RTW_revision->setItem(fila, 11, new QTableWidgetItem(QString::fromStdString( pathCuadro )));
                 ui->RTW_revision->setItem(fila, 12, new QTableWidgetItem(QString::fromStdString( silabo->getObservacion() )));
                 ui->RTW_revision->setItem(fila, 13, new QTableWidgetItem( QString::fromStdString("...") ));
                 ui->RTW_revision->setItem(fila, 14, new QTableWidgetItem(QString::number(silabo->getRevisiones())));
