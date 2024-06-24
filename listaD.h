@@ -26,11 +26,11 @@ public:
 
     bool Vacia()const;
 
-    bool GuardarEnArchivo(string Nombre)const;
-    bool ImportarArchivo(string Nombre);
-    void guardarExcelUsuarios(std::ofstream &file, listaD<Usuario> &listaUsuarios);
-    void guardarUsuarios(listaD<Usuario> &listaUsuarios);
-    void cargarUsuarios();
+    //bool GuardarEnArchivo(string Nombre)const;
+    //bool ImportarArchivo(string Nombre);
+    //void guardarExcelUsuarios(std::ofstream &file, listaD<Usuario> &listaUsuarios);
+    //void guardarUsuarios(listaD<Usuario> &listaUsuarios);
+    //void cargarUsuarios();
 
 };
 

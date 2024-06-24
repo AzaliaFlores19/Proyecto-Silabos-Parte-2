@@ -58,7 +58,7 @@ cframe::cframe(QWidget *parent)
 
     connect(ui->RTW_revision, &QTableWidget::cellDoubleClicked, this, &cframe::on_btn_revision_2_clicked);
 
-    //listaUsuarios.cargarUsuarios();
+    // -= Cargar usuarios desde la DB =-
     DB.loadUsers(listaUsuarios);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -69,17 +69,6 @@ cframe::cframe(QWidget *parent)
 
     ui->tabWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ui->tabWidget->setMinimumSize(800, 600);
-
-    // ============= Cargar usuario de prueba ===============
-
-    // Cargar usuarios desde el archivo, si no existe, crear archivo con usuario por defecto
-    // std::ifstream file("usuarios.xls");
-    // if (!file.is_open()) {
-
-    //     listaUsuarios.guardarUsuarios(listaUsuarios);
-    // } else {
-    //     listaUsuarios.cargarUsuarios();
-    // }
 
     Usuario UA("AdminGlobalCeutec","111111","admin","CEUTEC","GLOBAL","Relaciones Internacionales");
     Usuario u("AdminGlobal", "101010", "admin", "UNITEC", "GLOBAL", "Ingenieria en Sistemas Computacionales"); //USUARIO GLOBAL CON ACCESO A TODAS LAS TABS

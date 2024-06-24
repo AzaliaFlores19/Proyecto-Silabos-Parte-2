@@ -29,18 +29,6 @@ private:
     {
         QStringList queries = {
             R"(
-            CREATE TABLE IF NOT EXISTS Facultad (
-            id INTEGER PRIMARY KEY,
-            nombre TEXT
-            );)",
-            R"(
-            CREATE TABLE IF NOT EXISTS ProgramaAcademico (
-            id INTEGER PRIMARY KEY,
-            facultad INTEGER,
-            nombre TEXT,
-            FOREIGN KEY (facultad) REFERENCES Facultad(id)
-            );)",
-            R"(
             CREATE TABLE IF NOT EXISTS Usuarios (
             numeroCuenta TEXT PRIMARY KEY,
             nombre TEXT,
@@ -53,12 +41,15 @@ private:
             CREATE TABLE IF NOT EXISTS Silabos (
             id INTEGER PRIMARY KEY,
             nombre TEXT,
-            carrera INTEGER,
+            carrera string,
             codigoClase VARCHAR(6),
             nombreClase TEXT,
             estado INTEGER,
-            subidoPor TEXT,
+            subidoPor int,
             archivo BLOB,
+            observacion TEXT,
+            facultad TEXT,
+            revisiones int,
             FOREIGN KEY (carrera) REFERENCES ProgramaAcademico(id),
             FOREIGN KEY (subidoPor) REFERENCES Usuarios(numeroCuenta)
             );)",
